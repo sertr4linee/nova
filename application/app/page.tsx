@@ -19,6 +19,7 @@ import Image from "next/image";
 import { ScrollProgress, ScrollToTop } from "@/components/ui/scroll-progress";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { ModalContext } from "@/contexts/ModalContext";
+import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 
 
 // Composant pour l'animation des mots alternants
@@ -67,8 +68,8 @@ const AnimatedWords = () => {
           rectangleClassName="bg-black/10 dark:bg-neutral-800/30 border-[#ffdab9]/30 dark:border-[#ffdab9]/30"
           pointerClassName="text-[#ffdab9]"
         >                          <span className="relative z-10 px-1 sm:px-2 py-0.5 sm:py-1 text-[#ffdab9] font-montserrat text-lg sm:text-2xl md:text-4xl lg:text-6xl">
-                            {words[currentIndex]}
-                          </span>
+            {words[currentIndex]}
+          </span>
         </PointerHighlight>
       </motion.div>
     </AnimatePresence>
@@ -82,12 +83,12 @@ export default function Home() {
     <ModalContext.Provider value={{ isModalOpen, setIsModalOpen }}>
       {/* Scroll Progress Bar */}
       <ScrollProgress />
-      
+
       {/* Scroll to Top Button */}
       <ScrollToTop />
-      
+
       <div className="relative flex min-h-screen w-full flex-col bg-black text-white overflow-x-hidden" style={{ scrollBehavior: "smooth" }}>
-        <Spotlight className="hidden sm:block"/>
+        <Spotlight className="hidden sm:block" />
         {/* Fond interactif */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <InteractiveGridPattern
@@ -99,12 +100,12 @@ export default function Home() {
             squaresClassName="stroke-white/10 hover:stroke-white/30"
             squares={[6, 8, 10, 12]}
           />
-          <div className="relative overflow-hidden" style={{maxHeight: '100vh'}}>
-            <AnimatedGridBeams 
+          <div className="relative overflow-hidden" style={{ maxHeight: '100vh' }}>
+            <AnimatedGridBeams
               className="z-[1] opacity-50 sm:opacity-80"
               beamColor="#ffdab9"
               beamCount={2}
-              columns={6} 
+              columns={6}
               rows={6}
               gridWidth={1200}
               gridHeight={600}
@@ -116,7 +117,7 @@ export default function Home() {
             />
             <div className="absolute bottom-0 w-full h-[100px] bg-gradient-to-t from-black to-transparent"></div>
           </div>
-          <div className="relative overflow-hidden" style={{maxHeight: '95vh'}}>
+          <div className="relative overflow-hidden" style={{ maxHeight: '95vh' }}>
             <GridNodePulses
               className="z-[1] opacity-50 sm:opacity-90"
               pulseColor="#ffdab9"
@@ -135,7 +136,7 @@ export default function Home() {
             />
             <div className="absolute bottom-0 w-full h-[80px] bg-gradient-to-t from-black to-transparent"></div>
           </div>
-          <div className="relative overflow-hidden" style={{maxHeight: '90vh'}}>
+          <div className="relative overflow-hidden" style={{ maxHeight: '90vh' }}>
             <DataFlowParticles
               className="z-[1] opacity-40 sm:opacity-90"
               particleColor="#ffdab9"
@@ -149,17 +150,17 @@ export default function Home() {
                 md: { particleCount: 8, columns: 10, rows: 10, gridWidth: 1920, gridHeight: 900 }
               }}
             />        <div className="absolute bottom-0 w-full h-[120px] bg-gradient-to-t from-black to-transparent"></div>
+          </div>
+          {/* Effet de transition pour la grille avec bordure de clôture */}
+          <div className="absolute inset-x-0 bottom-0 h-[60vh] bg-gradient-to-t from-black via-black/95 to-transparent pointer-events-none">
+            <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#ffdab9]/30 to-transparent"></div>
+          </div>
         </div>
-        {/* Effet de transition pour la grille avec bordure de clôture */}
-        <div className="absolute inset-x-0 bottom-0 h-[60vh] bg-gradient-to-t from-black via-black/95 to-transparent pointer-events-none">
-          <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#ffdab9]/30 to-transparent"></div>
-        </div>
-      </div>
-      
-      {/* NavbarDemo conditionnellement affiché */}
-      {!isModalOpen && <NavbarDemo />}
-      
-      {/* Hero Section */}
+
+        {/* NavbarDemo conditionnellement affiché */}
+        {!isModalOpen && <NavbarDemo />}
+
+        {/* Hero Section */}
         <section id="hero" className="min-h-screen relative z-10 pt-12 md:pt-0">
           <div className="container relative z-20 mx-auto flex flex-1 flex-col items-center justify-center p-4 sm:p-8 text-center">
             <div className="px-2 sm:px-4 py-8 sm:py-12 md:py-24">
@@ -167,10 +168,10 @@ export default function Home() {
                 Lancez votre site pro jusqu&apos;à 50% moins cher 🚀
               </Badge>
               <div className="relative mb-8 sm:mb-12">
-                
+
                 <h1 className="relative z-10 mx-auto max-w-6xl text-center text-lg sm:text-2xl md:text-4xl lg:text-6xl font-bold text-white dark:text-slate-300 font-montserrat whitespace-normal sm:whitespace-nowrap">
                   <div className="relative inline-block">
-                    
+
                     <motion.span
                       initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
                       animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
@@ -181,9 +182,9 @@ export default function Home() {
                       }}
                       className="mr-1 inline-block relative"
                     >
-                      <GlowText 
-                        intensity="high" 
-                        glowColor="#ffdab9" 
+                      <GlowText
+                        intensity="high"
+                        glowColor="#ffdab9"
                         className="font-bold tracking-wide text-lg sm:text-2xl md:text-4xl lg:text-6xl"
                         animate={true}
                         textColor="#ffffff"
@@ -217,7 +218,7 @@ export default function Home() {
                 </h1>
               </div>
               <div className="relative mb-8 sm:mb-12">
-                
+
                 <motion.p
                   initial={{
                     opacity: 0,
@@ -249,9 +250,9 @@ export default function Home() {
                 }}
                 className="relative z-10 mx-auto italic text-xs sm:text-sm md:text-base lg:text-lg font-montserrat font-light px-3 sm:px-0 mb-6 sm:mb-8"
               >
-                <GlowText 
-                  intensity="medium" 
-                  glowColor="#ffdab9" 
+                <GlowText
+                  intensity="medium"
+                  glowColor="#ffdab9"
                   className="italic font-light tracking-wide"
                   animate={true}
                   textColor="#ffdab9"
@@ -272,39 +273,39 @@ export default function Home() {
                 }}
                 className="relative z-10 mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6 mb-10 sm:mb-16"
               >
-              <Badge className="mb-8 sm:mb-10 inline-block rounded-full bg-white/5 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">
-                  Créer mon site maintenant 🎂​
+                <Badge className="mb-8 sm:mb-10 inline-block rounded-full bg-white/5 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">
+                  Créer mon site maintenant 🎂
                 </Badge>
                 <a className="mb-8 sm:mb-10 inline-block rounded-full  px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">Discutons ensemble →</a>
               </motion.div>
               <motion.div
-              initial={{
-                opacity: 0,
-                y: 0,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                duration: 0.3,
-                delay: 1.1,
-              }}
-              className="relative z-10 mt-12 sm:mt-16"
-            >
-              <div className="h-[20rem] sm:h-[30rem] md:h-[40rem] lg:h-[52rem] w-full relative">
-                <ContainerScroll titleComponent={" "}>
-                  <Image
-                    src="/dashboard.png"
-                    alt="hero"
-                    height={720}
-                    width={1400}
-                    className="mx-auto rounded-lg sm:rounded-xl md:rounded-2xl object-cover h-full object-left-top shadow-xl"
-                    draggable={false}
-                  />
-                </ContainerScroll>
-              </div>
-            </motion.div>
+                initial={{
+                  opacity: 0,
+                  y: 0,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.3,
+                  delay: 1.1,
+                }}
+                className="relative z-10 mt-12 sm:mt-16"
+              >
+                <div className="h-[20rem] sm:h-[30rem] md:h-[40rem] lg:h-[52rem] w-full relative">
+                  <ContainerScroll titleComponent={" "}>
+                    <Image
+                      src="/dashboard.png"
+                      alt="hero"
+                      height={720}
+                      width={1400}
+                      className="mx-auto rounded-lg sm:rounded-xl md:rounded-2xl object-cover h-full object-left-top shadow-xl"
+                      draggable={false}
+                    />
+                  </ContainerScroll>
+                </div>
+              </motion.div>
 
             </div>
           </div>
@@ -315,7 +316,7 @@ export default function Home() {
         <ScrollReveal>
           <section id="realisations" className="relative bg-black overflow-hidden pt-8">
             {/* Titre avec animations Magic UI */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -328,7 +329,7 @@ export default function Home() {
                     Nos Réalisations ✨
                   </Badge>
                 </ScrollReveal>
-                
+
                 <ScrollReveal delay={0.4}>
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -345,7 +346,7 @@ export default function Home() {
                     />
                   </motion.div>
                 </ScrollReveal>
-                
+
                 <ScrollReveal delay={0.6}>
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -365,125 +366,152 @@ export default function Home() {
               </div>
             </motion.div>
 
-          {/* Statistiques avec nombres animés */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-            className="container relative z-10 mx-auto px-4 pb-16"
-          >
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
-                  <GlowText 
-                    intensity="medium" 
-                    glowColor="#ffdab9" 
-                    className="font-bold tracking-wide"
-                    animate={true}
-                    textColor="#ffdab9"
-                  >
-                    25+
-                  </GlowText>
+            {/* Statistiques avec nombres animés */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+              className="container relative z-10 mx-auto px-4 pb-16"
+            >
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
+                    <GlowText
+                      intensity="medium"
+                      glowColor="#ffdab9"
+                      className="font-bold tracking-wide"
+                      animate={true}
+                      textColor="#ffdab9"
+                    >
+                      25+
+                    </GlowText>
+                  </div>
+                  <TextGenerateEffect
+                    words="Projets réalisés"
+                    className="text-white/70 text-sm md:text-base font-montserrat"
+                    duration={0.4}
+                    textColor="text-white/70"
+                  />
                 </div>
-                <TextGenerateEffect
-                  words="Projets réalisés"
-                  className="text-white/70 text-sm md:text-base font-montserrat"
-                  duration={0.4}
-                  textColor="text-white/70"
-                />
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
-                  <GlowText 
-                    intensity="medium" 
-                    glowColor="#ffdab9" 
-                    className="font-bold tracking-wide"
-                    animate={true}
-                    textColor="#ffdab9"
-                  >
-                    100%
-                  </GlowText>
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
+                    <GlowText
+                      intensity="medium"
+                      glowColor="#ffdab9"
+                      className="font-bold tracking-wide"
+                      animate={true}
+                      textColor="#ffdab9"
+                    >
+                      100%
+                    </GlowText>
+                  </div>
+                  <TextGenerateEffect
+                    words="Satisfaction client"
+                    className="text-white/70 text-sm md:text-base font-montserrat"
+                    duration={0.4}
+                    textColor="text-white/70"
+                  />
                 </div>
-                <TextGenerateEffect
-                  words="Satisfaction client"
-                  className="text-white/70 text-sm md:text-base font-montserrat"
-                  duration={0.4}
-                  textColor="text-white/70"
-                />
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
-                  <GlowText 
-                    intensity="medium" 
-                    glowColor="#ffdab9" 
-                    className="font-bold tracking-wide"
-                    animate={true}
-                    textColor="#ffdab9"
-                  >
-                    3
-                  </GlowText>
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
+                    <GlowText
+                      intensity="medium"
+                      glowColor="#ffdab9"
+                      className="font-bold tracking-wide"
+                      animate={true}
+                      textColor="#ffdab9"
+                    >
+                      3
+                    </GlowText>
+                  </div>
+                  <TextGenerateEffect
+                    words="Ans d&apos;expérience"
+                    className="text-white/70 text-sm md:text-base font-montserrat"
+                    duration={0.4}
+                    textColor="text-white/70"
+                  />
                 </div>
-                <TextGenerateEffect
-                  words="Ans d&apos;expérience"
-                  className="text-white/70 text-sm md:text-base font-montserrat"
-                  duration={0.4}
-                  textColor="text-white/70"
-                />
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
-                  <GlowText 
-                    intensity="medium" 
-                    glowColor="#ffdab9" 
-                    className="font-bold tracking-wide"
-                    animate={true}
-                    textColor="#ffdab9"
-                  >
-                    24h
-                  </GlowText>
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
+                    <GlowText
+                      intensity="medium"
+                      glowColor="#ffdab9"
+                      className="font-bold tracking-wide"
+                      animate={true}
+                      textColor="#ffdab9"
+                    >
+                      24h
+                    </GlowText>
+                  </div>
+                  <TextGenerateEffect
+                    words="Support réactif"
+                    className="text-white/70 text-sm md:text-base font-montserrat"
+                    duration={0.4}
+                    textColor="text-white/70"
+                  />
                 </div>
-                <TextGenerateEffect
-                  words="Support réactif"
-                  className="text-white/70 text-sm md:text-base font-montserrat"
-                  duration={0.4}
-                  textColor="text-white/70"
-                />
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
 
-          
 
-          {/* Contenu principal avec carousel */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.8 }}
-            className="container relative z-10 mx-auto flex flex-col items-center justify-center pb-32"
-          >
-            <AppleCardsCarouselDemo />
-          </motion.div>
-        </section>
+
+            {/* Contenu principal avec carousel */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.8 }}
+              className="container relative z-10 mx-auto flex flex-col items-center justify-center pb-32"
+            >
+              <AppleCardsCarouselDemo />
+            </motion.div>
+          </section>
         </ScrollReveal>
-        
+
         {/* Section des fonctionnalités */}
         <ScrollReveal delay={0.2}>
           <section className="relative bg-black overflow-hidden py-20">
             <div className="container mx-auto px-4">
-
-            <div className="text-center mb-20">
-              <h2 className="text-4xl font-bold text-white mb-6">
-                Pourquoi nous choisir ?
-              </h2>
-              <p className="text-lg text-white/80 max-w-2xl mx-auto">
-                Découvrez tous nos services et avantages pour créer le site web parfait pour votre entreprise
-              </p>
+              <div className="text-center mb-20">
+                <Badge className="mb-8 inline-block rounded-full bg-white/5 px-4 py-2 text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">
+                  Nos Services & Avantages 💎
+                </Badge>
+                <HeroHighlight containerClassName="h-auto py-12">
+                  <motion.h1
+                    initial={{
+                      opacity: 0,
+                      y: 20,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: [20, -5, 0],
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      ease: [0.4, 0.0, 0.2, 1],
+                    }}
+                    className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto font-montserrat"
+                  >
+                    Pourquoi nous choisir pour votre{" "}
+                    <Highlight className="text-black dark:text-white">
+                      projet digital ?
+                    </Highlight>
+                  </motion.h1>
+                </HeroHighlight>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto font-montserrat font-light mt-6"
+                >
+                  Découvrez tous nos services et avantages pour créer le site web parfait pour votre entreprise
+                </motion.p>
+              </div>
+              <FeaturesSectionDemo />
             </div>
-            <FeaturesSectionDemo />
-          </div>
-        </section>
+          </section>
         </ScrollReveal>
 
         {/* Ici vous pourrez ajouter vos sections supplémentaires */}
