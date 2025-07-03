@@ -1,12 +1,12 @@
 "use client"
 
-import React, { useEffect, useRef, useState, createContext, useContext } from "react"
+import React, { useEffect, useRef, useState, createContext, useContext, useCallback } from "react"
 import { IconArrowNarrowLeft, IconArrowNarrowRight, IconX } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import { AnimatePresence, motion } from "framer-motion"
 import type { ImageProps } from "next/image"
 import { useOutsideClick } from "@/hooks/use-outside-click"
-import { ModalContext } from "@/app/page" // Import the context
+import { ModalContext } from "@/contexts/ModalContext"
 import Image from "next/image"
 
 interface CarouselProps {
@@ -153,6 +153,11 @@ export const Card = ({
   const { onCardClose } = useContext(CarouselContext)
   const { setIsModalOpen } = useContext(ModalContext) // Use the modal context
 
+  const handleClose = useCallback(() => {
+    setOpen(false)
+    onCardClose(index)
+  }, [onCardClose, index]);
+
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -170,17 +175,12 @@ export const Card = ({
 
     window.addEventListener("keydown", onKeyDown)
     return () => window.removeEventListener("keydown", onKeyDown)
-  }, [open, setIsModalOpen])
+  }, [open, setIsModalOpen, handleClose])
 
-  useOutsideClick(containerRef, () => handleClose())
+  useOutsideClick(containerRef, () => handleClose());
 
   const handleOpen = () => {
     setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-    onCardClose(index)
   }
 
   return (

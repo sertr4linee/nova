@@ -1,13 +1,22 @@
 "use client"
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel-with-modal-context"
+import { GlowText } from "@/components/ui/glow-text"
 
 export default function AppleCardsCarouselDemo() {
   const cards = data.map((card, index) => <Card key={card.src} card={card} index={index} />)
 
   return (
     <div className="w-full h-full py-5 sm:py-10">
-      <h2 className="max-w-7xl pl-4 mx-auto text-lg sm:text-xl md:text-3xl lg:text-5xl font-bold text-neutral-200 font-sans">
-        Découvrez nos <span className="text-[#ffdab9]">réalisations</span>
+      <h2 className="max-w-7xl pl-4 mx-auto text-xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 font-sans">
+        <GlowText 
+          intensity="high" 
+          glowColor="#ffdab9" 
+          className="font-bold tracking-wide"
+          animate={true}
+          textColor="#ffdab9"
+        >
+          Nos projets 
+        </GlowText>
       </h2>
       <Carousel items={cards} />
     </div>

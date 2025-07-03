@@ -1,10 +1,10 @@
 "use client"
 
-import React, { useEffect, useRef, useState, createContext, useContext } from "react"
+import React, { useEffect, useRef, useState, createContext, useContext, useCallback } from "react"
 import { IconArrowNarrowLeft, IconArrowNarrowRight, IconX } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import { AnimatePresence, motion } from "framer-motion" // Corrected import
-import type { ImageProps } from "next/image"
+import Image, { type ImageProps } from "next/image"
 import { useOutsideClick } from "@/hooks/use-outside-click"
 
 interface CarouselProps {
@@ -148,7 +148,12 @@ export const Card = ({
 }) => {
   const [open, setOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement | null>(null)
-  const { onCardClose, currentIndex } = useContext(CarouselContext)
+  const { onCardClose } = useContext(CarouselContext)
+
+  const handleClose = useCallback(() => {
+    setOpen(false)
+    onCardClose(index)
+  }, [onCardClose, index]);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -165,17 +170,12 @@ export const Card = ({
 
     window.addEventListener("keydown", onKeyDown)
     return () => window.removeEventListener("keydown", onKeyDown)
-  }, [open])
+  }, [open, handleClose])
 
   useOutsideClick(containerRef, () => handleClose())
 
   const handleOpen = () => {
     setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-    onCardClose(index)
   }
 
   return (
@@ -254,14 +254,13 @@ export const Card = ({
 export const BlurImage = ({ height, width, src, className, alt, ...rest }: ImageProps) => {
   const [isLoading, setLoading] = useState(true)
   return (
-    <img
+    <Image
       className={cn("h-full w-full transition duration-300", isLoading ? "blur-sm" : "blur-0", className)}
       onLoad={() => setLoading(false)}
       src={(src as string) || "/placeholder.svg"}
       width={width}
       height={height}
       loading="lazy"
-      decoding="async"
       alt={alt ? alt : "Background of a beautiful view"}
       {...rest}
     />

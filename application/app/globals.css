@@ -142,18 +142,40 @@
     @apply border-border outline-ring/50;
     box-sizing: border-box;
   }
-  html, body {
+  html {
+    scroll-behavior: smooth;
     width: 100%;
     max-width: 100vw;
     overflow-x: hidden;
   }
   body {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
     @apply bg-background text-foreground;
     cursor: none; /* Cacher le curseur par défaut */
   }
   .font-montserrat {
     font-family: var(--font-montserrat);
   }
+}
+
+/* Styles pour le scroll smooth personnalisé */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ffdab9, #ffdab9);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffdab9, #ffc499);
 }
 
 /* Styles pour les éléments interactifs avec le smooth cursor */

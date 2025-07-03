@@ -4,7 +4,7 @@ import { InteractiveGridPattern } from "../components/magicui/interactive-grid-p
 import { AnimatedGridBeams } from "../components/magicui/animated-grid-beams-responsive";
 import { GridNodePulses } from "../components/magicui/grid-node-pulses-responsive";
 import { DataFlowParticles } from "../components/magicui/data-flow-particles-responsive";
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NavbarDemo } from "@/components/ui/navbar";
 import { Badge } from "@/components/ui/badge";
@@ -12,13 +12,14 @@ import { PointerHighlight } from "@/components/ui/pointer-highlight";
 import { Spotlight } from "@/components/ui/spotlight";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { GlowText } from "@/components/ui/glow-text";
-import AppleCardsCarouselDemo from "@/components/apple-cards-carousel-demo-with-modal-context";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import AppleCardsCarouselDemo from "@/components/ui/apple-cards-carousel-demo-with-modal-context";
+import { FeaturesSectionDemo } from "@/components/ui/features";
+import Image from "next/image";
+import { ScrollProgress, ScrollToTop } from "@/components/ui/scroll-progress";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
+import { ModalContext } from "@/contexts/ModalContext";
 
-// Create a context for modal state
-export const ModalContext = createContext({
-  isModalOpen: false,
-  setIsModalOpen: (value: boolean) => {}
-});
 
 // Composant pour l'animation des mots alternants
 const AnimatedWords = () => {
@@ -38,7 +39,7 @@ const AnimatedWords = () => {
     }, 5000); // Change de mot toutes les 5 secondes
 
     return () => clearInterval(interval);
-  }, []);
+  }, [words.length]);
 
   return (
     <AnimatePresence mode="wait">
@@ -65,10 +66,9 @@ const AnimatedWords = () => {
         <PointerHighlight
           rectangleClassName="bg-black/10 dark:bg-neutral-800/30 border-[#ffdab9]/30 dark:border-[#ffdab9]/30"
           pointerClassName="text-[#ffdab9]"
-        >
-          <span className="relative z-10 px-1 sm:px-2 py-0.5 sm:py-1 text-[#ffdab9] font-montserrat text-sm sm:text-base md:text-xl lg:text-2xl">
-            {words[currentIndex]}
-          </span>
+        >                          <span className="relative z-10 px-1 sm:px-2 py-0.5 sm:py-1 text-[#ffdab9] font-montserrat text-lg sm:text-2xl md:text-4xl lg:text-6xl">
+                            {words[currentIndex]}
+                          </span>
         </PointerHighlight>
       </motion.div>
     </AnimatePresence>
@@ -76,31 +76,17 @@ const AnimatedWords = () => {
 };
 
 export default function Home() {
-  const navItems = [
-    {
-      name: "Contact",
-      link: "#contact",
-    },
-    {
-      name: "Pricing",
-      link: "#pricing",
-    },
-    {
-      name: "Blog",
-      link: "#blog",
-    },
-    {
-      name: "Docs",
-      link: "#docs",
-    },
-  ];
-
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <ModalContext.Provider value={{ isModalOpen, setIsModalOpen }}>
-      <div className="relative flex min-h-screen w-full flex-col bg-black text-white overflow-x-hidden">
+      {/* Scroll Progress Bar */}
+      <ScrollProgress />
+      
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
+      
+      <div className="relative flex min-h-screen w-full flex-col bg-black text-white overflow-x-hidden" style={{ scrollBehavior: "smooth" }}>
         <Spotlight className="hidden sm:block"/>
         {/* Fond interactif */}
         <div className="absolute inset-0 z-0 overflow-hidden">
@@ -176,13 +162,13 @@ export default function Home() {
       {/* Hero Section */}
         <section id="hero" className="min-h-screen relative z-10 pt-12 md:pt-0">
           <div className="container relative z-20 mx-auto flex flex-1 flex-col items-center justify-center p-4 sm:p-8 text-center">
-            <div className="px-2 sm:px-4 py-6 sm:py-10 md:py-20">
-              <Badge className="mb-4 sm:mb-6 inline-block rounded-full bg-white/5 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">
-                Lancez votre site pro jusqu'à 50% moins cher 🚀
+            <div className="px-2 sm:px-4 py-8 sm:py-12 md:py-24">
+              <Badge className="mb-8 sm:mb-10 inline-block rounded-full bg-white/5 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">
+                Lancez votre site pro jusqu&apos;à 50% moins cher 🚀
               </Badge>
-              <div className="relative">
+              <div className="relative mb-8 sm:mb-12">
                 
-                <h1 className="relative z-10 mx-auto max-w-6xl text-center text-xl sm:text-2xl md:text-4xl lg:text-6xl font-bold text-white dark:text-slate-300 font-montserrat whitespace-normal sm:whitespace-nowrap">
+                <h1 className="relative z-10 mx-auto max-w-6xl text-center text-lg sm:text-2xl md:text-4xl lg:text-6xl font-bold text-white dark:text-slate-300 font-montserrat whitespace-normal sm:whitespace-nowrap">
                   <div className="relative inline-block">
                     
                     <motion.span
@@ -198,7 +184,7 @@ export default function Home() {
                       <GlowText 
                         intensity="high" 
                         glowColor="#ffdab9" 
-                        className="font-bold tracking-wide text-sm sm:text-base md:text-xl lg:text-2xl"
+                        className="font-bold tracking-wide text-lg sm:text-2xl md:text-4xl lg:text-6xl"
                         animate={true}
                         textColor="#ffffff"
                       >
@@ -216,7 +202,7 @@ export default function Home() {
                         delay: 0.3 + index * 0.1,
                         ease: "easeInOut",
                       }}
-                      className="mr-1 inline-block text-sm sm:text-base md:text-xl lg:text-2xl"
+                      className="mr-1 inline-block text-lg sm:text-2xl md:text-4xl lg:text-6xl"
                     >
                       {word}
                     </motion.span>
@@ -230,7 +216,7 @@ export default function Home() {
                   </motion.span>
                 </h1>
               </div>
-              <div className="relative">
+              <div className="relative mb-8 sm:mb-12">
                 
                 <motion.p
                   initial={{
@@ -245,7 +231,7 @@ export default function Home() {
                     duration: 0.3,
                     delay: 0.8,
                   }}
-                  className="relative z-10 mx-auto mt-4 sm:mt-6 max-w-xl py-2 sm:py-4 text-center text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white dark:text-white font-montserrat px-2 sm:px-0"
+                  className="relative z-10 mx-auto mt-6 sm:mt-8 max-w-xl py-2 sm:py-4 text-center text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white dark:text-white font-montserrat px-2 sm:px-0"
                 >
                   Nous aidons les petites équipes à créer une présence digitale impactante. Des sites rapides, modernes et pensés pour la croissance.
                 </motion.p>
@@ -261,7 +247,7 @@ export default function Home() {
                   duration: 0.3,
                   delay: 1,
                 }}
-                className="relative z-10 mx-auto italic text-xs sm:text-sm md:text-base lg:text-lg font-montserrat font-light px-3 sm:px-0"
+                className="relative z-10 mx-auto italic text-xs sm:text-sm md:text-base lg:text-lg font-montserrat font-light px-3 sm:px-0 mb-6 sm:mb-8"
               >
                 <GlowText 
                   intensity="medium" 
@@ -284,12 +270,12 @@ export default function Home() {
                   duration: 0.3,
                   delay: 1,
                 }}
-                className="relative z-10 mt-2 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2 sm:gap-4"
+                className="relative z-10 mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6 mb-10 sm:mb-16"
               >
-                <Badge variant="outline" className="rounded-full bg-white/5 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wide">
+              <Badge className="mb-8 sm:mb-10 inline-block rounded-full bg-white/5 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">
                   Créer mon site maintenant 🎂​
                 </Badge>
-                <a className="rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wide mt-2 sm:mt-0">Discutons ensemble →</a>
+                <a className="mb-8 sm:mb-10 inline-block rounded-full  px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">Discutons ensemble →</a>
               </motion.div>
               <motion.div
               initial={{
@@ -304,12 +290,12 @@ export default function Home() {
                 duration: 0.3,
                 delay: 1.1,
               }}
-              className="relative z-10 mt-8"
+              className="relative z-10 mt-12 sm:mt-16"
             >
               <div className="h-[20rem] sm:h-[30rem] md:h-[40rem] lg:h-[52rem] w-full relative">
                 <ContainerScroll titleComponent={" "}>
-                  <img
-                    src={`/dashboard.png`}
+                  <Image
+                    src="/dashboard.png"
                     alt="hero"
                     height={720}
                     width={1400}
@@ -324,19 +310,181 @@ export default function Home() {
           </div>
         </section>
 
+
         {/* Section des réalisations avec le carousel */}
-        <section id="realisations" className="relative bg-black overflow-hidden pt-8">
-          {/* Contenu principal */}
+        <ScrollReveal>
+          <section id="realisations" className="relative bg-black overflow-hidden pt-8">
+            {/* Titre avec animations Magic UI */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="container relative z-10 mx-auto text-center pt-4 pb-8"
+            >
+              <div className="mb-8">
+                <ScrollReveal delay={0.2}>
+                  <Badge className="mb-6 inline-block rounded-full bg-white/5 px-4 py-2 text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">
+                    Nos Réalisations ✨
+                  </Badge>
+                </ScrollReveal>
+                
+                <ScrollReveal delay={0.4}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-montserrat"
+                  >
+                    <TextGenerateEffect
+                      words="Découvrez nos réalisations"
+                      className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat"
+                      duration={0.8}
+                      textColor="text-white"
+                    />
+                  </motion.div>
+                </ScrollReveal>
+                
+                <ScrollReveal delay={0.6}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                    className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto font-montserrat font-light px-4"
+                  >
+                    <TextGenerateEffect
+                      words="Des projets uniques conçus avec passion et expertise technique. Découvrez comment nous transformons les idées en expériences digitales exceptionnelles."
+                      className="text-lg md:text-xl font-montserrat font-light text-white/80"
+                      duration={0.6}
+                      textColor="text-white/80"
+                    />
+                  </motion.div>
+                </ScrollReveal>
+              </div>
+            </motion.div>
+
+          {/* Statistiques avec nombres animés */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="container relative z-10 mx-auto flex flex-col items-center justify-center pt-4 pb-32"
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+            className="container relative z-10 mx-auto px-4 pb-16"
+          >
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
+                  <GlowText 
+                    intensity="medium" 
+                    glowColor="#ffdab9" 
+                    className="font-bold tracking-wide"
+                    animate={true}
+                    textColor="#ffdab9"
+                  >
+                    25+
+                  </GlowText>
+                </div>
+                <TextGenerateEffect
+                  words="Projets réalisés"
+                  className="text-white/70 text-sm md:text-base font-montserrat"
+                  duration={0.4}
+                  textColor="text-white/70"
+                />
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
+                  <GlowText 
+                    intensity="medium" 
+                    glowColor="#ffdab9" 
+                    className="font-bold tracking-wide"
+                    animate={true}
+                    textColor="#ffdab9"
+                  >
+                    100%
+                  </GlowText>
+                </div>
+                <TextGenerateEffect
+                  words="Satisfaction client"
+                  className="text-white/70 text-sm md:text-base font-montserrat"
+                  duration={0.4}
+                  textColor="text-white/70"
+                />
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
+                  <GlowText 
+                    intensity="medium" 
+                    glowColor="#ffdab9" 
+                    className="font-bold tracking-wide"
+                    animate={true}
+                    textColor="#ffdab9"
+                  >
+                    3
+                  </GlowText>
+                </div>
+                <TextGenerateEffect
+                  words="Ans d&apos;expérience"
+                  className="text-white/70 text-sm md:text-base font-montserrat"
+                  duration={0.4}
+                  textColor="text-white/70"
+                />
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
+                  <GlowText 
+                    intensity="medium" 
+                    glowColor="#ffdab9" 
+                    className="font-bold tracking-wide"
+                    animate={true}
+                    textColor="#ffdab9"
+                  >
+                    24h
+                  </GlowText>
+                </div>
+                <TextGenerateEffect
+                  words="Support réactif"
+                  className="text-white/70 text-sm md:text-base font-montserrat"
+                  duration={0.4}
+                  textColor="text-white/70"
+                />
+              </div>
+            </div>
+          </motion.div>
+
+          
+
+          {/* Contenu principal avec carousel */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.8 }}
+            className="container relative z-10 mx-auto flex flex-col items-center justify-center pb-32"
           >
             <AppleCardsCarouselDemo />
           </motion.div>
         </section>
+        </ScrollReveal>
+        
+        {/* Section des fonctionnalités */}
+        <ScrollReveal delay={0.2}>
+          <section className="relative bg-black overflow-hidden py-20">
+            <div className="container mx-auto px-4">
+
+            <div className="text-center mb-20">
+              <h2 className="text-4xl font-bold text-white mb-6">
+                Pourquoi nous choisir ?
+              </h2>
+              <p className="text-lg text-white/80 max-w-2xl mx-auto">
+                Découvrez tous nos services et avantages pour créer le site web parfait pour votre entreprise
+              </p>
+            </div>
+            <FeaturesSectionDemo />
+          </div>
+        </section>
+        </ScrollReveal>
 
         {/* Ici vous pourrez ajouter vos sections supplémentaires */}
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode, useState, useEffect } from "react";
+import React, { ReactNode, useState } from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
@@ -64,7 +64,7 @@ export const GlowText = ({
       transition: {
         duration: 2,
         repeat: Infinity,
-        ease: "easeInOut",
+        ease: "easeInOut" as const,
       }
     },
     hover: {
@@ -73,7 +73,7 @@ export const GlowText = ({
       transition: {
         duration: 1.5,
         repeat: Infinity,
-        ease: "easeInOut",
+        ease: "easeInOut" as const,
       }
     }
   };

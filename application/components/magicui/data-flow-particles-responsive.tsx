@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
@@ -83,7 +83,7 @@ export function DataFlowParticles({
   const cellHeight = currentProps.gridHeight / currentProps.rows;
 
   // Generate a path following grid lines
-  const generateGridPath = () => {
+  const generateGridPath = useCallback(() => {
     const path: { x: number; y: number }[] = [];
     
     // Random starting point on the grid
@@ -113,7 +113,7 @@ export function DataFlowParticles({
     }
     
     return path;
-  };
+  }, [currentProps.columns, currentProps.rows, cellWidth, cellHeight]);
 
   // Initialize particles
   useEffect(() => {
@@ -151,7 +151,7 @@ export function DataFlowParticles({
     }, 20000); // Every 20 seconds
     
     return () => clearInterval(interval);
-  }, [currentProps, cellWidth, cellHeight]);
+  }, [currentProps.particleCount, generateGridPath]);
 
   return (
     <div className={cn("absolute inset-0 overflow-hidden pointer-events-none", className)}>
