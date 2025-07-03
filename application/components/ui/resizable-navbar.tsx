@@ -7,6 +7,7 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "motion/react";
+import Image from "next/image";
 
 import React, { useState } from "react";
 
@@ -52,12 +53,11 @@ interface MobileNavMenuProps {
 export const Navbar = ({ children, className }: NavbarProps) => {
   const [visible, setVisible] = useState<boolean>(false);
   const { scrollY } = useScroll();
-  
-  // Using framer motion's scrollY value and event to get smoother transitions
+  // Hysteresis: visible if > 60, hidden if < 40
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 50 && !visible) {
+    if (!visible && latest > 60) {
       setVisible(true);
-    } else if (latest <= 50 && visible) {
+    } else if (visible && latest < 40) {
       setVisible(false);
     }
   });
@@ -81,12 +81,12 @@ export const Navbar = ({ children, className }: NavbarProps) => {
 export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   return (
     <motion.div
-      initial={{ backdropFilter: "none", boxShadow: "none", y: 0, borderRadius: "9999px" }}
+      initial={{ backdropFilter: "none", boxShadow: "none", y: 0, borderRadius: "1rem" }}
       animate={{
         backdropFilter: visible ? "blur(16px)" : "none",
         boxShadow: visible ? "0 0 24px rgba(0, 0, 0, 0.15)" : "none",
         y: visible ? 16 : 0,
-        borderRadius: visible ? "1rem" : "9999px",
+        borderRadius: "1rem",
       }}
       transition={{
         type: "spring",
@@ -98,7 +98,8 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
           damping: 30 
         },
         backgroundColor: { duration: 0.3 }
-      }}        className={cn(
+      }}
+      className={cn(
         "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start px-6 py-4 lg:flex transition-colors duration-500",
         visible 
           ? "bg-gradient-to-r from-neutral-900 via-black to-neutral-900 border border-neutral-800/40"
@@ -119,6 +120,43 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
 
+  const handleLinkClick = (e: React.MouseEvent, link: string) => {
+    e.preventDefault();
+    onItemClick?.();
+    
+    // Scroll personnalisé avec requestAnimationFrame
+    const targetId = link.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - 80; // Offset pour la navbar
+      
+      const startPosition = window.pageYOffset;
+      const distance = offsetPosition - startPosition;
+      const duration = 800;
+      let start: number | null = null;
+
+      const easeInOutCubic = (t: number): number => {
+        return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+      };
+
+      const animateScroll = (currentTime: number) => {
+        if (start === null) start = currentTime;
+        const timeElapsed = currentTime - start;
+        const progress = Math.min(timeElapsed / duration, 1);
+        const ease = easeInOutCubic(progress);
+
+        window.scrollTo(0, startPosition + distance * ease);
+
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animateScroll);
+        }
+      };
+
+      requestAnimationFrame(animateScroll);
+    }
+  };
+
   return (
     <div
       onMouseLeave={() => setHovered(null)}
@@ -130,8 +168,8 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
       {items.map((item, idx) => (
         <a
           onMouseEnter={() => setHovered(idx)}
-          onClick={onItemClick}
-          className="relative px-2 py-1 text-[#ffdab9] hover:text-[#ffdab9]/80"
+          onClick={(e) => handleLinkClick(e, item.link)}
+          className="relative px-2 py-1 text-[#ffdab9] hover:text-[#ffdab9]/80 cursor-pointer"
           key={`link-${idx}`}
           href={item.link}
         >
@@ -168,10 +206,11 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
           damping: 30 
         },
         backgroundColor: { duration: 0.3 }
-      }}        className={cn(
-        "relative z-50 flex w-full flex-col items-center justify-between px-4 py-3 lg:hidden transition-colors duration-500",
+      }}
+      className={cn(
+        "relative z-50 flex flex-col items-center justify-between mx-2 py-3 lg:hidden transition-colors duration-500",
         visible 
-          ? "bg-gradient-to-r from-neutral-900 via-black to-neutral-900 border border-neutral-800/40 mx-2" 
+          ? "bg-gradient-to-r from-neutral-900 via-black to-neutral-900 border border-neutral-800/40" 
           : "bg-transparent",
         className,
       )}
@@ -193,7 +232,7 @@ export const MobileNavHeader = ({
   return (
     <div
       className={cn(
-        "flex w-full flex-row items-center justify-between",
+        "flex w-full flex-row items-center justify-between px-4",
         className,
       )}
     >
@@ -209,9 +248,13 @@ export const MobileNavMenu = ({
 }: MobileNavMenuProps) => {
   const { scrollY } = useScroll();
   const [visible, setVisible] = useState<boolean>(false);
-  
+  // Hysteresis: visible if > 60, hidden if < 40
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setVisible(latest > 50);
+    if (!visible && latest > 60) {
+      setVisible(true);
+    } else if (visible && latest < 40) {
+      setVisible(false);
+    }
   });
 
   return (
@@ -221,6 +264,11 @@ export const MobileNavMenu = ({
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
+          transition={{
+            type: "spring",
+            stiffness: 300,
+            damping: 30
+          }}
           className={cn(
             "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-b-xl mx-2 px-4 py-6 shadow-lg",
             visible ? "border border-neutral-800/40" : "bg-black/90",
@@ -260,21 +308,13 @@ export const NavbarLogo = () => {
       href="#"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal"
     >
-      <svg 
-        width="24" 
-        height="24" 
-        viewBox="0 0 24 24" 
-        fill="none"
-        className="text-[#ffdab9] transition-colors duration-200"
-      >
-        <path 
-          d="M12 2L22 7L12 12L2 7L12 2Z" 
-          stroke="currentColor" 
-          strokeWidth="1.5" 
-          fill="none"
-        />
-      </svg>
-      <span className="font-medium text-white">NØVA</span>
+      <Image 
+        src="/nova.svg" 
+        alt="NØVA Logo" 
+        width="120" 
+        height="32" 
+        className="transition-opacity duration-200 hover:opacity-80"
+      />
     </a>
   );
 };

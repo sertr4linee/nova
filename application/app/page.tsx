@@ -87,10 +87,10 @@ export default function Home() {
       {/* Scroll to Top Button */}
       <ScrollToTop />
 
-      <div className="relative flex min-h-screen w-full flex-col bg-black text-white overflow-x-hidden" style={{ scrollBehavior: "smooth" }}>
+      <div className="relative flex min-h-screen w-full flex-col bg-black text-white overflow-x-hidden">
         <Spotlight className="hidden sm:block" />
-        {/* Fond interactif */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
+        {/* Fond interactif optimisé */}
+        <div className="absolute inset-0 z-0 overflow-hidden will-change-transform">
           <InteractiveGridPattern
             className={cn(
               "absolute inset-0 max-h-screen w-full opacity-50 sm:opacity-100"
@@ -100,7 +100,7 @@ export default function Home() {
             squaresClassName="stroke-white/10 hover:stroke-white/30"
             squares={[6, 8, 10, 12]}
           />
-          <div className="relative overflow-hidden" style={{ maxHeight: '100vh' }}>
+          <div className="relative overflow-hidden will-change-transform" style={{ maxHeight: '100vh' }}>
             <AnimatedGridBeams
               className="z-[1] opacity-50 sm:opacity-80"
               beamColor="#ffdab9"
@@ -117,11 +117,11 @@ export default function Home() {
             />
             <div className="absolute bottom-0 w-full h-[100px] bg-gradient-to-t from-black to-transparent"></div>
           </div>
-          <div className="relative overflow-hidden" style={{ maxHeight: '95vh' }}>
+          <div className="relative overflow-hidden will-change-transform" style={{ maxHeight: '95vh' }}>
             <GridNodePulses
               className="z-[1] opacity-50 sm:opacity-90"
               pulseColor="#ffdab9"
-              pulseCount={8}
+              pulseCount={6}
               columns={6}
               rows={6}
               gridWidth={1200}
@@ -130,24 +130,24 @@ export default function Home() {
               maxSize={8}
               connectionProbability={0.25}
               breakpoints={{
-                sm: { pulseCount: 12, columns: 8, rows: 8, gridWidth: 1600, gridHeight: 800 },
-                md: { pulseCount: 18, columns: 10, rows: 12, gridWidth: 1920, gridHeight: 1000, minSize: 4, maxSize: 12, connectionProbability: 0.35 }
+                sm: { pulseCount: 8, columns: 8, rows: 8, gridWidth: 1600, gridHeight: 800 },
+                md: { pulseCount: 12, columns: 10, rows: 12, gridWidth: 1920, gridHeight: 1000, minSize: 4, maxSize: 12, connectionProbability: 0.35 }
               }}
             />
             <div className="absolute bottom-0 w-full h-[80px] bg-gradient-to-t from-black to-transparent"></div>
           </div>
-          <div className="relative overflow-hidden" style={{ maxHeight: '90vh' }}>
+          <div className="relative overflow-hidden will-change-transform" style={{ maxHeight: '90vh' }}>
             <DataFlowParticles
               className="z-[1] opacity-40 sm:opacity-90"
               particleColor="#ffdab9"
-              particleCount={4}
+              particleCount={3}
               columns={6}
               rows={6}
               gridWidth={1200}
               gridHeight={600}
               breakpoints={{
-                sm: { particleCount: 6, columns: 8, rows: 8, gridWidth: 1600, gridHeight: 700 },
-                md: { particleCount: 8, columns: 10, rows: 10, gridWidth: 1920, gridHeight: 900 }
+                sm: { particleCount: 4, columns: 8, rows: 8, gridWidth: 1600, gridHeight: 700 },
+                md: { particleCount: 6, columns: 10, rows: 10, gridWidth: 1920, gridHeight: 900 }
               }}
             />        <div className="absolute bottom-0 w-full h-[120px] bg-gradient-to-t from-black to-transparent"></div>
           </div>
@@ -471,10 +471,10 @@ export default function Home() {
 
         {/* Section des fonctionnalités */}
         <ScrollReveal delay={0.2}>
-          <section className="relative bg-black overflow-hidden py-20">
+          <section id="services" className="relative bg-black overflow-hidden py-20">
             <div className="container mx-auto px-4">
               <div className="text-center mb-20">
-                <Badge className="mb-8 inline-block rounded-full bg-white/5 px-4 py-2 text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">
+                <Badge className="mb-8 inline-block rounded-full bg-white/5 px-4 py-2 text-sm font-montserrat font-medium text-white backdrop-blur-sm tracking-wider">
                   Nos Services & Avantages 💎
                 </Badge>
                 <HeroHighlight containerClassName="h-auto py-12">
@@ -491,10 +491,10 @@ export default function Home() {
                       duration: 0.5,
                       ease: [0.4, 0.0, 0.2, 1],
                     }}
-                    className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto font-montserrat"
+                    className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto font-montserrat"
                   >
                     Pourquoi nous choisir pour votre{" "}
-                    <Highlight className="text-black dark:text-white">
+                    <Highlight className="text-white">
                       projet digital ?
                     </Highlight>
                   </motion.h1>
@@ -513,6 +513,7 @@ export default function Home() {
             </div>
           </section>
         </ScrollReveal>
+
 
         {/* Ici vous pourrez ajouter vos sections supplémentaires */}
 

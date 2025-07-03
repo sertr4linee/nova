@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useSpring } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useScroll, useSpring, useMotionValueEvent } from "framer-motion";
+import { useState } from "react";
 
 export const ScrollProgress = () => {
   const { scrollYProgress } = useScroll();
@@ -13,43 +13,40 @@ export const ScrollProgress = () => {
 
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const updateVisibility = () => {
-      setIsVisible(window.scrollY > 100);
-    };
-
-    window.addEventListener("scroll", updateVisibility);
-    updateVisibility();
-
-    return () => window.removeEventListener("scroll", updateVisibility);
-  }, []);
+  // Use Framer Motion's scroll event instead of native addEventListener
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const scrollY = latest * document.documentElement.scrollHeight;
+    const shouldBeVisible = scrollY > 100;
+    if (shouldBeVisible !== isVisible) {
+      setIsVisible(shouldBeVisible);
+    }
+  });
 
   return (
     <motion.div
       className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ffdab9] via-[#ffdab9] to-[#ffdab9] origin-left z-50"
-      style={{ 
-        scaleX,
+      style={{ scaleX }}
+      animate={{ 
         opacity: isVisible ? 1 : 0,
-        transition: "opacity 0.3s ease-in-out"
       }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
     />
   );
 };
 
 // Composant pour le bouton "Retour en haut"
 export const ScrollToTop = () => {
+  const { scrollYProgress } = useScroll();
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const toggleVisibility = () => {
-      setIsVisible(window.scrollY > 300);
-    };
-
-    window.addEventListener("scroll", toggleVisibility);
-    toggleVisibility();
-
-    return () => window.removeEventListener("scroll", toggleVisibility);
-  }, []);
+  // Use Framer Motion's scroll event instead of native addEventListener
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const scrollY = latest * document.documentElement.scrollHeight;
+    const shouldBeVisible = scrollY > 300;
+    if (shouldBeVisible !== isVisible) {
+      setIsVisible(shouldBeVisible);
+    }
+  });
 
   const scrollToTop = () => {
     window.scrollTo({

@@ -143,10 +143,13 @@
     box-sizing: border-box;
   }
   html {
-    scroll-behavior: smooth;
     width: 100%;
     max-width: 100vw;
     overflow-x: hidden;
+    /* Optimisations pour le scroll fluide */
+    scroll-padding-top: 80px; /* Espace pour la navbar fixe */
+    /* Temporairement désactivé pour éviter les conflits */
+    /* scroll-behavior: smooth; */
   }
   body {
     width: 100%;
@@ -154,6 +157,8 @@
     overflow-x: hidden;
     @apply bg-background text-foreground;
     cursor: none; /* Cacher le curseur par défaut */
+    /* Optimisations pour les performances de scroll */
+  /* overscroll-behavior et transform supprimés pour rétablir le scroll natif */
   }
   .font-montserrat {
     font-family: var(--font-montserrat);
@@ -167,6 +172,27 @@
 
 ::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.1);
+}
+
+/* Optimisations pour les performances de scroll */
+.will-change-transform {
+  will-change: transform;
+}
+
+/* Améliorer les performances des animations */
+.hardware-accelerated {
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+}
+
+/* Optimiser le scroll sur mobile */
+@media (max-width: 768px) {
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 ::-webkit-scrollbar-thumb {
