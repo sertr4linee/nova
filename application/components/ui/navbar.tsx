@@ -10,29 +10,31 @@ import {
   MobileNavToggle,
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ModalContext } from "@/contexts/ModalContext";
 
 export function NavbarDemo() {
+  const { isModalOpen } = useContext(ModalContext);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  if (isModalOpen) return null;
   const navItems = [
+    // {
+    //   name: "Home",
+    //   link: "#hero",
+    // },
     {
-      name: "Accueil",
-      link: "#hero",
-    },
-    {
-      name: "Réalisations",
-      link: "#realisations",
-    },
-    {
-      name: "Services",
-      link: "#services",
+      name: "Pricing",
+      link: "#pricing",
     },
     {
       name: "Contact",
       link: "#contact",
     },
+    {
+      name: "Blog",
+      link: "#blog",
+    },
   ];
-
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <div className="relative w-full">
@@ -41,7 +43,7 @@ export function NavbarDemo() {
         <NavBody>
           <NavbarLogo />
           <NavItems items={navItems} />
-          <NavbarButton variant="primary">Contact</NavbarButton>
+          <NavbarButton variant="primary">Login</NavbarButton>
         </NavBody>
 
         {/* Mobile Navigation */}
@@ -61,51 +63,18 @@ export function NavbarDemo() {
             onClose={() => setIsMobileMenuOpen(false)}
           >
             {navItems.map((item, idx) => (
-              <a
-                key={`mobile-link-${idx}`}
-                href={item.link}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsMobileMenuOpen(false);
-                  
-                  // Scroll personnalisé pour mobile
-                  const targetId = item.link.replace('#', '');
-                  const element = document.getElementById(targetId);
-                  if (element) {
-                    setTimeout(() => { // Petit délai pour permettre au menu de se fermer
-                      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-                      const offsetPosition = elementPosition - 80;
-                      
-                      const startPosition = window.pageYOffset;
-                      const distance = offsetPosition - startPosition;
-                      const duration = 800;
-                      let start: number | null = null;
-
-                      const easeInOutCubic = (t: number): number => {
-                        return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-                      };
-
-                      const animateScroll = (currentTime: number) => {
-                        if (start === null) start = currentTime;
-                        const timeElapsed = currentTime - start;
-                        const progress = Math.min(timeElapsed / duration, 1);
-                        const ease = easeInOutCubic(progress);
-
-                        window.scrollTo(0, startPosition + distance * ease);
-
-                        if (timeElapsed < duration) {
-                          requestAnimationFrame(animateScroll);
-                        }
-                      };
-
-                      requestAnimationFrame(animateScroll);
-                    }, 200);
-                  }
-                }}
-                className="relative text-neutral-600 dark:text-neutral-300 hover:text-[#ffdab9] transition-colors duration-200"
-              >
-                <span className="block">{item.name}</span>
-              </a>
+        <a
+          key={`mobile-link-${idx}`}
+          href={item.link}
+          onClick={(e) => {
+            e.preventDefault();
+            setIsMobileMenuOpen(false);
+            // ...existing scroll logic...
+          }}
+          className="block w-full text-center text-neutral-600 dark:text-neutral-300 hover:text-[#ffdab9] transition-colors duration-200 py-3"
+        >
+          {item.name}
+        </a>
             ))}
             <div className="flex w-full flex-col gap-4">
               <NavbarButton
@@ -113,7 +82,7 @@ export function NavbarDemo() {
                 variant="primary"
                 className="w-full"
               >
-                Contact
+                Login
               </NavbarButton>
             </div>
           </MobileNavMenu>

@@ -21,7 +21,13 @@ export const ScrollReveal = ({
   distance = 60
 }: ScrollRevealProps) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  // CORRECTION : Ajout de options pour éviter le blocage du scroll
+  const isInView = useInView(ref, { 
+    once: true, 
+    margin: "-100px",
+    // IMPORTANT : Ces options évitent le blocage du scroll
+    amount: 0.3
+  });
 
   const directionOffsets = {
     up: { y: distance },
@@ -36,6 +42,8 @@ export const ScrollReveal = ({
     <motion.div
       ref={ref}
       className={className}
+      // CORRECTION : Ajout de style pour éviter l'interférence avec le scroll
+      style={{ pointerEvents: 'auto', touchAction: 'auto' }}
       initial={{
         opacity: 0,
         ...initialOffset
@@ -72,10 +80,18 @@ export const ScrollRevealStagger = ({
   initialDelay?: number;
 }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { 
+    once: true, 
+    margin: "-50px",
+    amount: 0.3
+  });
 
   return (
-    <div ref={ref} className={className}>
+    <div 
+      ref={ref} 
+      className={className}
+      style={{ pointerEvents: 'auto', touchAction: 'auto' }}
+    >
       {children.map((child, index) => (
         <motion.div
           key={index}
@@ -111,14 +127,19 @@ export const ScrollParallax = ({
   speed?: number;
 }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false });
+  const isInView = useInView(ref, { 
+    once: false,
+    amount: 0.3
+  });
 
   return (
     <motion.div
       ref={ref}
       className={className}
       style={{
-        transform: isInView ? `translateY(${speed * 50}px)` : "translateY(0px)"
+        transform: isInView ? `translateY(${speed * 50}px)` : "translateY(0px)",
+        pointerEvents: 'auto', 
+        touchAction: 'auto'
       }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >

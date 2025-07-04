@@ -155,8 +155,10 @@ export const Card = ({
 
   const handleClose = useCallback(() => {
     setOpen(false)
+    document.body.style.overflow = 'auto'
+    setIsModalOpen(false)
     onCardClose(index)
-  }, [onCardClose, index]);
+  }, [onCardClose, index, setIsModalOpen]);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -166,11 +168,12 @@ export const Card = ({
     }
 
     if (open) {
-      document.body.style.overflow = "hidden"
-      setIsModalOpen(true) // Update the modal state when opened
-    } else {
-      document.body.style.overflow = "auto"
-      setIsModalOpen(false) // Update the modal state when closed
+      document.body.style.overflow = 'hidden'
+      setIsModalOpen(true)
+      window.addEventListener("keydown", onKeyDown)
+      return () => {
+        window.removeEventListener("keydown", onKeyDown)
+      }
     }
 
     window.addEventListener("keydown", onKeyDown)

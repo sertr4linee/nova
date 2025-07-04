@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
-import { SmoothCursor } from "@/components/magicui/smooth-cursor";
 import { StagewiseToolbar } from "@stagewise/toolbar-next";
 import { ReactPlugin } from "@stagewise-plugins/react";
+import ClientComponents from "./client-components";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +22,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Sites Web Sur Mesure",
+  title: "nova",
   description: "Sites web sur-mesure pour créateurs indépendants et petites équipes",
   viewport: {
     width: 'device-width',
@@ -42,7 +42,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased overflow-x-hidden`}
       >
         {children}
-        <SmoothCursor />
+        {/* wrap cursor in responsive block to disable on small screens */}
+        <div className="hidden md:block">
+          <ClientComponents />
+        </div>
         <StagewiseToolbar
           config={{
             plugins: [ReactPlugin],

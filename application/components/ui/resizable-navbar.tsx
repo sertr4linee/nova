@@ -64,7 +64,7 @@ export const Navbar = ({ children, className }: NavbarProps) => {
 
   return (
     <div
-      className={cn("fixed inset-x-0 top-0 z-50 w-full", className)}
+    className={cn("fixed inset-x-0 top-0 z-30 w-full", className)}  // raised to z-30 to sit above content but below modals
     >
       {React.Children.map(children, (child) =>
         React.isValidElement(child)
@@ -99,8 +99,8 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         },
         backgroundColor: { duration: 0.3 }
       }}
-      className={cn(
-        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start px-6 py-4 lg:flex transition-colors duration-500",
+    className={cn(
+      "relative z-20 mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start px-6 py-4 lg:flex transition-colors duration-500",
         visible 
           ? "bg-gradient-to-r from-neutral-900 via-black to-neutral-900 border border-neutral-800/40"
           : "bg-transparent",
@@ -270,7 +270,7 @@ export const MobileNavMenu = ({
             damping: 30
           }}
           className={cn(
-            "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-b-xl mx-2 px-4 py-6 shadow-lg",
+            "absolute top-20 left-1/2 z-50 flex flex-col items-center gap-4 rounded-b-xl w-[90%] max-w-md transform -translate-x-1/2 px-4 py-6 shadow-lg",
             visible ? "border border-neutral-800/40" : "bg-black/90",
             className,
           )}

@@ -1,9 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { InteractiveGridPattern } from "../components/magicui/interactive-grid-pattern";
-import { AnimatedGridBeams } from "../components/magicui/animated-grid-beams-responsive";
-import { GridNodePulses } from "../components/magicui/grid-node-pulses-responsive";
-import { DataFlowParticles } from "../components/magicui/data-flow-particles-responsive";
+import { InteractiveGridPattern } from "../components/magicui/interactive-grid-pattern-fixed";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NavbarDemo } from "@/components/ui/navbar";
@@ -16,8 +13,8 @@ import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import AppleCardsCarouselDemo from "@/components/ui/apple-cards-carousel-demo-with-modal-context";
 import { FeaturesSectionDemo } from "@/components/ui/features";
 import Image from "next/image";
-import { ScrollProgress, ScrollToTop } from "@/components/ui/scroll-progress";
-import { ScrollReveal } from "@/components/ui/scroll-reveal";
+// import { ScrollProgress, ScrollToTop } from "@/components/ui/scroll-progress";
+// import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { ModalContext } from "@/contexts/ModalContext";
 import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 
@@ -82,83 +79,33 @@ export default function Home() {
   return (
     <ModalContext.Provider value={{ isModalOpen, setIsModalOpen }}>
       {/* Scroll Progress Bar */}
-      <ScrollProgress />
+      {/* <ScrollProgress /> */}
 
       {/* Scroll to Top Button */}
-      <ScrollToTop />
+      {/* <ScrollToTop /> */}
 
-      <div className="relative flex min-h-screen w-full flex-col bg-black text-white overflow-x-hidden">
+      <div
+        className="relative flex min-h-screen w-full flex-col bg-black text-white overflow-x-hidden overflow-y-auto"
+        style={{ touchAction: 'pan-y' }}
+      >
         <Spotlight className="hidden sm:block" />
-        {/* Fond interactif optimisé */}
-        <div className="absolute inset-0 z-0 overflow-hidden will-change-transform">
+        {/* Fond interactif optimisé - TEST INTERACTIVE GRID */}
+        <div className="absolute inset-0 z-0 overflow-hidden will-change-transform pointer-events-none">
           <InteractiveGridPattern
             className={cn(
-              "absolute inset-0 max-h-screen w-full opacity-50 sm:opacity-100"
+              "absolute inset-0 max-h-screen w-full opacity-30 sm:opacity-50"
             )}
             width={280}
             height={160}
             squaresClassName="stroke-white/10 hover:stroke-white/30"
             squares={[6, 8, 10, 12]}
           />
-          <div className="relative overflow-hidden will-change-transform" style={{ maxHeight: '100vh' }}>
-            <AnimatedGridBeams
-              className="z-[1] opacity-50 sm:opacity-80"
-              beamColor="#ffdab9"
-              beamCount={2}
-              columns={6}
-              rows={6}
-              gridWidth={1200}
-              gridHeight={600}
-              beamDuration={20}
-              breakpoints={{
-                sm: { beamCount: 3, columns: 8, rows: 8, gridWidth: 2000, gridHeight: 800 },
-                md: { beamCount: 4, columns: 10, rows: 10, gridWidth: 3000, gridHeight: 1000 }
-              }}
-            />
-            <div className="absolute bottom-0 w-full h-[100px] bg-gradient-to-t from-black to-transparent"></div>
-          </div>
-          <div className="relative overflow-hidden will-change-transform" style={{ maxHeight: '95vh' }}>
-            <GridNodePulses
-              className="z-[1] opacity-50 sm:opacity-90"
-              pulseColor="#ffdab9"
-              pulseCount={6}
-              columns={6}
-              rows={6}
-              gridWidth={1200}
-              gridHeight={600}
-              minSize={3}
-              maxSize={8}
-              connectionProbability={0.25}
-              breakpoints={{
-                sm: { pulseCount: 8, columns: 8, rows: 8, gridWidth: 1600, gridHeight: 800 },
-                md: { pulseCount: 12, columns: 10, rows: 12, gridWidth: 1920, gridHeight: 1000, minSize: 4, maxSize: 12, connectionProbability: 0.35 }
-              }}
-            />
-            <div className="absolute bottom-0 w-full h-[80px] bg-gradient-to-t from-black to-transparent"></div>
-          </div>
-          <div className="relative overflow-hidden will-change-transform" style={{ maxHeight: '90vh' }}>
-            <DataFlowParticles
-              className="z-[1] opacity-40 sm:opacity-90"
-              particleColor="#ffdab9"
-              particleCount={3}
-              columns={6}
-              rows={6}
-              gridWidth={1200}
-              gridHeight={600}
-              breakpoints={{
-                sm: { particleCount: 4, columns: 8, rows: 8, gridWidth: 1600, gridHeight: 700 },
-                md: { particleCount: 6, columns: 10, rows: 10, gridWidth: 1920, gridHeight: 900 }
-              }}
-            />        <div className="absolute bottom-0 w-full h-[120px] bg-gradient-to-t from-black to-transparent"></div>
-          </div>
-          {/* Effet de transition pour la grille avec bordure de clôture */}
-          <div className="absolute inset-x-0 bottom-0 h-[60vh] bg-gradient-to-t from-black via-black/95 to-transparent pointer-events-none">
-            <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#ffdab9]/30 to-transparent"></div>
-          </div>
         </div>
 
-        {/* NavbarDemo conditionnellement affiché */}
-        {!isModalOpen && <NavbarDemo />}
+        {/* NavbarDemo (hidden when modal is open) */}
+  <div className={`fixed top-0 left-0 w-full z-30 ${isModalOpen ? 'hidden' : ''}`}>
+          <NavbarDemo />
+        </div>
 
         {/* Hero Section */}
         <section id="hero" className="min-h-screen relative z-10 pt-12 md:pt-0">
@@ -200,7 +147,7 @@ export default function Home() {
                       animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
                       transition={{
                         duration: 0.3,
-                        delay: 0.3 + index * 0.1,
+                        delay: 0.1 + index * 0.05, // Reduced delay
                         ease: "easeInOut",
                       }}
                       className="mr-1 inline-block text-lg sm:text-2xl md:text-4xl lg:text-6xl"
@@ -230,7 +177,7 @@ export default function Home() {
                   }}
                   transition={{
                     duration: 0.3,
-                    delay: 0.8,
+                    delay: 0.2, // Reduced delay
                   }}
                   className="relative z-10 mx-auto mt-6 sm:mt-8 max-w-xl py-2 sm:py-4 text-center text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white dark:text-white font-montserrat px-2 sm:px-0"
                 >
@@ -246,7 +193,7 @@ export default function Home() {
                 }}
                 transition={{
                   duration: 0.3,
-                  delay: 1,
+                  delay: 0.3, // Reduced delay
                 }}
                 className="relative z-10 mx-auto italic text-xs sm:text-sm md:text-base lg:text-lg font-montserrat font-light px-3 sm:px-0 mb-6 sm:mb-8"
               >
@@ -269,7 +216,7 @@ export default function Home() {
                 }}
                 transition={{
                   duration: 0.3,
-                  delay: 1,
+                  delay: 0.4, // Reduced delay
                 }}
                 className="relative z-10 mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6 mb-10 sm:mb-16"
               >
@@ -289,7 +236,7 @@ export default function Home() {
                 }}
                 transition={{
                   duration: 0.3,
-                  delay: 1.1,
+                  delay: 0.5, // Reduced delay
                 }}
                 className="relative z-10 mt-12 sm:mt-16"
               >
@@ -313,8 +260,7 @@ export default function Home() {
 
 
         {/* Section des réalisations avec le carousel */}
-        <ScrollReveal>
-          <section id="realisations" className="relative bg-black overflow-hidden pt-8">
+        <section id="realisations" className="relative bg-black overflow-hidden pt-8">
             {/* Titre avec animations Magic UI */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -324,45 +270,39 @@ export default function Home() {
               className="container relative z-10 mx-auto text-center pt-4 pb-8"
             >
               <div className="mb-8">
-                <ScrollReveal delay={0.2}>
-                  <Badge className="mb-6 inline-block rounded-full bg-white/5 px-4 py-2 text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">
-                    Nos Réalisations ✨
-                  </Badge>
-                </ScrollReveal>
+                <Badge className="mb-6 inline-block rounded-full bg-white/5 px-4 py-2 text-sm font-montserrat font-medium text-white backdrop-blur-sm tracking-wider">
+                  Nos Réalisations ✨
+                </Badge>
 
-                <ScrollReveal delay={0.4}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-montserrat"
-                  >
-                    <TextGenerateEffect
-                      words="Découvrez nos réalisations"
-                      className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat"
-                      duration={0.8}
-                      textColor="text-white"
-                    />
-                  </motion.div>
-                </ScrollReveal>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-montserrat"
+                >
+                  <TextGenerateEffect
+                    words="Découvrez nos réalisations"
+                    className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat"
+                    duration={0.8}
+                    textColor="text-white"
+                  />
+                </motion.div>
 
-                <ScrollReveal delay={0.6}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                    className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto font-montserrat font-light px-4"
-                  >
-                    <TextGenerateEffect
-                      words="Des projets uniques conçus avec passion et expertise technique. Découvrez comment nous transformons les idées en expériences digitales exceptionnelles."
-                      className="text-lg md:text-xl font-montserrat font-light text-white/80"
-                      duration={0.6}
-                      textColor="text-white/80"
-                    />
-                  </motion.div>
-                </ScrollReveal>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                  className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto font-montserrat font-light px-4"
+                >
+                  <TextGenerateEffect
+                    words="Des projets uniques conçus avec passion et expertise technique. Découvrez comment nous transformons les idées en expériences digitales exceptionnelles."
+                    className="text-lg md:text-xl font-montserrat font-light text-white/80"
+                    duration={0.6}
+                    textColor="text-white/80"
+                  />
+                </motion.div>
               </div>
             </motion.div>
 
@@ -384,7 +324,7 @@ export default function Home() {
                       animate={true}
                       textColor="#ffdab9"
                     >
-                      25+
+                      7+
                     </GlowText>
                   </div>
                   <TextGenerateEffect
@@ -422,11 +362,11 @@ export default function Home() {
                       animate={true}
                       textColor="#ffdab9"
                     >
-                      3
+                      6
                     </GlowText>
                   </div>
                   <TextGenerateEffect
-                    words="Ans d&apos;expérience"
+                    words="Mois d&apos;expérience"
                     className="text-white/70 text-sm md:text-base font-montserrat"
                     duration={0.4}
                     textColor="text-white/70"
@@ -467,11 +407,9 @@ export default function Home() {
               <AppleCardsCarouselDemo />
             </motion.div>
           </section>
-        </ScrollReveal>
 
         {/* Section des fonctionnalités */}
-        <ScrollReveal delay={0.2}>
-          <section id="services" className="relative bg-black overflow-hidden py-20">
+        <section id="services" className="relative bg-black overflow-hidden py-20">
             <div className="container mx-auto px-4">
               <div className="text-center mb-20">
                 <Badge className="mb-8 inline-block rounded-full bg-white/5 px-4 py-2 text-sm font-montserrat font-medium text-white backdrop-blur-sm tracking-wider">
@@ -504,7 +442,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto font-montserrat font-light mt-6"
+                  className="text-lg md:text-xl text-white max-w-3xl mx-auto font-montserrat font-light mt-6"
                 >
                   Découvrez tous nos services et avantages pour créer le site web parfait pour votre entreprise
                 </motion.p>
@@ -512,7 +450,6 @@ export default function Home() {
               <FeaturesSectionDemo />
             </div>
           </section>
-        </ScrollReveal>
 
 
         {/* Ici vous pourrez ajouter vos sections supplémentaires */}
