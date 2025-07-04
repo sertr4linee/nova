@@ -81,7 +81,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     <CarouselContext.Provider value={{ onCardClose: handleCardClose, currentIndex }}>
       <div className="relative w-full">
         <div
-          className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth py-10 [scrollbar-width:none] md:py-20 scrolling-touch"
+          className="flex flex-nowrap w-full overflow-x-auto scroll-smooth py-10 [scrollbar-width:none] md:py-20 -mx-4 px-4 scrolling-touch"
           ref={carouselRef}
           onScroll={checkScrollability}
         >
@@ -89,8 +89,8 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 
           <div
             className={cn(
-              "flex flex-row justify-start gap-4 pl-4 pr-4",
-              "mx-auto max-w-full md:max-w-7xl", // full-width on mobile, constrained on larger screens
+              "flex flex-row justify-start gap-4",
+              "mx-auto max-w-full md:max-w-7xl",
             )}
           >
             {items.map((item, index) => (
