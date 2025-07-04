@@ -81,7 +81,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     <CarouselContext.Provider value={{ onCardClose: handleCardClose, currentIndex }}>
       <div className="relative w-full">
         <div
-          className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth py-10 [scrollbar-width:none] md:py-20"
+          className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth py-10 [scrollbar-width:none] md:py-20 scrolling-touch"
           ref={carouselRef}
           onScroll={checkScrollability}
         >
@@ -89,8 +89,8 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 
           <div
             className={cn(
-              "flex flex-row justify-start gap-4 pl-4",
-              "mx-auto max-w-7xl", // remove max-w-4xl if you want the carousel to span the full width of its container
+              "flex flex-row justify-start gap-4 pl-4 pr-4",
+              "mx-auto max-w-full md:max-w-7xl", // full-width on mobile, constrained on larger screens
             )}
           >
             {items.map((item, index) => (
@@ -223,7 +223,7 @@ export const Card = ({
       <motion.button
         layoutId={layout ? `card-${card.title}` : undefined}
         onClick={handleOpen}
-        className="relative z-10 flex h-80 w-56 flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 md:h-[40rem] md:w-96 dark:bg-neutral-900"
+        className="group relative z-10 flex h-80 w-56 flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 md:h-[40rem] md:w-96 dark:bg-neutral-900"
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-full bg-gradient-to-b from-black/50 via-transparent to-transparent" />
         <div className="relative z-40 p-8">
@@ -245,18 +245,17 @@ export const Card = ({
           alt={card.title} 
           width={1000}
           height={1000}
-          className="absolute inset-0 z-10 object-cover" />
+          className="absolute inset-0 z-10 object-cover"
+        />
       </motion.button>
     </>
   )
 }
 
 export const BlurImage = ({ height, width, src, className, alt, ...rest }: ImageProps) => {
-  const [isLoading, setLoading] = useState(true)
   return (
     <Image
-      className={cn("h-full w-full transition duration-300", isLoading ? "blur-sm" : "blur-0", className)}
-      onLoad={() => setLoading(false)}
+      className={cn("h-full w-full transition duration-300 blur-sm group-hover:blur-0", className)}
       src={(src as string) || "/placeholder.svg"}
       width={width}
       height={height}
