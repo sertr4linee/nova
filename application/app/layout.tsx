@@ -4,6 +4,7 @@ import "./globals.css";
 import { StagewiseToolbar } from "@stagewise/toolbar-next";
 import { ReactPlugin } from "@stagewise-plugins/react";
 import ClientComponents from "./client-components";
+import Footer from "@/components/ui/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,7 +52,10 @@ export default function RootLayout({
             plugins: [ReactPlugin],
           }}
         />
+        <Footer />
       </body>
     </html>
   );
 }
+
+

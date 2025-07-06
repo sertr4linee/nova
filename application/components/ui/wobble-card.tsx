@@ -7,10 +7,13 @@ export const WobbleCard = ({
   children,
   containerClassName,
   className,
+  noiseTintColor,
 }: {
   children: React.ReactNode;
   containerClassName?: string;
   className?: string;
+  /** optional tint color for noise overlay */
+  noiseTintColor?: string;
 }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
@@ -37,7 +40,7 @@ export const WobbleCard = ({
         transition: "transform 0.1s ease-out",
       }}
       className={cn(
-        "mx-auto w-full bg-indigo-800  relative rounded-2xl overflow-hidden",
+        "mx-auto w-full relative rounded-2xl overflow-hidden",
         containerClassName
       )}
     >
@@ -57,7 +60,7 @@ export const WobbleCard = ({
           }}
           className={cn("h-full px-4 py-20 sm:px-10", className)}
         >
-          <Noise />
+          <Noise tintColor={noiseTintColor} />
           {children}
         </motion.div>
       </div>
@@ -65,13 +68,17 @@ export const WobbleCard = ({
   );
 };
 
-const Noise = () => {
+// Noise overlay with optional tint
+type NoiseProps = { tintColor?: string };
+const Noise = ({ tintColor }: NoiseProps) => {
   return (
     <div
       className="absolute inset-0 w-full h-full scale-[1.2] transform opacity-10 [mask-image:radial-gradient(#fff,transparent,75%)]"
       style={{
-        backgroundImage: "url(/noise.webp)",
+        backgroundImage: "url(/noise.jpg)",
         backgroundSize: "30%",
+        backgroundColor: tintColor,
+        mixBlendMode: tintColor ? 'multiply' : undefined,
       }}
     ></div>
   );

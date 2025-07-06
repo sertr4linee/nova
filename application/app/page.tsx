@@ -12,6 +12,7 @@ import { GlowText } from "@/components/ui/glow-text";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import AppleCardsCarouselDemo from "@/components/ui/apple-cards-carousel-demo-with-modal-context";
 import { FeaturesSectionDemo } from "@/components/ui/features";
+import { WobbleCardDemo } from "@/components/ui/wobble-card-demo";
 import Image from "next/image";
 // import { ScrollProgress, ScrollToTop } from "@/components/ui/scroll-progress";
 // import { ScrollReveal } from "@/components/ui/scroll-reveal";
@@ -448,8 +449,18 @@ export default function Home() {
                 </motion.p>
               </div>
               <FeaturesSectionDemo />
-            </div>
-          </section>
+                </div>
+              </section>
+
+            {/* Section Wobble Cards */}
+            <section id="wobble" className="relative bg-black py-20">
+              <div className="container mx-auto px-4 transform scale-110 origin-center">
+                <h2 className="text-3xl text-white font-bold text-center mb-8">
+                  Wobble Card Showcase
+                </h2>
+                <WobbleCardDemo />
+              </div>
+            </section>
 
 
         {/* Ici vous pourrez ajouter vos sections supplémentaires */}
