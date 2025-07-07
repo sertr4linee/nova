@@ -232,7 +232,7 @@ export const MobileNavHeader = ({
   return (
     <div
       className={cn(
-        "flex w-full flex-row items-center justify-between px-4",
+  "flex w-[90%] max-w-md flex-row items-center justify-between px-4",
         className,
       )}
     >
@@ -270,7 +270,7 @@ export const MobileNavMenu = ({
             damping: 30
           }}
           className={cn(
-            "absolute top-20 left-1/2 z-50 flex flex-col items-center gap-4 rounded-b-xl w-[90%] max-w-md transform -translate-x-1/2 px-4 py-6 shadow-lg",
+            "absolute top-24 left-1/2 z-50 flex flex-col items-center gap-2 rounded-xl w-[80%] max-w-sm transform -translate-x-1/2 px-3 py-4 shadow-lg",
             visible ? "border border-neutral-800/40" : "bg-black/90",
             className,
           )}

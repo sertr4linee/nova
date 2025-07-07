@@ -22,7 +22,7 @@ import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 
 // Composant pour l'animation des mots alternants
 const AnimatedWords = () => {
-  const words = ["créateurs", "entrepreneurs", "freelances", "startups"];
+  const words = ["créateurs", "dirigeant", "freelances", "startups"];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -117,7 +117,7 @@ export default function Home() {
               </Badge>
               <div className="relative mb-8 sm:mb-12">
 
-                <h1 className="relative z-10 mx-auto max-w-6xl text-center text-lg sm:text-2xl md:text-4xl lg:text-6xl font-bold text-white dark:text-slate-300 font-montserrat whitespace-normal sm:whitespace-nowrap">
+                <h1 className="relative z-10 mx-auto max-w-6xl text-center text-base sm:text-xl md:text-3xl lg:text-5xl xl:text-6xl font-bold text-white dark:text-slate-300 font-montserrat whitespace-normal sm:whitespace-nowrap">
                   <div className="relative inline-block">
 
                     <motion.span
@@ -133,7 +133,7 @@ export default function Home() {
                       <GlowText
                         intensity="high"
                         glowColor="#ffdab9"
-                        className="font-bold tracking-wide text-lg sm:text-2xl md:text-4xl lg:text-6xl"
+                        className="font-bold tracking-wide text-base sm:text-xl md:text-3xl lg:text-5xl"
                         animate={true}
                         textColor="#ffffff"
                       >
@@ -151,7 +151,7 @@ export default function Home() {
                         delay: 0.1 + index * 0.05, // Reduced delay
                         ease: "easeInOut",
                       }}
-                      className="mr-1 inline-block text-lg sm:text-2xl md:text-4xl lg:text-6xl"
+                      className="mr-1 inline-block text-base sm:text-xl md:text-3xl lg:text-5xl"
                     >
                       {word}
                     </motion.span>
@@ -453,11 +453,9 @@ export default function Home() {
               </section>
 
             {/* Section Wobble Cards */}
-            <section id="wobble" className="relative bg-black py-20">
+            <section id="wobble" className="relative bg-black py-60">
               <div className="container mx-auto px-4 transform scale-110 origin-center">
-                <h2 className="text-3xl text-white font-bold text-center mb-8">
-                  Wobble Card Showcase
-                </h2>
+                
                 <WobbleCardDemo />
               </div>
             </section>
