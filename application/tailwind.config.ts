@@ -12,6 +12,7 @@ const config: Config = {
         spotlight: "spotlight 2s ease .75s 1 forwards",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         glow: "glow 2s ease-in-out infinite alternate",
+        grid: "grid 15s linear infinite",
       },
       keyframes: {
         spotlight: {
@@ -32,6 +33,14 @@ const config: Config = {
           "100%": {
             textShadow: "0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor",
             filter: "brightness(1.2)",
+          },
+        },
+        grid: {
+          "0%": {
+            transform: "translateY(0)",
+          },
+          "100%": {
+            transform: "translateY(-60px)",
           },
         },
       },
