@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import type { ImageProps } from "next/image"
 import { useOutsideClick } from "@/hooks/use-outside-click"
 import { ModalContext } from "@/contexts/ModalContext"
+import { RetroGrid } from "./retro-grid"
 import Image from "next/image"
 
 interface CarouselProps {
@@ -120,18 +121,18 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
         </div>
         <div className="mr-10 flex justify-end gap-2">
           <button
-            className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+            className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-[#ffdab9]/20 border border-[#ffdab9]/30 backdrop-blur-sm hover:bg-[#ffdab9]/30 transition-all duration-300 disabled:opacity-50"
             onClick={scrollLeft}
             disabled={!canScrollLeft}
           >
-            <IconArrowNarrowLeft className="h-6 w-6 text-gray-500" />
+            <IconArrowNarrowLeft className="h-6 w-6 text-[#ffdab9]" />
           </button>
           <button
-            className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+            className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-[#ffdab9]/20 border border-[#ffdab9]/30 backdrop-blur-sm hover:bg-[#ffdab9]/30 transition-all duration-300 disabled:opacity-50"
             onClick={scrollRight}
             disabled={!canScrollRight}
           >
-            <IconArrowNarrowRight className="h-6 w-6 text-gray-500" />
+            <IconArrowNarrowRight className="h-6 w-6 text-[#ffdab9]" />
           </button>
         </div>
       </div>
@@ -191,39 +192,62 @@ export const Card = ({
       <AnimatePresence>
         {open && (
           <div className="fixed inset-0 z-50 h-screen overflow-auto">
+            {/* Background with Nova styling */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 h-full w-full bg-black/80 backdrop-blur-lg"
-            />
+              className="fixed inset-0 h-full w-full bg-gradient-to-br from-black via-black to-neutral-900"
+            >
+              {/* Retro Grid Background */}
+              <RetroGrid 
+                angle={75}
+                cellSize={60}
+                opacity={0.05}
+                darkLineColor="#ffdab9"
+                className="absolute inset-0"
+              />
+              
+              {/* Noise texture */}
+              <div className="absolute inset-0 bg-[url('/noise.jpg')] opacity-5 mix-blend-overlay"></div>
+              
+              {/* Background blur */}
+              <div className="absolute inset-0 backdrop-blur-sm"></div>
+            </motion.div>
+
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, y: 100, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 100, scale: 0.9 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
               ref={containerRef}
               layoutId={layout ? `card-${card.title}` : undefined}
-              className="relative z-[60] mx-4 sm:mx-auto my-6 md:my-10 h-fit max-w-5xl rounded-xl sm:rounded-3xl bg-white p-3 sm:p-4 md:p-10 font-sans dark:bg-neutral-900"
+              className="relative z-[60] mx-2 sm:mx-4 lg:mx-auto my-2 sm:my-4 md:my-6 lg:my-10 h-fit w-[calc(100vw-1rem)] sm:w-[calc(100vw-2rem)] lg:w-full max-w-7xl rounded-xl sm:rounded-2xl bg-gradient-to-br from-neutral-800/95 via-neutral-900/95 to-black/95 backdrop-blur-xl border border-[#ffdab9]/30 shadow-2xl shadow-[#ffdab9]/20 max-h-[95vh] overflow-auto"
             >
               <button
-                className="sticky top-2 sm:top-4 right-0 ml-auto flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-black dark:bg-white"
+                className="absolute top-2 sm:top-4 right-2 sm:right-4 z-[70] flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-black/70 border border-[#ffdab9]/40 backdrop-blur-sm hover:bg-[#ffdab9]/20 transition-all duration-300 group"
                 onClick={handleClose}
               >
-                <IconX className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-neutral-100 dark:text-neutral-900" />
+                <IconX className="h-4 w-4 sm:h-5 sm:w-5 text-[#ffcba4] group-hover:text-[#ffdab9] transition-colors" />
               </button>
-              <motion.p
-                layoutId={layout ? `category-${card.title}` : undefined}
-                className="text-sm sm:text-base font-medium text-black dark:text-white"
-              >
-                {card.category}
-              </motion.p>
-              <motion.p
-                layoutId={layout ? `title-${card.title}` : undefined}
-                className="mt-2 sm:mt-4 text-xl sm:text-2xl md:text-4xl lg:text-5xl font-semibold text-neutral-700 dark:text-white"
-              >
-                {card.title}
-              </motion.p>
-              <div className="py-4 sm:py-6 md:py-10">{card.content}</div>
+
+              <div className="p-3 sm:p-4 md:p-6 lg:p-8 xl:p-10">
+                <motion.div
+                  layoutId={layout ? `category-${card.title}` : undefined}
+                  className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full bg-[#ffdab9]/15 border border-[#ffdab9]/30 mb-3 sm:mb-4"
+                >
+                  <span className="text-xs sm:text-sm font-medium text-[#ffdab9]">{card.category}</span>
+                </motion.div>
+
+                <motion.h1
+                  layoutId={layout ? `title-${card.title}` : undefined}
+                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#ffcba4] mb-4 sm:mb-6 leading-tight"
+                >
+                  {card.title}
+                </motion.h1>
+
+                <div className="text-[#f4a460]/90 text-sm sm:text-base overflow-auto">{card.content}</div>
+              </div>
             </motion.div>
           </div>
         )}
@@ -231,19 +255,19 @@ export const Card = ({
       <motion.button
         layoutId={layout ? `card-${card.title}` : undefined}
         onClick={handleOpen}
-        className="relative z-10 flex h-80 w-56 flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 md:h-[40rem] md:w-96 dark:bg-neutral-900"
+        className="group relative z-10 flex h-64 w-48 sm:h-80 sm:w-56 md:h-[40rem] md:w-96 flex-col items-start justify-start overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-neutral-800 via-neutral-900 to-black border border-neutral-700 hover:border-[#ffdab9]/50 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-[#ffdab9]/30"
       >
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-full bg-gradient-to-b from-black/50 via-transparent to-transparent" />
-        <div className="relative z-40 p-8">
-          <motion.p
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-full bg-gradient-to-b from-black/70 via-transparent to-black/90" />
+        <div className="relative z-40 p-3 sm:p-4 md:p-6 lg:p-8">
+          <motion.div
             layoutId={layout ? `category-${card.category}` : undefined}
-            className="text-left font-sans text-sm font-medium text-white md:text-base"
+            className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full bg-[#ffdab9]/15 border border-[#ffdab9]/30 mb-2 sm:mb-4"
           >
-            {card.category}
-          </motion.p>
+            <span className="text-xs sm:text-sm font-medium text-[#ffdab9]">{card.category}</span>
+          </motion.div>
           <motion.p
             layoutId={layout ? `title-${card.title}` : undefined}
-            className="mt-2 max-w-xs text-left font-sans text-xl font-semibold [text-wrap:balance] text-white md:text-3xl"
+            className="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold text-[#ffcba4] group-hover:text-[#ffdab9] transition-colors duration-300 leading-tight"
           >
             {card.title}
           </motion.p>
@@ -253,7 +277,7 @@ export const Card = ({
           alt={card.title} 
           width={1000}
           height={1000}
-          className="absolute inset-0 z-10 object-cover" />
+          className="absolute inset-0 z-10 object-cover group-hover:scale-110 transition-transform duration-700" />
       </motion.button>
     </>
   )
@@ -263,14 +287,14 @@ export const BlurImage = ({ height, width, src, className, alt, ...rest }: Image
   const [isLoading, setLoading] = useState(true)
   return (
     <Image
-      className={cn("h-full w-full transition duration-300", isLoading ? "blur-sm" : "blur-0", className)}
+      className={cn("h-full w-full transition duration-500", isLoading ? "blur-sm" : "blur-0", className)}
       onLoad={() => setLoading(false)}
       src={(src as string) || "/placeholder.svg"}
       width={width}
       height={height}
       loading="lazy"
       decoding="async"
-      alt={alt ? alt : "Background of a beautiful view"}
+      alt={alt ? alt : "Nova project preview"}
       {...rest}
     />
   )
