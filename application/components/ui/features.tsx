@@ -59,7 +59,7 @@ export function FeaturesSectionDemo() {
     },
   ];
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  relative z-10 py-10 max-w-7xl mx-auto">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 relative z-10 py-6 sm:py-10 max-w-7xl mx-auto px-2 sm:px-4">
       {features.map((feature, index) => (
         <Feature key={feature.title} {...feature} index={index} />
       ))}
@@ -81,9 +81,12 @@ const Feature = ({
   return (
     <div
       className={cn(
-        "flex flex-col lg:border-r py-10 relative group/feature border-white/10",
+        "flex flex-col sm:border-r lg:border-r py-6 sm:py-8 lg:py-10 relative group/feature border-white/10",
         (index === 0 || index === 4) && "lg:border-l border-white/10",
-        index < 4 && "lg:border-b border-white/10"
+        (index % 2 === 0) && "sm:border-l lg:border-l-0",
+        index < 4 && "lg:border-b border-white/10",
+        index < 6 && "sm:border-b lg:border-b-0",
+        index >= 6 && "sm:border-b-0"
       )}
     >
       {index < 4 && (
@@ -92,16 +95,16 @@ const Feature = ({
       {index >= 4 && (
         <div className="opacity-0 group-hover/feature:opacity-100 transition duration-300 absolute inset-0 h-full w-full bg-gradient-to-b from-[#ffdab9]/5 to-transparent pointer-events-none" />
       )}
-      <div className="mb-4 relative z-10 px-10 text-[#ffdab9] group-hover/feature:text-[#ffdab9] transition-colors duration-300">
+      <div className="mb-3 sm:mb-4 relative z-10 px-4 sm:px-6 lg:px-10 text-[#ffdab9] group-hover/feature:text-[#ffdab9] transition-colors duration-300">
         {icon}
       </div>
-      <div className="text-lg font-bold mb-2 relative z-10 px-10">
-        <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-white/20 group-hover/feature:bg-[#ffdab9] transition-all duration-300 origin-center" />
+      <div className="text-base sm:text-lg font-bold mb-1 sm:mb-2 relative z-10 px-4 sm:px-6 lg:px-10">
+        <div className="absolute left-0 inset-y-0 h-5 sm:h-6 group-hover/feature:h-7 sm:group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-white/20 group-hover/feature:bg-[#ffdab9] transition-all duration-300 origin-center" />
         <span className="group-hover/feature:translate-x-2 transition duration-300 inline-block text-white group-hover/feature:text-[#ffdab9] font-montserrat">
           {title}
         </span>
       </div>
-      <p className="text-sm text-white/70 group-hover/feature:text-white/90 max-w-xs relative z-10 px-10 transition-colors duration-300 font-montserrat">
+      <p className="text-xs sm:text-sm text-white/70 group-hover/feature:text-white/90 max-w-xs relative z-10 px-4 sm:px-6 lg:px-10 transition-colors duration-300 font-montserrat">
         {description}
       </p>
     </div>

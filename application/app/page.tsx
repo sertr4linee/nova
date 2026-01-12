@@ -65,7 +65,8 @@ const AnimatedWords = () => {
         <PointerHighlight
           rectangleClassName="bg-black/10 dark:bg-neutral-800/30 border-[#ffdab9]/30 dark:border-[#ffdab9]/30"
           pointerClassName="text-[#ffdab9]"
-        >                          <span className="relative z-10 px-1 sm:px-2 py-0.5 sm:py-1 text-[#ffdab9] font-montserrat text-lg sm:text-2xl md:text-4xl lg:text-6xl">
+        >
+          <span className="relative z-10 px-1 sm:px-2 py-0.5 sm:py-1 text-[#ffdab9] font-montserrat text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
             {words[currentIndex]}
           </span>
         </PointerHighlight>
@@ -117,7 +118,7 @@ export default function Home() {
               </Badge>
               <div className="relative mb-8 sm:mb-12">
 
-                <h1 className="relative z-10 mx-auto max-w-6xl text-center text-base sm:text-xl md:text-3xl lg:text-5xl xl:text-6xl font-bold text-white dark:text-slate-300 font-montserrat whitespace-normal sm:whitespace-nowrap">
+                <h1 className="relative z-10 mx-auto max-w-6xl text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white dark:text-slate-300 font-montserrat">
                   <div className="relative inline-block">
 
                     <motion.span
@@ -133,7 +134,7 @@ export default function Home() {
                       <GlowText
                         intensity="high"
                         glowColor="#ffdab9"
-                        className="font-bold tracking-wide text-base sm:text-xl md:text-3xl lg:text-5xl"
+                        className="font-bold tracking-wide text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
                         animate={true}
                         textColor="#ffffff"
                       >
@@ -151,7 +152,7 @@ export default function Home() {
                         delay: 0.1 + index * 0.05, // Reduced delay
                         ease: "easeInOut",
                       }}
-                      className="mr-1 inline-block text-base sm:text-xl md:text-3xl lg:text-5xl"
+                      className="mr-1 inline-block text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
                     >
                       {word}
                     </motion.span>
@@ -241,7 +242,7 @@ export default function Home() {
                 }}
                 className="relative z-10 mt-12 sm:mt-16"
               >
-                <div className="h-[20rem] sm:h-[30rem] md:h-[40rem] lg:h-[52rem] w-full relative">
+                <div className="h-[18rem] sm:h-[28rem] md:h-[36rem] lg:h-[48rem] w-full relative">
                   <ContainerScroll titleComponent={" "}>
                     <Image
                       src="/dashboard.png"
@@ -280,11 +281,11 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-montserrat"
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 font-montserrat px-4"
                 >
                   <TextGenerateEffect
                     words="Découvrez nos réalisations"
-                    className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat"
+                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-montserrat"
                     duration={0.8}
                     textColor="text-white"
                   />
@@ -295,11 +296,11 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.6 }}
-                  className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto font-montserrat font-light px-4"
+                  className="text-sm sm:text-base md:text-lg lg:text-xl text-white/80 max-w-3xl mx-auto font-montserrat font-light px-4"
                 >
                   <TextGenerateEffect
                     words="Des projets uniques conçus avec passion et expertise technique. Découvrez comment nous transformons les idées en expériences digitales exceptionnelles."
-                    className="text-lg md:text-xl font-montserrat font-light text-white/80"
+                    className="text-sm sm:text-base md:text-lg lg:text-xl font-montserrat font-light text-white/80"
                     duration={0.6}
                     textColor="text-white/80"
                   />
@@ -315,9 +316,9 @@ export default function Home() {
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
               className="container relative z-10 mx-auto px-4 pb-16"
             >
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto px-4">
+                <div className="text-center p-2 sm:p-4">
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ffdab9] mb-1 sm:mb-2 font-montserrat">
                     <GlowText
                       intensity="medium"
                       glowColor="#ffdab9"
@@ -330,13 +331,13 @@ export default function Home() {
                   </div>
                   <TextGenerateEffect
                     words="Projets réalisés"
-                    className="text-white/70 text-sm md:text-base font-montserrat"
+                    className="text-white/70 text-xs sm:text-sm md:text-base font-montserrat"
                     duration={0.4}
                     textColor="text-white/70"
                   />
                 </div>
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
+                <div className="text-center p-2 sm:p-4">
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ffdab9] mb-1 sm:mb-2 font-montserrat">
                     <GlowText
                       intensity="medium"
                       glowColor="#ffdab9"
@@ -349,13 +350,13 @@ export default function Home() {
                   </div>
                   <TextGenerateEffect
                     words="Satisfaction client"
-                    className="text-white/70 text-sm md:text-base font-montserrat"
+                    className="text-white/70 text-xs sm:text-sm md:text-base font-montserrat"
                     duration={0.4}
                     textColor="text-white/70"
                   />
                 </div>
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
+                <div className="text-center p-2 sm:p-4">
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ffdab9] mb-1 sm:mb-2 font-montserrat">
                     <GlowText
                       intensity="medium"
                       glowColor="#ffdab9"
@@ -367,14 +368,14 @@ export default function Home() {
                     </GlowText>
                   </div>
                   <TextGenerateEffect
-                    words="Mois d&apos;expérience"
-                    className="text-white/70 text-sm md:text-base font-montserrat"
+                    words="Mois d'expérience"
+                    className="text-white/70 text-xs sm:text-sm md:text-base font-montserrat"
                     duration={0.4}
                     textColor="text-white/70"
                   />
                 </div>
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
+                <div className="text-center p-2 sm:p-4">
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ffdab9] mb-1 sm:mb-2 font-montserrat">
                     <GlowText
                       intensity="medium"
                       glowColor="#ffdab9"
@@ -387,7 +388,7 @@ export default function Home() {
                   </div>
                   <TextGenerateEffect
                     words="Support réactif"
-                    className="text-white/70 text-sm md:text-base font-montserrat"
+                    className="text-white/70 text-xs sm:text-sm md:text-base font-montserrat"
                     duration={0.4}
                     textColor="text-white/70"
                   />
@@ -430,7 +431,7 @@ export default function Home() {
                       duration: 0.5,
                       ease: [0.4, 0.0, 0.2, 1],
                     }}
-                    className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto font-montserrat"
+                    className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto font-montserrat px-2"
                   >
                     Pourquoi nous choisir pour votre{" "}
                     <Highlight className="text-white">
@@ -443,7 +444,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="text-lg md:text-xl text-white max-w-3xl mx-auto font-montserrat font-light mt-6"
+                  className="text-sm sm:text-base md:text-lg lg:text-xl text-white max-w-3xl mx-auto font-montserrat font-light mt-4 sm:mt-6 px-4"
                 >
                   Découvrez tous nos services et avantages pour créer le site web parfait pour votre entreprise
                 </motion.p>

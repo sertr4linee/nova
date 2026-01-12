@@ -244,20 +244,20 @@ export function PricingConfigurator() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: category === "base" ? 0 : category === "feature" ? 0.1 : 0.2 }}
-        className="mb-12"
+        className="mb-8 sm:mb-10 md:mb-12"
       >
-        <div className="mb-6">
-          <h3 className="text-2xl font-bold text-white font-montserrat mb-2">
+        <div className="mb-4 sm:mb-6">
+          <h3 className="text-xl sm:text-2xl font-bold text-white font-montserrat mb-1.5 sm:mb-2">
             {categoryLabels[category]}
           </h3>
-          <p className="text-white/60 font-montserrat">
+          <p className="text-sm sm:text-base text-white/60 font-montserrat">
             {categoryDescriptions[category]}
           </p>
         </div>
 
         <div className={cn(
-          "grid gap-4",
-          category === "base" ? "grid-cols-1 md:grid-cols-3" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+          "grid gap-3 sm:gap-4",
+          category === "base" ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
         )}>
           {categoryServices.map((service) => {
             const selected = isSelected(service.id, category);
@@ -268,28 +268,28 @@ export function PricingConfigurator() {
                 layout
                 onClick={() => handleSelect(service.id, category)}
                 className={cn(
-                  "relative cursor-pointer rounded-2xl p-6 transition-all duration-300",
+                  "relative cursor-pointer rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 transition-all duration-300",
                   "border-2",
                   selected
                     ? "border-[#ffdab9] bg-[#ffdab9]/10"
                     : "border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10",
-                  category === "base" && "min-h-[180px]"
+                  category === "base" && "min-h-[140px] sm:min-h-[160px] md:min-h-[180px]"
                 )}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 {service.popular && (
-                  <div className="absolute -top-3 left-4">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#ffdab9] px-3 py-1 text-xs font-medium text-black">
-                      <Sparkles className="w-3 h-3" />
+                  <div className="absolute -top-2.5 sm:-top-3 left-3 sm:left-4">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#ffdab9] px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium text-black">
+                      <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                       Populaire
                     </span>
                   </div>
                 )}
 
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex items-start justify-between mb-3 sm:mb-4">
                   <div className={cn(
-                    "p-3 rounded-xl transition-colors duration-300",
+                    "p-2 sm:p-3 rounded-lg sm:rounded-xl transition-colors duration-300",
                     selected ? "bg-[#ffdab9]/20 text-[#ffdab9]" : "bg-white/10 text-white/70"
                   )}>
                     {service.icon}
@@ -301,34 +301,34 @@ export function PricingConfigurator() {
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0, opacity: 0 }}
-                        className="p-2 rounded-full bg-[#ffdab9]"
+                        className="p-1.5 sm:p-2 rounded-full bg-[#ffdab9]"
                       >
-                        <Check className="w-4 h-4 text-black" />
+                        <Check className="w-3 h-3 sm:w-4 sm:h-4 text-black" />
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
 
                 <h4 className={cn(
-                  "text-lg font-semibold font-montserrat mb-2 transition-colors duration-300",
+                  "text-base sm:text-lg font-semibold font-montserrat mb-1.5 sm:mb-2 transition-colors duration-300",
                   selected ? "text-[#ffdab9]" : "text-white"
                 )}>
                   {service.name}
                 </h4>
 
-                <p className="text-sm text-white/60 font-montserrat mb-4">
+                <p className="text-xs sm:text-sm text-white/60 font-montserrat mb-3 sm:mb-4">
                   {service.description}
                 </p>
 
                 <div className="flex items-baseline gap-1">
                   <span className={cn(
-                    "text-2xl font-bold font-montserrat transition-colors duration-300",
+                    "text-xl sm:text-2xl font-bold font-montserrat transition-colors duration-300",
                     selected ? "text-[#ffdab9]" : "text-white"
                   )}>
                     {service.price}€
                   </span>
                   {service.id === "maintenance" && (
-                    <span className="text-sm text-white/50">/mois</span>
+                    <span className="text-xs sm:text-sm text-white/50">/mois</span>
                   )}
                 </div>
               </motion.div>

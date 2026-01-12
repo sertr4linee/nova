@@ -157,25 +157,25 @@ export default function ContactPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative z-10 pt-32 pb-12 px-4">
+      <section className="relative z-10 pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-10 md:pb-12 px-3 sm:px-4">
         <div className="container mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Badge className="mb-8 inline-block rounded-full bg-white/5 px-4 py-2 text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">
-              <MessageSquare className="w-4 h-4 inline mr-2" />
+            <Badge className="mb-4 sm:mb-6 md:mb-8 inline-block rounded-full bg-white/5 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">
+              <MessageSquare className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1.5 sm:mr-2" />
               Contactez-nous
             </Badge>
           </motion.div>
 
-          <HeroHighlight containerClassName="h-auto py-8">
+          <HeroHighlight containerClassName="h-auto py-4 sm:py-6 md:py-8">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ duration: 0.5, ease: [0.4, 0.0, 0.2, 1] }}
-              className="text-3xl md:text-5xl lg:text-6xl font-bold text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto font-montserrat"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto font-montserrat px-2"
             >
               Parlons de votre{" "}
               <Highlight className="text-white">
@@ -188,7 +188,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-6 text-lg md:text-xl font-montserrat font-light text-white/70 max-w-2xl mx-auto"
+            className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg lg:text-xl font-montserrat font-light text-white/70 max-w-2xl mx-auto px-2"
           >
             Une idée, un projet, une question ? Nous sommes là pour vous accompagner.
             Réponse garantie sous 24h.
@@ -197,19 +197,19 @@ export default function ContactPage() {
       </section>
 
       {/* Main Content */}
-      <section className="relative z-10 py-12 px-4">
+      <section className="relative z-10 py-8 sm:py-10 md:py-12 px-3 sm:px-4">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid lg:grid-cols-5 gap-12">
+          <div className="grid lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-12">
 
             {/* Contact Info Sidebar */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="lg:col-span-2 space-y-8"
+              className="lg:col-span-2 space-y-6 sm:space-y-8"
             >
               {/* Contact Cards */}
-              <div className="space-y-4">
+              <div className="grid grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4">
                 {contactInfo.map((item, index) => (
                   <motion.div
                     key={index}
@@ -220,24 +220,24 @@ export default function ContactPage() {
                     {item.href ? (
                       <a
                         href={item.href}
-                        className="flex items-center gap-4 p-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:border-[#ffdab9]/30 hover:bg-white/10 transition-all duration-300 group"
+                        className="flex items-center gap-2 sm:gap-4 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:border-[#ffdab9]/30 hover:bg-white/10 transition-all duration-300 group"
                       >
-                        <div className="p-3 rounded-xl bg-[#ffdab9]/10 text-[#ffdab9] group-hover:bg-[#ffdab9]/20 transition-colors">
+                        <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-[#ffdab9]/10 text-[#ffdab9] group-hover:bg-[#ffdab9]/20 transition-colors shrink-0">
                           {item.icon}
                         </div>
-                        <div>
-                          <p className="text-sm text-white/50 font-montserrat">{item.label}</p>
-                          <p className="text-white font-montserrat font-medium">{item.value}</p>
+                        <div className="min-w-0">
+                          <p className="text-xs sm:text-sm text-white/50 font-montserrat">{item.label}</p>
+                          <p className="text-sm sm:text-base text-white font-montserrat font-medium truncate">{item.value}</p>
                         </div>
                       </a>
                     ) : (
-                      <div className="flex items-center gap-4 p-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
-                        <div className="p-3 rounded-xl bg-[#ffdab9]/10 text-[#ffdab9]">
+                      <div className="flex items-center gap-2 sm:gap-4 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
+                        <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-[#ffdab9]/10 text-[#ffdab9] shrink-0">
                           {item.icon}
                         </div>
-                        <div>
-                          <p className="text-sm text-white/50 font-montserrat">{item.label}</p>
-                          <p className="text-white font-montserrat font-medium">{item.value}</p>
+                        <div className="min-w-0">
+                          <p className="text-xs sm:text-sm text-white/50 font-montserrat">{item.label}</p>
+                          <p className="text-sm sm:text-base text-white font-montserrat font-medium truncate">{item.value}</p>
                         </div>
                       </div>
                     )}
@@ -250,23 +250,23 @@ export default function ContactPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
-                className="p-6 rounded-2xl border border-[#ffdab9]/20 bg-gradient-to-br from-[#ffdab9]/10 to-transparent"
+                className="p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl border border-[#ffdab9]/20 bg-gradient-to-br from-[#ffdab9]/10 to-transparent"
               >
-                <div className="flex items-center gap-2 mb-4">
-                  <Sparkles className="w-5 h-5 text-[#ffdab9]" />
-                  <h3 className="text-lg font-semibold text-white font-montserrat">
+                <div className="flex items-center gap-2 mb-3 sm:mb-4">
+                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#ffdab9]" />
+                  <h3 className="text-base sm:text-lg font-semibold text-white font-montserrat">
                     Pourquoi nous choisir ?
                   </h3>
                 </div>
-                <ul className="space-y-3">
+                <ul className="space-y-2 sm:space-y-3">
                   {[
                     "Réponse sous 24h garantie",
                     "Devis gratuit et sans engagement",
                     "Accompagnement personnalisé",
                     "Technologies modernes"
                   ].map((item, index) => (
-                    <li key={index} className="flex items-center gap-2 text-white/70 font-montserrat text-sm">
-                      <Check className="w-4 h-4 text-[#ffdab9]" />
+                    <li key={index} className="flex items-center gap-2 text-white/70 font-montserrat text-xs sm:text-sm">
+                      <Check className="w-3 h-3 sm:w-4 sm:h-4 text-[#ffdab9] shrink-0" />
                       {item}
                     </li>
                   ))}
@@ -281,7 +281,7 @@ export default function ContactPage() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="lg:col-span-3"
             >
-              <div className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm">
+              <div className="p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm">
                 {/* Pricing Selection Summary */}
                 {pricingSelection && !isSubmitted && (
                   <motion.div
