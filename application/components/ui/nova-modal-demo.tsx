@@ -7,7 +7,7 @@ const projects = [
     src: "/dashboard.png",
     title: "E-commerce Luxe",
     category: "Développement Web",
-    description: "Création d'une plateforme e-commerce haut de gamme avec une expérience utilisateur exceptionnelle et des performances optimisées.",
+    description: "Création d&#39;une plateforme e-commerce haut de gamme avec une expérience utilisateur exceptionnelle et des performances optimisées.",
     techStack: ["Next.js", "TypeScript", "Stripe", "Tailwind CSS", "Framer Motion"],
     projectUrl: "https://exemple-ecommerce.com",
     duration: "3 mois",
@@ -49,7 +49,7 @@ const projects = [
     src: "/code.png",
     title: "Application SaaS",
     category: "Application Web",
-    description: "Développement d'une application SaaS complète avec tableau de bord analytique et gestion d'équipe intégrée.",
+    description: "Développement d&#39;une application SaaS complète avec tableau de bord analytique et gestion d&#39;équipe intégrée.",
     techStack: ["React", "Node.js", "PostgreSQL", "Docker", "AWS"],
     projectUrl: "https://exemple-saas.com",
     duration: "6 mois",
@@ -70,7 +70,7 @@ const projects = [
           <h3 className="text-xl font-semibold mb-3 text-[#ffdab9]">Fonctionnalités</h3>
           <ul className="space-y-2 text-white/80">
             <li>• Dashboard analytics en temps réel</li>
-            <li>• Gestion d'équipes et permissions</li>
+            <li>• Gestion d&#39;équipes et permissions</li>
             <li>• API REST complète</li>
             <li>• Intégrations tierces</li>
           </ul>
@@ -82,7 +82,7 @@ const projects = [
     src: "/linear.webp",
     title: "Identité Visuelle",
     category: "Branding",
-    description: "Création complète d'une identité visuelle moderne pour une startup tech, incluant logo, charte graphique et supports.",
+    description: "Création complète d&#39;une identité visuelle moderne pour une startup tech, incluant logo, charte graphique et supports.",
     techStack: ["Figma", "Adobe Illustrator", "Adobe Photoshop"],
     duration: "2 mois",
     location: "Lyon, France",
@@ -92,7 +92,7 @@ const projects = [
         <div>
           <h3 className="text-xl font-semibold mb-3 text-[#ffdab9]">Concept créatif</h3>
           <p className="text-white/80">
-            L'identité visuelle s'inspire des codes de l'innovation technologique 
+            L&#39;identité visuelle s&#39;inspire des codes de l&#39;innovation technologique 
             tout en conservant une approche humaine et accessible. Les formes 
             géométriques épurées reflètent la précision et la modernité.
           </p>
@@ -104,7 +104,7 @@ const projects = [
             <li>• Logo et déclinaisons</li>
             <li>• Charte graphique complète</li>
             <li>• Supports de communication</li>
-            <li>• Guidelines d'utilisation</li>
+            <li>• Guidelines d&#39;utilisation</li>
           </ul>
         </div>
       </div>
@@ -114,7 +114,7 @@ const projects = [
     src: "/dashboard.png",
     title: "Site Vitrine Premium",
     category: "Site Vitrine",
-    description: "Site vitrine haut de gamme avec animations sur mesure et optimisation SEO avancée pour une agence d'architecture.",
+    description: "Site vitrine haut de gamme avec animations sur mesure et optimisation SEO avancée pour une agence d&#39;architecture.",
     techStack: ["Next.js", "Framer Motion", "Tailwind CSS", "Sanity CMS"],
     projectUrl: "https://exemple-vitrine.com",
     duration: "2 mois",
@@ -127,7 +127,7 @@ const projects = [
           <p className="text-white/80">
             Design minimaliste mettant en valeur les projets architecturaux 
             avec des animations fluides et une navigation intuitive. 
-            L'expérience utilisateur a été pensée pour convertir les visiteurs en prospects.
+            L&#39;expérience utilisateur a été pensée pour convertir les visiteurs en prospects.
           </p>
         </div>
       </div>

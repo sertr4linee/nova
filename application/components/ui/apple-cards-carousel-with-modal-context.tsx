@@ -7,7 +7,6 @@ import { AnimatePresence, motion } from "framer-motion"
 import type { ImageProps } from "next/image"
 import { useOutsideClick } from "@/hooks/use-outside-click"
 import { ModalContext } from "@/contexts/ModalContext"
-import { RetroGrid } from "./retro-grid"
 import Image from "next/image"
 
 interface CarouselProps {
@@ -191,62 +190,70 @@ export const Card = ({
     <>
       <AnimatePresence>
         {open && (
-          <div className="fixed inset-0 z-50 h-screen overflow-auto">
-            {/* Background with Nova styling */}
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8">
+            {/* Backdrop - solid background to hide content */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 h-full w-full bg-gradient-to-br from-black via-black to-neutral-900"
-            >
-              {/* Retro Grid Background */}
-              <RetroGrid 
-                angle={75}
-                cellSize={60}
-                opacity={0.05}
-                darkLineColor="#ffdab9"
-                className="absolute inset-0"
-              />
-              
-              {/* Noise texture */}
-              <div className="absolute inset-0 bg-[url('/noise.jpg')] opacity-5 mix-blend-overlay"></div>
-              
-              {/* Background blur */}
-              <div className="absolute inset-0 backdrop-blur-sm"></div>
-            </motion.div>
+              className="fixed inset-0 bg-black"
+              onClick={handleClose}
+            />
 
+            {/* Modal Container */}
             <motion.div
-              initial={{ opacity: 0, y: 100, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 100, scale: 0.9 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", damping: 30, stiffness: 400 }}
               ref={containerRef}
-              layoutId={layout ? `card-${card.title}` : undefined}
-              className="relative z-[60] mx-2 sm:mx-4 lg:mx-auto my-2 sm:my-4 md:my-6 lg:my-10 h-fit w-[calc(100vw-1rem)] sm:w-[calc(100vw-2rem)] lg:w-full max-w-7xl rounded-xl sm:rounded-2xl bg-gradient-to-br from-neutral-800/95 via-neutral-900/95 to-black/95 backdrop-blur-xl border border-[#ffdab9]/30 shadow-2xl shadow-[#ffdab9]/20 max-h-[95vh] overflow-auto"
+              className="relative z-[60] w-full max-w-2xl max-h-[85vh] overflow-hidden rounded-2xl bg-neutral-900 border border-[#ffdab9]/20 shadow-2xl"
             >
-              <button
-                className="absolute top-2 sm:top-4 right-2 sm:right-4 z-[70] flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-black/70 border border-[#ffdab9]/40 backdrop-blur-sm hover:bg-[#ffdab9]/20 transition-all duration-300 group"
-                onClick={handleClose}
-              >
-                <IconX className="h-4 w-4 sm:h-5 sm:w-5 text-[#ffcba4] group-hover:text-[#ffdab9] transition-colors" />
-              </button>
+              {/* Header with image */}
+              <div className="relative h-48 sm:h-56 overflow-hidden">
+                <Image
+                  src={card.src}
+                  alt={card.title}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/50 to-transparent" />
 
-              <div className="p-3 sm:p-4 md:p-6 lg:p-8 xl:p-10">
-                <motion.div
-                  layoutId={layout ? `category-${card.title}` : undefined}
-                  className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full bg-[#ffdab9]/15 border border-[#ffdab9]/30 mb-3 sm:mb-4"
+                {/* Close button */}
+                <button
+                  className="absolute top-4 right-4 z-[70] flex h-10 w-10 items-center justify-center rounded-full bg-black/60 border border-white/20 backdrop-blur-sm hover:bg-black/80 transition-all duration-300"
+                  onClick={handleClose}
                 >
-                  <span className="text-xs sm:text-sm font-medium text-[#ffdab9]">{card.category}</span>
-                </motion.div>
+                  <IconX className="h-5 w-5 text-white" />
+                </button>
 
-                <motion.h1
-                  layoutId={layout ? `title-${card.title}` : undefined}
-                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#ffcba4] mb-4 sm:mb-6 leading-tight"
-                >
+                {/* Category badge */}
+                <div className="absolute bottom-4 left-6">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#ffdab9]/20 border border-[#ffdab9]/40 text-sm font-medium text-[#ffdab9] backdrop-blur-sm">
+                    {card.category}
+                  </span>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-6 overflow-y-auto max-h-[calc(85vh-14rem)]">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
                   {card.title}
-                </motion.h1>
+                </h2>
 
-                <div className="text-[#f4a460]/90 text-sm sm:text-base overflow-auto">{card.content}</div>
+                <div className="text-white/80 text-sm sm:text-base">
+                  {card.content}
+                </div>
+
+                {/* CTA Button */}
+                <div className="mt-6 pt-4 border-t border-white/10">
+                  <button
+                    onClick={handleClose}
+                    className="w-full py-3 px-6 rounded-xl bg-[#ffdab9] text-black font-semibold hover:bg-[#ffdab9]/90 transition-colors"
+                  >
+                    Fermer
+                  </button>
+                </div>
               </div>
             </motion.div>
           </div>

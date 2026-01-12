@@ -25,25 +25,25 @@ export default function AppleCardsCarouselDemo() {
 
 const DummyContent = ({ title, description }: { title: string; description: string }) => {
   return (
-    <div className="bg-gradient-to-br from-[#ffdab9]/10 to-[#ffcba4]/20 dark:bg-gradient-to-br dark:from-[#ffdab9]/15 dark:to-[#ffcba4]/25 border border-[#ffdab9]/30 p-4 sm:p-6 md:p-8 lg:p-10 rounded-2xl md:rounded-3xl backdrop-blur-sm">
-      <p className="text-[#f4a460]/90 dark:text-[#ffdab9]/90 text-sm sm:text-base md:text-lg lg:text-xl font-sans max-w-4xl mx-auto leading-relaxed">
-        <span className="font-bold text-[#ffdab9] dark:text-[#ffdab9]">{title}</span> {description}
+    <div className="space-y-4">
+      <p className="text-white/80 leading-relaxed">
+        <span className="font-semibold text-[#ffdab9]">{title}</span> {description}
       </p>
-      <div className="mt-6 md:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-        <div className="bg-[#ffdab9]/10 dark:bg-[#ffdab9]/15 border border-[#ffdab9]/20 rounded-lg p-3 sm:p-4 backdrop-blur-sm">
-          <h4 className="font-semibold text-[#ffdab9] dark:text-[#ffdab9] mb-2 text-sm sm:text-base">Technologies utilisées</h4>
-          <div className="flex flex-wrap gap-2">
-            <span className="px-2 py-1 bg-[#ffdab9] text-black text-xs rounded">React</span>
-            <span className="px-2 py-1 bg-[#ffdab9] text-black text-xs rounded">Next.js</span>
-            <span className="px-2 py-1 bg-[#ffdab9] text-black text-xs rounded">TypeScript</span>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="bg-white/5 border border-white/10 rounded-lg p-3">
+          <h4 className="font-medium text-white text-sm mb-2">Technologies</h4>
+          <div className="flex flex-wrap gap-1.5">
+            <span className="px-2 py-0.5 bg-[#ffdab9] text-black text-xs rounded font-medium">React</span>
+            <span className="px-2 py-0.5 bg-[#ffdab9] text-black text-xs rounded font-medium">Next.js</span>
+            <span className="px-2 py-0.5 bg-[#ffdab9] text-black text-xs rounded font-medium">TypeScript</span>
           </div>
         </div>
-        <div className="bg-[#ffdab9]/10 dark:bg-[#ffdab9]/15 border border-[#ffdab9]/20 rounded-lg p-3 sm:p-4 backdrop-blur-sm">
-          <h4 className="font-semibold text-[#ffdab9] dark:text-[#ffdab9] mb-2 text-sm sm:text-base">Résultats</h4>
-          <ul className="text-xs sm:text-sm text-[#f4a460]/80 dark:text-[#ffdab9]/80">
-            <li>• +150% de conversions</li>
-            <li>• Temps de chargement optimisé</li>
-            <li>• Interface intuitive</li>
+        <div className="bg-white/5 border border-white/10 rounded-lg p-3">
+          <h4 className="font-medium text-white text-sm mb-2">Résultats</h4>
+          <ul className="text-xs text-white/70 space-y-1">
+            <li>+150% conversions</li>
+            <li>Chargement optimisé</li>
+            <li>UX intuitive</li>
           </ul>
         </div>
       </div>

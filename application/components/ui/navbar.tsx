@@ -18,21 +18,13 @@ export function NavbarDemo() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   if (isModalOpen) return null;
   const navItems = [
-    // {
-    //   name: "Home",
-    //   link: "#hero",
-    // },
     {
       name: "Pricing",
-      link: "#pricing",
+      link: "/pricing",
     },
     {
       name: "Contact",
-      link: "#contact",
-    },
-    {
-      name: "Blog",
-      link: "#blog",
+      link: "/contact",
     },
   ];
 
@@ -63,18 +55,14 @@ export function NavbarDemo() {
             onClose={() => setIsMobileMenuOpen(false)}
           >
             {navItems.map((item, idx) => (
-        <a
-          key={`mobile-link-${idx}`}
-          href={item.link}
-          onClick={(e) => {
-            e.preventDefault();
-            setIsMobileMenuOpen(false);
-            // ...existing scroll logic...
-          }}
-          className="block w-full text-center text-neutral-600 dark:text-neutral-300 hover:text-[#ffdab9] transition-colors duration-200 py-3"
-        >
-          {item.name}
-        </a>
+              <a
+                key={`mobile-link-${idx}`}
+                href={item.link}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block w-full text-center text-neutral-300 hover:text-[#ffdab9] transition-colors duration-200 py-3"
+              >
+                {item.name}
+              </a>
             ))}
             <div className="flex w-full flex-col gap-4">
               <NavbarButton

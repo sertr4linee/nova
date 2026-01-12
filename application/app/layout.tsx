@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
-import { StagewiseToolbar } from "@stagewise/toolbar-next";
-import { ReactPlugin } from "@stagewise-plugins/react";
-import ClientComponents from "./client-components";
 import Footer from "@/components/ui/footer";
+import ClientComponents from "./client-components";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,12 +22,13 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: "nova",
-  description: "Sites web sur-mesure pour créateurs indépendants et petites équipes",
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1
-  }
+  description: "Sites web sur-mesure pour créateurs indépendants et petites équipes"
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1
 };
 
 export default function RootLayout({
@@ -43,19 +42,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased overflow-x-hidden`}
       >
         {children}
-        {/* wrap cursor in responsive block to disable on small screens */}
+        <Footer />
         <div className="hidden md:block">
           <ClientComponents />
         </div>
-        <StagewiseToolbar
-          config={{
-            plugins: [ReactPlugin],
-          }}
-        />
-        <Footer />
       </body>
     </html>
   );
 }
-
-

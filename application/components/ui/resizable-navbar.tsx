@@ -8,6 +8,7 @@ import {
   useMotionValueEvent,
 } from "motion/react";
 import Image from "next/image";
+import Link from "next/link";
 
 import React, { useState } from "react";
 
@@ -100,7 +101,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         backgroundColor: { duration: 0.3 }
       }}
     className={cn(
-      "relative z-20 mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start px-6 py-4 lg:flex transition-colors duration-500",
+      "relative z-20 mx-auto hidden w-full max-w-4xl flex-row items-center justify-between self-start px-6 py-3 lg:flex transition-colors duration-500",
         visible 
           ? "bg-gradient-to-r from-neutral-900 via-black to-neutral-900 border border-neutral-800/40"
           : "bg-transparent",
@@ -121,16 +122,22 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
 
   const handleLinkClick = (e: React.MouseEvent, link: string) => {
+    // If it's a page link (starts with /), let the browser handle it
+    if (link.startsWith('/')) {
+      onItemClick?.();
+      return;
+    }
+
+    // For anchor links, use custom scroll
     e.preventDefault();
     onItemClick?.();
-    
-    // Scroll personnalisé avec requestAnimationFrame
+
     const targetId = link.replace('#', '');
     const element = document.getElementById(targetId);
     if (element) {
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - 80; // Offset pour la navbar
-      
+      const offsetPosition = elementPosition - 80;
+
       const startPosition = window.pageYOffset;
       const distance = offsetPosition - startPosition;
       const duration = 800;
@@ -304,18 +311,18 @@ export const MobileNavToggle = ({
 
 export const NavbarLogo = () => {
   return (
-    <a
-      href="#"
+    <Link
+      href="/"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal"
     >
-      <Image 
-        src="/nova.svg" 
-        alt="NØVA Logo" 
-        width="120" 
-        height="32" 
+      <Image
+        src="/nova.svg"
+        alt="NØVA Logo"
+        width="120"
+        height="32"
         className="transition-opacity duration-200 hover:opacity-80"
       />
-    </a>
+    </Link>
   );
 };
 

@@ -453,9 +453,8 @@ export default function Home() {
               </section>
 
             {/* Section Wobble Cards */}
-            <section id="wobble" className="relative bg-black py-60">
-              <div className="container mx-auto px-4 transform scale-110 origin-center">
-                
+            <section id="wobble" className="relative bg-black py-20">
+              <div className="container mx-auto px-4">
                 <WobbleCardDemo />
               </div>
             </section>
