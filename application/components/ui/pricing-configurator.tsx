@@ -340,7 +340,7 @@ export function PricingConfigurator() {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto">
+    <div className="w-full max-w-6xl mx-auto px-1 sm:px-0">
       {/* Categories */}
       {renderCategory("base")}
       {renderCategory("feature")}
@@ -351,25 +351,25 @@ export function PricingConfigurator() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="sticky bottom-4 mt-12"
+        className="sticky bottom-2 sm:bottom-4 mt-8 sm:mt-10 md:mt-12"
       >
-        <div className="relative overflow-hidden rounded-2xl border-2 border-[#ffdab9]/30 bg-black/90 backdrop-blur-xl p-6">
+        <div className="relative overflow-hidden rounded-xl sm:rounded-2xl border-2 border-[#ffdab9]/30 bg-black/90 backdrop-blur-xl p-4 sm:p-5 md:p-6">
           {/* Glow effect */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#ffdab9]/5 via-transparent to-[#ffdab9]/5" />
 
-          <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex flex-col sm:flex-row items-center gap-6">
-              <div className="text-center sm:text-left">
-                <p className="text-sm text-white/60 font-montserrat mb-1">
+          <div className="relative flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full md:w-auto">
+              <div className="text-center sm:text-left w-full sm:w-auto">
+                <p className="text-xs sm:text-sm text-white/60 font-montserrat mb-1">
                   {selectedCount} élément{selectedCount > 1 ? "s" : ""} sélectionné{selectedCount > 1 ? "s" : ""}
                 </p>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-sm text-white/60 font-montserrat">Total estimé:</span>
+                <div className="flex items-baseline justify-center sm:justify-start gap-1.5 sm:gap-2">
+                  <span className="text-xs sm:text-sm text-white/60 font-montserrat">Total estimé:</span>
                   <motion.span
                     key={totalPrice}
                     initial={{ scale: 1.2, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="text-4xl font-bold text-[#ffdab9] font-montserrat"
+                    className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ffdab9] font-montserrat"
                   >
                     {totalPrice.toLocaleString()}€
                   </motion.span>
@@ -381,8 +381,8 @@ export function PricingConfigurator() {
               )}
 
               {selectedBase && (
-                <div className="flex flex-wrap gap-2">
-                  {[selectedBase, ...Array.from(selectedFeatures), ...Array.from(selectedExtras)].map(id => {
+                <div className="hidden sm:flex flex-wrap gap-1.5 sm:gap-2 justify-center sm:justify-start max-w-full overflow-hidden">
+                  {[selectedBase, ...Array.from(selectedFeatures), ...Array.from(selectedExtras)].slice(0, 4).map(id => {
                     const service = services.find(s => s.id === id);
                     if (!service) return null;
                     return (
@@ -391,12 +391,17 @@ export function PricingConfigurator() {
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0, opacity: 0 }}
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/10 text-sm text-white/80 font-montserrat"
+                        className="inline-flex items-center gap-1 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/10 text-xs sm:text-sm text-white/80 font-montserrat"
                       >
                         {service.name}
                       </motion.span>
                     );
                   })}
+                  {selectedCount > 4 && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-white/5 text-xs text-white/60 font-montserrat">
+                      +{selectedCount - 4}
+                    </span>
+                  )}
                 </div>
               )}
             </div>
@@ -407,14 +412,14 @@ export function PricingConfigurator() {
               disabled={!selectedBase}
               onClick={handleRequestQuote}
               className={cn(
-                "flex items-center gap-2 px-8 py-4 rounded-xl font-montserrat font-semibold transition-all duration-300",
+                "flex items-center justify-center gap-2 w-full sm:w-auto px-5 sm:px-6 md:px-8 py-3 sm:py-3.5 md:py-4 rounded-xl font-montserrat font-semibold text-sm sm:text-base transition-all duration-300",
                 selectedBase
                   ? "bg-[#ffdab9] text-black hover:bg-[#ffdab9]/90"
                   : "bg-white/10 text-white/40 cursor-not-allowed"
               )}
             >
               Demander un devis
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </motion.button>
           </div>
         </div>
