@@ -1,6 +1,6 @@
 "use client";
-import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "motion/react";
-import { useState, useContext } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { useState, useContext, useEffect } from "react";
 import Image from "next/image";
 import { ModalContext } from "@/contexts/ModalContext";
 
@@ -14,11 +14,13 @@ export function NavbarDemo() {
   const { isModalOpen } = useContext(ModalContext);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { scrollY } = useScroll();
 
-  useMotionValueEvent(scrollY, "change", (v) => {
-    setScrolled(v > 50);
-  });
+  // Listener natif passif — n'entre pas dans la boucle RAF de framer-motion
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   if (isModalOpen) return null;
 
@@ -50,14 +52,20 @@ export function NavbarDemo() {
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20 h-[68px] flex items-center justify-between">
           {/* Logo */}
-          <a href="/" className="relative z-10 flex-shrink-0">
+          <a href="/" className="relative z-10 flex-shrink-0 flex items-center gap-2.5 group">
             <Image
-              src="/nova.svg"
-              alt="Nova"
-              width={90}
-              height={24}
-              className="opacity-90 hover:opacity-60 transition-opacity duration-400"
+              src="/shape.png"
+              alt="Klinkr"
+              width={28}
+              height={28}
+              className="opacity-85 group-hover:opacity-60 transition-opacity duration-400 object-contain"
             />
+            <span
+              style={{ fontFamily: "var(--font-cormorant)" }}
+              className="text-white/85 group-hover:text-[#fdd9b9] transition-colors duration-400 text-xl font-light tracking-wider italic"
+            >
+              Klinkr
+            </span>
           </a>
 
           {/* Desktop nav */}

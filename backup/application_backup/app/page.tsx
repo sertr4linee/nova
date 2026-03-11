@@ -1,48 +1,46 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 import { NavbarDemo } from "@/components/ui/navbar";
 import { ModalContext } from "@/contexts/ModalContext";
 import AppleCardsCarouselDemo from "@/components/ui/apple-cards-carousel-demo-with-modal-context";
 import { WobbleCardDemo } from "@/components/ui/wobble-card-demo";
 import Image from "next/image";
 
-// ─── Utilities ────────────────────────────────────────────────────────────────
+// ─── Reveal — CSS pur, zéro framer-motion, zéro React re-render ───────────────
 
 function Reveal({
   children,
   delay = 0,
   className = "",
-  direction = "up",
 }: {
   children: React.ReactNode;
   delay?: number;
   className?: string;
-  direction?: "up" | "left" | "right";
 }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
-  const initial =
-    direction === "up"
-      ? { opacity: 0, y: 40 }
-      : direction === "left"
-      ? { opacity: 0, x: -32 }
-      : { opacity: 0, x: 32 };
-  const visible =
-    direction === "up"
-      ? { opacity: 1, y: 0 }
-      : { opacity: 1, x: 0 };
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.style.animationDelay = `${delay}s`;
+          el.classList.add("reveal-visible");
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "-50px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [delay]);
 
   return (
-    <div ref={ref} className={className}>
-      <motion.div
-        initial={initial}
-        animate={isInView ? visible : initial}
-        transition={{ duration: 0.85, delay, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {children}
-      </motion.div>
+    <div ref={ref} className={`reveal-hidden ${className}`}>
+      {children}
     </div>
   );
 }
@@ -70,24 +68,15 @@ function SectionLabel({ number, label }: { number: string; label: string }) {
 // ─── HERO ─────────────────────────────────────────────────────────────────────
 
 function HeroSection() {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
-
   return (
     <section
-      ref={ref}
       className="relative min-h-screen flex flex-col justify-center bg-[#080808] overflow-hidden"
     >
-      {/* Ambient gold glow — isolé sur couche GPU propre */}
-      <div className="absolute top-1/3 right-0 w-[700px] h-[700px] bg-[#fdd9b9]/5 rounded-full blur-[140px] pointer-events-none" style={{ willChange: "transform" }} />
-      <div className="absolute -bottom-40 -left-20 w-[500px] h-[500px] bg-[#fdd9b9]/3 rounded-full blur-[100px] pointer-events-none" style={{ willChange: "transform" }} />
+      {/* Ambient gold glow — GPU isolé, pas de will-change dynamique */}
+      <div className="absolute top-1/3 right-0 w-[700px] h-[700px] bg-[#fdd9b9]/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute -bottom-40 -left-20 w-[500px] h-[500px] bg-[#fdd9b9]/3 rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Top ruled line (appears after navbar) */}
+      {/* Top ruled line */}
       <motion.div
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
@@ -95,10 +84,7 @@ function HeroSection() {
         className="absolute top-[72px] left-0 w-full h-px bg-[#fdd9b9]/10 origin-left"
       />
 
-      <motion.div
-        style={{ y, opacity }}
-        className="relative z-10 px-6 sm:px-12 lg:px-24 pt-36 pb-24"
-      >
+      <div className="relative z-10 px-6 sm:px-12 lg:px-24 pt-36 pb-24">
         {/* Eyebrow */}
         <motion.p
           initial={{ opacity: 0, y: 14 }}
@@ -199,28 +185,18 @@ function HeroSection() {
             Disponible pour de nouveaux projets
           </span>
         </motion.div>
-      </motion.div>
+      </div>
 
-      {/* Scroll cue — right side rotated */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
-        className="absolute bottom-10 right-10 hidden md:flex flex-col items-center gap-3"
-        style={{ writingMode: "vertical-rl" }}
-      >
+      {/* Scroll cue — CSS, pas d'animation infinie JS */}
+      <div className="absolute bottom-10 right-10 hidden md:flex flex-col items-center gap-3 opacity-0 hero-scroll-cue" style={{ writingMode: "vertical-rl" }}>
         <span
           style={{ fontFamily: "var(--font-dm-sans)" }}
           className="text-white/15 text-[9px] tracking-[0.4em] uppercase"
         >
           Défiler
         </span>
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          className="w-px h-12 bg-gradient-to-b from-[#fdd9b9]/40 to-transparent"
-        />
-      </motion.div>
+        <div className="w-px h-12 bg-gradient-to-b from-[#fdd9b9]/40 to-transparent" />
+      </div>
     </section>
   );
 }
@@ -280,9 +256,6 @@ const services = [
 ];
 
 function ServicesSection() {
-  const listRef = useRef(null);
-  const isInView = useInView(listRef, { once: true, margin: "-80px" });
-
   return (
     <section className="bg-[#080808] py-36 lg:py-48 px-6 sm:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
@@ -309,33 +282,19 @@ function ServicesSection() {
                 de votre projet digital.
               </p>
 
-              {/* Decorative image */}
-              <div className="mt-12 relative overflow-hidden border border-[#fdd9b9]/15 w-fit hidden lg:block">
-                <Image
-                  src="/nova.svg"
-                  alt="Nova"
-                  width={80}
-                  height={80}
-                  className="opacity-20 p-4"
-                />
+              {/* Decorative wordmark */}
+              <div className="mt-12 flex items-center gap-2 hidden lg:flex opacity-20">
+                <Image src="/shape.png" alt="Klinkr" width={22} height={22} className="object-contain" />
+                <span style={{ fontFamily: "var(--font-cormorant)" }} className="text-white text-lg italic tracking-wider font-light">Klinkr</span>
               </div>
             </div>
           </Reveal>
 
           {/* Right: numbered service list */}
-          <div ref={listRef} className="flex flex-col divide-y divide-[#fdd9b9]/10">
+          <div className="flex flex-col divide-y divide-[#fdd9b9]/10">
             {services.map((s, i) => (
-              <motion.div
-                key={s.num}
-                initial={{ opacity: 0, x: 24 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{
-                  duration: 0.8,
-                  delay: i * 0.12,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="group py-9 flex gap-8 items-start cursor-default"
-              >
+              <Reveal key={s.num} delay={i * 0.1}>
+                <div className="group py-9 flex gap-8 items-start cursor-default">
                 <span
                   style={{ fontFamily: "var(--font-cormorant)" }}
                   className="text-[#fdd9b9]/30 text-lg italic pt-1 group-hover:text-[#fdd9b9] transition-colors duration-400 min-w-[2.5rem]"
@@ -359,7 +318,8 @@ function ServicesSection() {
                 <span className="text-[#fdd9b9]/0 group-hover:text-[#fdd9b9]/50 transition-all duration-400 text-xl self-center">
                   →
                 </span>
-              </motion.div>
+              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -476,9 +436,6 @@ const features = [
 ];
 
 function FeaturesSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
     <section className="bg-[#080808] py-36 lg:py-48 px-6 sm:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
@@ -496,37 +453,30 @@ function FeaturesSection() {
           </h2>
         </Reveal>
 
-        <div
-          ref={ref}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[#fdd9b9]/8"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[#fdd9b9]/8">
           {features.map((f, i) => (
-            <motion.div
-              key={f.title}
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.07 }}
-              className="bg-[#080808] p-8 hover:bg-[#fdd9b9]/4 transition-colors duration-600 group cursor-default"
-            >
-              <div
-                style={{ fontFamily: "var(--font-cormorant)" }}
-                className="text-[#fdd9b9]/25 text-lg italic mb-5 group-hover:text-[#fdd9b9]/55 transition-colors duration-400"
-              >
-                {String(i + 1).padStart(2, "0")}
+            <Reveal key={f.title} delay={i * 0.06}>
+              <div className="bg-[#080808] p-8 hover:bg-[#fdd9b9]/4 transition-colors duration-600 group cursor-default">
+                <div
+                  style={{ fontFamily: "var(--font-cormorant)" }}
+                  className="text-[#fdd9b9]/25 text-lg italic mb-5 group-hover:text-[#fdd9b9]/55 transition-colors duration-400"
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <h3
+                  style={{ fontFamily: "var(--font-cormorant)" }}
+                  className="text-xl font-light text-white/70 mb-3 group-hover:text-[#fef3e8] transition-colors duration-400"
+                >
+                  {f.title}
+                </h3>
+                <p
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
+                  className="text-white/28 text-sm leading-relaxed group-hover:text-white/50 transition-colors duration-400 font-light"
+                >
+                  {f.desc}
+                </p>
               </div>
-              <h3
-                style={{ fontFamily: "var(--font-cormorant)" }}
-                className="text-xl font-light text-white/70 mb-3 group-hover:text-[#fef3e8] transition-colors duration-400"
-              >
-                {f.title}
-              </h3>
-              <p
-                style={{ fontFamily: "var(--font-dm-sans)" }}
-                className="text-white/28 text-sm leading-relaxed group-hover:text-white/50 transition-colors duration-400 font-light"
-              >
-                {f.desc}
-              </p>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>

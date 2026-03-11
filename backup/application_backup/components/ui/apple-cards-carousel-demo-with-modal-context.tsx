@@ -1,121 +1,133 @@
-"use client"
-import { Carousel, Card } from "@/components/ui/apple-cards-carousel-with-modal-context"
-import { GlowText } from "@/components/ui/glow-text"
+"use client";
+import { Carousel, Card } from "@/components/ui/apple-cards-carousel-with-modal-context";
 
 export default function AppleCardsCarouselDemo() {
-  const cards = data.map((card, index) => <Card key={card.src} card={card} index={index} />)
+  const cards = data.map((card, index) => (
+    <Card key={card.src} card={card} index={index} />
+  ));
 
   return (
-    <div className="w-full h-full py-5 sm:py-10">
-      <h2 className="max-w-7xl pl-4 mx-auto text-xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 font-sans">
-        <GlowText 
-          intensity="high" 
-          glowColor="#ffdab9" 
-          className="font-bold tracking-wide"
-          animate={true}
-          textColor="#ffdab9"
-        >
-          Nos projets 
-        </GlowText>
-      </h2>
+    <div className="w-full h-full py-2">
       <Carousel items={cards} />
     </div>
-  )
+  );
 }
 
-const DummyContent = ({ title, description }: { title: string; description: string }) => {
+function ProjectDetail({
+  tags,
+  desc,
+  results,
+}: {
+  tags: string[];
+  desc: string;
+  results: string[];
+}) {
   return (
-    <div className="bg-gradient-to-br from-[#ffdab9]/10 to-[#ffcba4]/20 dark:bg-gradient-to-br dark:from-[#ffdab9]/15 dark:to-[#ffcba4]/25 border border-[#ffdab9]/30 p-4 sm:p-6 md:p-8 lg:p-10 rounded-2xl md:rounded-3xl backdrop-blur-sm">
-      <p className="text-[#f4a460]/90 dark:text-[#ffdab9]/90 text-sm sm:text-base md:text-lg lg:text-xl font-sans max-w-4xl mx-auto leading-relaxed">
-        <span className="font-bold text-[#ffdab9] dark:text-[#ffdab9]">{title}</span> {description}
+    <div className="bg-[#0a0a0a] border border-[#fdd9b9]/15 p-8 md:p-12 rounded-2xl">
+      <p className="text-white/50 text-sm md:text-base leading-relaxed mb-8 max-w-2xl font-light">
+        {desc}
       </p>
-      <div className="mt-6 md:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-        <div className="bg-[#ffdab9]/10 dark:bg-[#ffdab9]/15 border border-[#ffdab9]/20 rounded-lg p-3 sm:p-4 backdrop-blur-sm">
-          <h4 className="font-semibold text-[#ffdab9] dark:text-[#ffdab9] mb-2 text-sm sm:text-base">Technologies utilisées</h4>
-          <div className="flex flex-wrap gap-2">
-            <span className="px-2 py-1 bg-[#ffdab9] text-black text-xs rounded">React</span>
-            <span className="px-2 py-1 bg-[#ffdab9] text-black text-xs rounded">Next.js</span>
-            <span className="px-2 py-1 bg-[#ffdab9] text-black text-xs rounded">TypeScript</span>
-          </div>
-        </div>
-        <div className="bg-[#ffdab9]/10 dark:bg-[#ffdab9]/15 border border-[#ffdab9]/20 rounded-lg p-3 sm:p-4 backdrop-blur-sm">
-          <h4 className="font-semibold text-[#ffdab9] dark:text-[#ffdab9] mb-2 text-sm sm:text-base">Résultats</h4>
-          <ul className="text-xs sm:text-sm text-[#f4a460]/80 dark:text-[#ffdab9]/80">
-            <li>• +150% de conversions</li>
-            <li>• Temps de chargement optimisé</li>
-            <li>• Interface intuitive</li>
-          </ul>
-        </div>
+      <div className="flex flex-wrap gap-2 mb-8">
+        {tags.map((t) => (
+          <span
+            key={t}
+            className="px-3 py-1 border border-[#fdd9b9]/25 text-[#fdd9b9]/70 text-[10px] tracking-[0.25em] uppercase rounded-sm"
+          >
+            {t}
+          </span>
+        ))}
       </div>
+      <ul className="space-y-2">
+        {results.map((r) => (
+          <li key={r} className="flex items-start gap-3 text-white/35 text-sm font-light">
+            <span className="text-[#fdd9b9]/50 mt-0.5 text-xs">→</span>
+            {r}
+          </li>
+        ))}
+      </ul>
     </div>
-  )
+  );
 }
 
 const data = [
   {
     category: "E-commerce",
-    title: "Boutique en ligne premium",
-    src: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=3540&auto=format&fit=crop",
+    title: "Maison Élise — Boutique luxe",
+    src: "https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=2071&auto=format&fit=crop",
     content: (
-      <DummyContent
-        title="Une expérience d'achat exceptionnelle."
-        description="Développement d'une plateforme e-commerce moderne avec gestion des stocks, paiements sécurisés et interface administrateur complète."
+      <ProjectDetail
+        tags={["Next.js 15", "Shopify", "TypeScript", "Framer Motion"]}
+        desc="Refonte complète d'une boutique de mode haut de gamme. Expérience d'achat immersive, galerie plein-écran, paiement en 1 clic et performance Core Web Vitals au vert."
+        results={[
+          "+220% de conversions en 3 mois",
+          "Score Lighthouse 98/100",
+          "Panier moyen +45%",
+        ]}
       />
     ),
   },
   {
     category: "Site Vitrine",
-    title: "Identité digitale sur mesure",
-    src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=3415&auto=format&fit=crop",
+    title: "Arcane Studio — Portfolio créatif",
+    src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2064&auto=format&fit=crop",
     content: (
-      <DummyContent
-        title="Une présence web qui marque les esprits."
-        description="Création d'un site vitrine élégant avec animations fluides, optimisation SEO et design responsive pour une entreprise de luxe."
+      <ProjectDetail
+        tags={["Next.js", "GSAP", "Three.js", "Sanity CMS"]}
+        desc="Site vitrine pour un studio de design 3D parisien. Animations WebGL, navigation expérimentale et CMS headless pour une autonomie totale sur le contenu."
+        results={[
+          "Primé aux Awwwards 2024",
+          "+400% de demandes entrantes",
+          "Temps de chargement < 1.2s",
+        ]}
       />
     ),
   },
   {
-    category: "Application Web",
-    title: "Logiciel de gestion CRM",
-    src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=3540&auto=format&fit=crop",
+    category: "SaaS Dashboard",
+    title: "FlowMetrics — Analytics B2B",
+    src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
     content: (
-      <DummyContent
-        title="Optimisez votre gestion client."
-        description="Développement d'une solution CRM complète avec tableau de bord analytique, gestion des leads et automatisation des processus."
+      <ProjectDetail
+        tags={["Next.js", "Payload CMS", "Recharts", "Prisma", "PostgreSQL"]}
+        desc="Interface de pilotage pour une startup analytics. Graphiques temps réel, exports PDF automatisés, gestion multi-workspace et onboarding guidé."
+        results={[
+          "Churn réduit de 60% post-lancement",
+          "NPS utilisateur : 72",
+          "Rétention J30 : 84%",
+        ]}
       />
     ),
   },
   {
-    category: "Identité Graphique",
-    title: "Refonte complète de marque",
-    src: "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=3464&auto=format&fit=crop",
+    category: "Landing Page",
+    title: "Vault — App fintech",
+    src: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070&auto=format&fit=crop",
     content: (
-      <DummyContent
-        title="Une identité visuelle forte et cohérente."
-        description="Création d'un logo, charte graphique complète et déclinaison sur tous supports pour une startup tech innovante."
+      <ProjectDetail
+        tags={["Next.js", "Stripe", "Framer Motion", "TypeScript"]}
+        desc="Landing page conversion-first pour une app d'épargne automatisée. Micro-animations, social proof dynamique et tunnel d'inscription optimisé pour mobile."
+        results={[
+          "Taux de conversion : 11.4%",
+          "12 000 inscrits en 2 semaines",
+          "CPA réduit de 38%",
+        ]}
       />
     ),
   },
   {
-    category: "Mobile App",
-    title: "Application mobile native",
-    src: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=3540&auto=format&fit=crop",
+    category: "Identité Digitale",
+    title: "Nōma — Restaurant étoilé",
+    src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop",
     content: (
-      <DummyContent
-        title="L'expérience mobile parfaite."
-        description="Développement d'une application mobile cross-platform avec notifications push, géolocalisation et synchronisation cloud."
+      <ProjectDetail
+        tags={["Next.js", "Sanity", "Framer Motion", "i18n"]}
+        desc="Présence digitale complète pour un restaurant gastronomique : site bilingue, réservation en ligne intégrée, galerie photographique immersive et newsletter."
+        results={[
+          "Réservations en ligne +180%",
+          "Trafic organique ×3 en 6 mois",
+          "Prix Web Excellence 2024",
+        ]}
       />
     ),
   },
-  {
-    category: "Dashboard",
-    title: "Tableau de bord analytique",
-    src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=3540&auto=format&fit=crop",
-    content: (
-      <DummyContent
-        title="Visualisez vos données en temps réel."
-        description="Interface de gestion avancée avec graphiques interactifs, rapports automatisés et alertes personnalisées pour le pilotage d'entreprise."
-      />
-    ),
-  },
-]
+];

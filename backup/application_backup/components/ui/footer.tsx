@@ -22,13 +22,21 @@ export default function Footer() {
 
           {/* Brand */}
           <div>
-            <Image
-              src="/nova.svg"
-              alt="Nova"
-              width={88}
-              height={24}
-              className="opacity-75 mb-7 hover:opacity-100 transition-opacity duration-400"
-            />
+            <a href="/" className="flex items-center gap-2.5 mb-7 w-fit group">
+              <Image
+                src="/shape.png"
+                alt="Klinkr"
+                width={26}
+                height={26}
+                className="opacity-70 group-hover:opacity-90 transition-opacity duration-400 object-contain"
+              />
+              <span
+                style={{ fontFamily: "var(--font-cormorant)" }}
+                className="text-white/70 group-hover:text-[#fdd9b9] transition-colors duration-400 text-xl font-light tracking-wider italic"
+              >
+                Klinkr
+              </span>
+            </a>
             <p
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="text-white/28 text-sm font-light leading-relaxed max-w-sm"

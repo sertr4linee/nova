@@ -9,6 +9,7 @@ export const WobbleCard = ({
   noiseTintColor,
   noiseScale = 1.2,
   cardScale = 1,
+  style,
 }: {
   children: React.ReactNode;
   containerClassName?: string;
@@ -16,6 +17,7 @@ export const WobbleCard = ({
   noiseTintColor?: string;
   noiseScale?: number;
   cardScale?: number;
+  style?: React.CSSProperties;
 }) => {
   const outerRef = useRef<HTMLElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
@@ -50,6 +52,7 @@ export const WobbleCard = ({
         transform: `translate3d(0px, 0px, 0) scale3d(${cardScale}, ${cardScale}, 1)`,
         transition: "transform 0.1s ease-out",
         willChange: "transform",
+        ...style,
       }}
       className={cn(
         "mx-auto w-full relative rounded-xl sm:rounded-2xl overflow-hidden",
