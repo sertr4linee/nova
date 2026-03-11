@@ -2,7 +2,6 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useContext, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import Image from "next/image";
 import Link from "next/link";
 import { ModalContext } from "@/contexts/ModalContext";
 import { useLanguage, languages } from "@/contexts/LanguageContext";
@@ -76,15 +75,20 @@ export function NavbarDemo() {
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20 h-[68px] flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="relative z-10 flex-shrink-0 flex items-center gap-2.5 group">
-            <Image
-              src="/shape.webp"
-              alt="Klinkr"
-              width={28}
-              height={28}
-              priority
-              className="opacity-85 group-hover:opacity-60 transition-opacity duration-400 object-contain"
-            />
+          <Link href="/" className="relative z-10 flex-shrink-0 flex items-center gap-2 group">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="10 -65 740 760"
+              width="22"
+              height="23"
+              aria-hidden="true"
+              className="opacity-80 group-hover:opacity-55 transition-opacity duration-400 flex-shrink-0"
+            >
+              <path
+                d="M311 356C312 171 286 24 154 24C3 24 38 150 106 176C159 197 242 224 242 357V678H23V0H154C301 0 333 150 335 338C517 336 324 152 429 48C534 -57 681 19 748 107L732 123C701 91 667 79 632 114C597 149 604 238 551 301C496 366 419 361 335 361V380C335 413 349 468 398 468C448 468 459 415 540 415C639 415 684 493 684 677H659C659 638 641 601 615 601C560 601 551 684 462 684C313 684 311 542 311 384V356Z"
+                fill="#FDD9B9"
+              />
+            </svg>
             <span
               style={{ fontFamily: "var(--font-cormorant)" }}
               className="text-white/85 group-hover:text-[#fdd9b9] transition-colors duration-400 text-xl font-light tracking-wider italic"
