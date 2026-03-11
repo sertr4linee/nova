@@ -1,93 +1,145 @@
 "use client";
-import {
-  Navbar,
-  NavBody,
-  NavItems,
-  MobileNav,
-  NavbarLogo,
-  NavbarButton,
-  MobileNavHeader,
-  MobileNavToggle,
-  MobileNavMenu,
-} from "@/components/ui/resizable-navbar";
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "motion/react";
 import { useState, useContext } from "react";
+import Image from "next/image";
 import { ModalContext } from "@/contexts/ModalContext";
+
+const links = [
+  { label: "Services", href: "#services" },
+  { label: "Projets", href: "#realisations" },
+  { label: "Contact", href: "#contact" },
+];
 
 export function NavbarDemo() {
   const { isModalOpen } = useContext(ModalContext);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (v) => {
+    setScrolled(v > 50);
+  });
+
   if (isModalOpen) return null;
-  const navItems = [
-    // {
-    //   name: "Home",
-    //   link: "#hero",
-    // },
-    {
-      name: "Pricing",
-      link: "#pricing",
-    },
-    {
-      name: "Contact",
-      link: "#contact",
-    },
-    {
-      name: "Blog",
-      link: "#blog",
-    },
-  ];
+
+  const handleNav = (href: string) => {
+    setMobileOpen(false);
+    const el = document.getElementById(href.replace("#", ""));
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  };
 
   return (
-    <div className="relative w-full">
-      <Navbar className="pt-2">
-        {/* Desktop Navigation */}
-        <NavBody>
-          <NavbarLogo />
-          <NavItems items={navItems} />
-          <NavbarButton variant="primary">Login</NavbarButton>
-        </NavBody>
-
-        {/* Mobile Navigation */}
-        <MobileNav>
-          <MobileNavHeader>
-            <div className="flex items-center gap-6">
-              <NavbarLogo />
-            </div>
-            <MobileNavToggle
-              isOpen={isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+    <>
+      <motion.header
+        animate={
+          scrolled
+            ? { backgroundColor: "rgba(8,8,8,0.94)" }
+            : { backgroundColor: "rgba(8,8,8,0)" }
+        }
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed top-0 left-0 w-full z-40"
+        style={{
+          backdropFilter: scrolled ? "blur(24px)" : "none",
+          borderBottom: scrolled
+            ? "1px solid rgba(253,217,185,0.08)"
+            : "1px solid transparent",
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20 h-[68px] flex items-center justify-between">
+          {/* Logo */}
+          <a href="/" className="relative z-10 flex-shrink-0">
+            <Image
+              src="/nova.svg"
+              alt="Nova"
+              width={90}
+              height={24}
+              className="opacity-90 hover:opacity-60 transition-opacity duration-400"
             />
-          </MobileNavHeader>
+          </a>
 
-          <MobileNavMenu
-            isOpen={isMobileMenuOpen}
-            onClose={() => setIsMobileMenuOpen(false)}
-          >
-            {navItems.map((item, idx) => (
-        <a
-          key={`mobile-link-${idx}`}
-          href={item.link}
-          onClick={(e) => {
-            e.preventDefault();
-            setIsMobileMenuOpen(false);
-            // ...existing scroll logic...
-          }}
-          className="block w-full text-center text-neutral-600 dark:text-neutral-300 hover:text-[#ffdab9] transition-colors duration-200 py-3"
-        >
-          {item.name}
-        </a>
-            ))}
-            <div className="flex w-full flex-col gap-4">
-              <NavbarButton
-                onClick={() => setIsMobileMenuOpen(false)}
-                variant="primary"
-                className="w-full"
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-8 lg:gap-12">
+            {links.map((l) => (
+              <button
+                key={l.label}
+                onClick={() => handleNav(l.href)}
+                style={{ fontFamily: "var(--font-dm-sans)" }}
+                className="text-white/35 hover:text-[#fdd9b9] transition-colors duration-300 text-[10px] tracking-[0.3em] uppercase cursor-pointer"
               >
-                Login
-              </NavbarButton>
+                {l.label}
+              </button>
+            ))}
+            <button
+              onClick={() => handleNav("#contact")}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
+              className="border border-[#fdd9b9]/30 text-[#fdd9b9] hover:bg-[#fdd9b9] hover:text-[#080808] transition-all duration-400 text-[10px] tracking-[0.3em] uppercase px-5 py-2.5 cursor-pointer"
+            >
+              Commencer
+            </button>
+          </nav>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="md:hidden text-white/50 hover:text-[#fdd9b9] transition-colors duration-300 relative z-10 p-1"
+            aria-label="Menu"
+          >
+            <div className="flex flex-col gap-[5px] w-5">
+              <motion.span
+                animate={mobileOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="block h-px w-5 bg-current origin-center"
+              />
+              <motion.span
+                animate={mobileOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+                transition={{ duration: 0.2 }}
+                className="block h-px w-3 bg-current"
+              />
+              <motion.span
+                animate={mobileOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="block h-px w-5 bg-current origin-center"
+              />
             </div>
-          </MobileNavMenu>
-        </MobileNav>
-      </Navbar>
-    </div>
+          </button>
+        </div>
+
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="md:hidden overflow-hidden bg-[#080808]/98 border-t border-[#fdd9b9]/8"
+            >
+              <div className="px-6 py-8 flex flex-col gap-6">
+                {links.map((l) => (
+                  <button
+                    key={l.label}
+                    onClick={() => handleNav(l.href)}
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
+                    className="text-white/40 hover:text-[#fdd9b9] transition-colors duration-300 text-xs tracking-[0.3em] uppercase text-left cursor-pointer"
+                  >
+                    {l.label}
+                  </button>
+                ))}
+                <button
+                  onClick={() => handleNav("#contact")}
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
+                  className="border border-[#fdd9b9]/30 text-[#fdd9b9] py-3 text-[10px] tracking-[0.3em] uppercase hover:bg-[#fdd9b9] hover:text-[#080808] transition-all duration-400 cursor-pointer"
+                >
+                  Commencer
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.header>
+    </>
   );
 }

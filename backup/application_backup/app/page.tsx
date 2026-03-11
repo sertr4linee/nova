@@ -48,11 +48,11 @@ function SectionLabel({ number, label }: { number: string; label: string }) {
     <div className="flex items-center gap-4 mb-14">
       <span
         style={{ fontFamily: "var(--font-cormorant)" }}
-        className="text-[#C4963A] text-sm italic"
+        className="text-[#fdd9b9] text-sm italic"
       >
         {number}
       </span>
-      <div className="w-10 h-px bg-[#C4963A]/40" />
+      <div className="w-10 h-px bg-[#fdd9b9]/40" />
       <span
         style={{ fontFamily: "var(--font-dm-sans)" }}
         className="text-white/30 text-[10px] tracking-[0.4em] uppercase"
@@ -80,15 +80,15 @@ function HeroSection() {
       className="relative min-h-screen flex flex-col justify-center bg-[#080808] overflow-hidden"
     >
       {/* Ambient gold glow */}
-      <div className="absolute top-1/3 right-0 w-[700px] h-[700px] bg-[#C4963A]/5 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute -bottom-40 -left-20 w-[500px] h-[500px] bg-[#C4963A]/3 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/3 right-0 w-[700px] h-[700px] bg-[#fdd9b9]/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute -bottom-40 -left-20 w-[500px] h-[500px] bg-[#fdd9b9]/3 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Top ruled line (appears after navbar) */}
       <motion.div
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
         transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute top-[72px] left-0 w-full h-px bg-[#C4963A]/10 origin-left"
+        className="absolute top-[72px] left-0 w-full h-px bg-[#fdd9b9]/10 origin-left"
       />
 
       <motion.div
@@ -101,7 +101,7 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.35 }}
           style={{ fontFamily: "var(--font-dm-sans)" }}
-          className="text-[#C4963A] text-[10px] tracking-[0.55em] uppercase mb-12"
+          className="text-[#fdd9b9] text-[10px] tracking-[0.55em] uppercase mb-12"
         >
           Nova Studio · Est. 2024 · Paris
         </motion.p>
@@ -126,7 +126,7 @@ function HeroSection() {
             animate={{ y: 0 }}
             transition={{ duration: 1.1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
             style={{ fontFamily: "var(--font-cormorant)" }}
-            className="text-[clamp(50px,10vw,160px)] leading-[0.87] tracking-[-0.03em] font-light italic text-[#C4963A]"
+            className="text-[clamp(50px,10vw,160px)] leading-[0.87] tracking-[-0.03em] font-light italic text-[#fdd9b9]"
           >
             NOTRE CODE.
           </motion.h1>
@@ -137,7 +137,7 @@ function HeroSection() {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 1.1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="w-48 h-px bg-gradient-to-r from-[#C4963A] to-transparent mb-14 origin-left"
+          className="w-48 h-px bg-gradient-to-r from-[#fdd9b9] to-transparent mb-14 origin-left"
         />
 
         {/* Subtitle + CTAs */}
@@ -153,14 +153,14 @@ function HeroSection() {
           >
             Sites web sur-mesure pour créateurs indépendants, dirigeants et
             startups ambitieuses.{" "}
-            <span className="text-[#C4963A]/75">Jusqu&apos;à 50% moins cher.</span>
+            <span className="text-[#fdd9b9]/75">Jusqu&apos;à 50% moins cher.</span>
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
             <a
               href="#realisations"
               style={{ fontFamily: "var(--font-dm-sans)" }}
-              className="group inline-flex items-center gap-3 border border-[#C4963A]/55 text-[#C4963A] px-8 py-4 text-[10px] tracking-[0.35em] uppercase hover:bg-[#C4963A] hover:text-black transition-all duration-500"
+              className="group inline-flex items-center gap-3 border border-[#fdd9b9]/55 text-[#fdd9b9] px-8 py-4 text-[10px] tracking-[0.35em] uppercase hover:bg-[#fdd9b9] hover:text-black transition-all duration-500"
             >
               Voir nos projets
               <span className="group-hover:translate-x-1.5 transition-transform duration-300 inline-block">
@@ -185,8 +185,8 @@ function HeroSection() {
           className="mt-20 flex items-center gap-3"
         >
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C4963A] opacity-50" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C4963A]" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#fdd9b9] opacity-50" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#fdd9b9]" />
           </span>
           <span
             style={{ fontFamily: "var(--font-dm-sans)" }}
@@ -214,7 +214,7 @@ function HeroSection() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          className="w-px h-12 bg-gradient-to-b from-[#C4963A]/40 to-transparent"
+          className="w-px h-12 bg-gradient-to-b from-[#fdd9b9]/40 to-transparent"
         />
       </motion.div>
     </section>
@@ -236,7 +236,7 @@ function MarqueeStrip() {
   ];
 
   return (
-    <div className="border-y border-[#C4963A]/12 bg-[#080808] overflow-hidden py-5 relative">
+    <div className="border-y border-[#fdd9b9]/12 bg-[#080808] overflow-hidden py-5 relative">
       <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#080808] to-transparent z-10 pointer-events-none" />
       <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#080808] to-transparent z-10 pointer-events-none" />
       <motion.div
@@ -248,10 +248,10 @@ function MarqueeStrip() {
           <span
             key={i}
             style={{ fontFamily: "var(--font-cormorant)" }}
-            className="text-sm sm:text-base tracking-[0.35em] uppercase text-[#C4963A]/30 hover:text-[#C4963A]/70 transition-colors duration-500 cursor-default px-8"
+            className="text-sm sm:text-base tracking-[0.35em] uppercase text-[#fdd9b9]/30 hover:text-[#fdd9b9]/70 transition-colors duration-500 cursor-default px-8"
           >
             {item}
-            <span className="ml-8 text-[#C4963A]/15">·</span>
+            <span className="ml-8 text-[#fdd9b9]/15">·</span>
           </span>
         ))}
       </motion.div>
@@ -302,7 +302,7 @@ function ServicesSection() {
               >
                 CE QUE
                 <br />
-                <span className="italic text-[#C4963A]">NOUS</span>
+                <span className="italic text-[#fdd9b9]">NOUS</span>
                 <br />
                 FAISONS
               </h2>
@@ -315,7 +315,7 @@ function ServicesSection() {
               </p>
 
               {/* Decorative image */}
-              <div className="mt-12 relative overflow-hidden border border-[#C4963A]/15 w-fit hidden lg:block">
+              <div className="mt-12 relative overflow-hidden border border-[#fdd9b9]/15 w-fit hidden lg:block">
                 <Image
                   src="/nova.svg"
                   alt="Nova"
@@ -328,7 +328,7 @@ function ServicesSection() {
           </Reveal>
 
           {/* Right: numbered service list */}
-          <div ref={listRef} className="flex flex-col divide-y divide-[#C4963A]/10">
+          <div ref={listRef} className="flex flex-col divide-y divide-[#fdd9b9]/10">
             {services.map((s, i) => (
               <motion.div
                 key={s.num}
@@ -343,7 +343,7 @@ function ServicesSection() {
               >
                 <span
                   style={{ fontFamily: "var(--font-cormorant)" }}
-                  className="text-[#C4963A]/30 text-lg italic pt-1 group-hover:text-[#C4963A] transition-colors duration-400 min-w-[2.5rem]"
+                  className="text-[#fdd9b9]/30 text-lg italic pt-1 group-hover:text-[#fdd9b9] transition-colors duration-400 min-w-[2.5rem]"
                 >
                   {s.num}
                 </span>
@@ -361,7 +361,7 @@ function ServicesSection() {
                     {s.desc}
                   </p>
                 </div>
-                <span className="text-[#C4963A]/0 group-hover:text-[#C4963A]/50 transition-all duration-400 text-xl self-center">
+                <span className="text-[#fdd9b9]/0 group-hover:text-[#fdd9b9]/50 transition-all duration-400 text-xl self-center">
                   →
                 </span>
               </motion.div>
@@ -389,7 +389,7 @@ function ProjectsSection() {
           >
             NOS PROJETS
             <br />
-            <span className="italic text-[#C4963A]">RÉCENTS</span>
+            <span className="italic text-[#fdd9b9]">RÉCENTS</span>
           </h2>
         </Reveal>
         <Reveal delay={0.2}>
@@ -404,7 +404,7 @@ function ProjectsSection() {
 
         {/* Thin gold rule */}
         <Reveal delay={0.3}>
-          <div className="mt-12 w-full h-px bg-[#C4963A]/10" />
+          <div className="mt-12 w-full h-px bg-[#fdd9b9]/10" />
         </Reveal>
       </div>
 
@@ -418,36 +418,50 @@ function ProjectsSection() {
 // ─── STATS ────────────────────────────────────────────────────────────────────
 
 const stats = [
-  { num: "7+", label: "Projets livrés" },
-  { num: "100%", label: "Satisfaction client" },
-  { num: "6", label: "Mois d'expérience" },
-  { num: "24h", label: "Support réactif" },
+  { num: "7+", label: "Projets livrés", desc: "Confiés par des entrepreneurs et créateurs exigeants." },
+  { num: "100%", label: "Satisfaction client", desc: "Taux maintenu sur l'ensemble de nos réalisations." },
+  { num: "6", label: "Mois d'expérience", desc: "Ciblée en création de sites web sur-mesure et performants." },
+  { num: "24h", label: "Support réactif", desc: "Délai de réponse garanti de notre équipe technique." },
 ];
 
 function StatsSection() {
   return (
-    <section className="bg-[#080808] border-y border-[#C4963A]/10 py-20 lg:py-28">
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24">
-        <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-[#C4963A]/10 border border-[#C4963A]/10">
+    <section className="bg-[#080808] py-28 lg:py-40 px-6 sm:px-12 lg:px-24">
+      <div className="max-w-7xl mx-auto">
+        <Reveal>
+          <div className="w-full h-px bg-[#fdd9b9]/10 mb-20" />
+        </Reveal>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[#fdd9b9]/8">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.1}>
-              <div className="flex flex-col items-center text-center p-10 lg:p-14 group hover:bg-[#C4963A]/3 transition-colors duration-600">
+              <div className="bg-[#080808] p-10 lg:p-14 flex gap-8 lg:gap-12 items-start group hover:bg-[#fdd9b9]/[0.02] transition-colors duration-700">
                 <div
                   style={{ fontFamily: "var(--font-cormorant)" }}
-                  className="text-[clamp(52px,6vw,100px)] leading-none font-light text-[#C4963A] group-hover:text-[#E8D5A3] transition-colors duration-500 mb-3"
+                  className="text-[clamp(56px,5.5vw,90px)] leading-none font-light text-[#fdd9b9]/60 group-hover:text-[#fdd9b9]/90 transition-colors duration-500 shrink-0"
                 >
                   {s.num}
                 </div>
-                <div
-                  style={{ fontFamily: "var(--font-dm-sans)" }}
-                  className="text-white/25 text-[10px] tracking-[0.25em] uppercase group-hover:text-white/45 transition-colors duration-500 font-light"
-                >
-                  {s.label}
+                <div className="pt-2 lg:pt-3">
+                  <div
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
+                    className="text-white/40 text-[10px] tracking-[0.3em] uppercase mb-3 group-hover:text-white/60 transition-colors duration-400"
+                  >
+                    {s.label}
+                  </div>
+                  <p
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
+                    className="text-white/18 text-sm font-light leading-relaxed group-hover:text-white/35 transition-colors duration-400"
+                  >
+                    {s.desc}
+                  </p>
                 </div>
               </div>
             </Reveal>
           ))}
         </div>
+        <Reveal delay={0.4}>
+          <div className="w-full h-px bg-[#fdd9b9]/10 mt-0" />
+        </Reveal>
       </div>
     </section>
   );
@@ -483,13 +497,13 @@ function FeaturesSection() {
           >
             POURQUOI
             <br />
-            <span className="italic text-[#C4963A]">NOUS CHOISIR</span>
+            <span className="italic text-[#fdd9b9]">NOUS CHOISIR</span>
           </h2>
         </Reveal>
 
         <div
           ref={ref}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[#C4963A]/8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[#fdd9b9]/8"
         >
           {features.map((f, i) => (
             <motion.div
@@ -497,17 +511,17 @@ function FeaturesSection() {
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6, delay: i * 0.07 }}
-              className="bg-[#080808] p-8 hover:bg-[#C4963A]/4 transition-colors duration-600 group cursor-default"
+              className="bg-[#080808] p-8 hover:bg-[#fdd9b9]/4 transition-colors duration-600 group cursor-default"
             >
               <div
                 style={{ fontFamily: "var(--font-cormorant)" }}
-                className="text-[#C4963A]/25 text-lg italic mb-5 group-hover:text-[#C4963A]/55 transition-colors duration-400"
+                className="text-[#fdd9b9]/25 text-lg italic mb-5 group-hover:text-[#fdd9b9]/55 transition-colors duration-400"
               >
                 {String(i + 1).padStart(2, "0")}
               </div>
               <h3
                 style={{ fontFamily: "var(--font-cormorant)" }}
-                className="text-xl font-light text-white/70 mb-3 group-hover:text-[#E8D5A3] transition-colors duration-400"
+                className="text-xl font-light text-white/70 mb-3 group-hover:text-[#fef3e8] transition-colors duration-400"
               >
                 {f.title}
               </h3>
@@ -542,7 +556,7 @@ function TechSection() {
             >
               L&apos;ÉCOSYSTÈME
               <br />
-              <span className="italic text-[#C4963A]">QUE NOUS MAÎTRISONS</span>
+              <span className="italic text-[#fdd9b9]">QUE NOUS MAÎTRISONS</span>
             </h2>
           </Reveal>
         </div>
@@ -564,17 +578,17 @@ function CTASection() {
     >
       {/* Gold ambient center glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[700px] h-[700px] bg-[#C4963A]/6 rounded-full blur-[160px]" />
+        <div className="w-[700px] h-[700px] bg-[#fdd9b9]/6 rounded-full blur-[160px]" />
       </div>
 
       {/* Thin border frame */}
-      <div className="absolute inset-10 border border-[#C4963A]/8 pointer-events-none" />
+      <div className="absolute inset-10 border border-[#fdd9b9]/8 pointer-events-none" />
 
       <div className="relative max-w-5xl mx-auto text-center">
         <Reveal>
           <p
             style={{ fontFamily: "var(--font-dm-sans)" }}
-            className="text-[#C4963A] text-[10px] tracking-[0.55em] uppercase mb-14"
+            className="text-[#fdd9b9] text-[10px] tracking-[0.55em] uppercase mb-14"
           >
             Commençons
           </p>
@@ -587,7 +601,7 @@ function CTASection() {
           >
             PRÊT À
             <br />
-            <span className="italic text-[#C4963A]">TRANSFORMER</span>
+            <span className="italic text-[#fdd9b9]">TRANSFORMER</span>
             <br />
             VOTRE PRÉSENCE
             <br />
@@ -600,7 +614,7 @@ function CTASection() {
             <a
               href="mailto:hello@novastudio.fr"
               style={{ fontFamily: "var(--font-dm-sans)" }}
-              className="group inline-flex items-center gap-4 bg-[#C4963A] text-black px-10 py-4 text-[10px] tracking-[0.35em] uppercase hover:bg-[#E8D5A3] transition-all duration-400"
+              className="group inline-flex items-center gap-4 bg-[#fdd9b9] text-black px-10 py-4 text-[10px] tracking-[0.35em] uppercase hover:bg-[#fef3e8] transition-all duration-400"
             >
               Démarrer mon projet
               <span className="group-hover:translate-x-1.5 transition-transform duration-300 inline-block">
@@ -619,14 +633,14 @@ function CTASection() {
 
         {/* Bottom rule + meta */}
         <Reveal delay={0.35}>
-          <div className="mt-24 pt-8 border-t border-[#C4963A]/12 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="mt-24 pt-8 border-t border-[#fdd9b9]/12 flex flex-col sm:flex-row justify-between items-center gap-4">
             <span
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="text-white/15 text-[10px] tracking-[0.3em]"
             >
               © 2024 Nova Studio
             </span>
-            <div className="w-12 h-px bg-[#C4963A]/25" />
+            <div className="w-12 h-px bg-[#fdd9b9]/25" />
             <span
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="text-white/15 text-[10px] tracking-[0.3em]"
