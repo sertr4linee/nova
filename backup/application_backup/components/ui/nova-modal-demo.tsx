@@ -11,7 +11,7 @@ const projects = [
     techStack: ["Next.js", "TypeScript", "Stripe", "Tailwind CSS", "Framer Motion"],
     projectUrl: "https://exemple-ecommerce.com",
     duration: "3 mois",
-    location: "Paris, France",
+    location: "Amsterdam, Netherlands",
     gallery: ["/dashboard.png", "/code.png", "/linear.webp"],
     content: (
       <div className="space-y-6">

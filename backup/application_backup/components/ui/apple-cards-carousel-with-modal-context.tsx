@@ -151,34 +151,36 @@ export const Card = ({
     <>
       <AnimatePresence>
         {open && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 md:p-6">
-            {/* Backdrop — click to close */}
+          <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
+            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="fixed inset-0 bg-black/85 backdrop-blur-md"
+              className="absolute inset-0 bg-black/85 backdrop-blur-md"
               onClick={handleClose}
             />
 
-            {/* Modal box */}
+            {/* Modal box — sheet on mobile, centered dialog on sm+ */}
             <motion.div
-              initial={{ opacity: 0, y: 32, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 16, scale: 0.98 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="relative z-10 w-full max-w-3xl max-h-[92vh] flex flex-col bg-[#080808] border border-[#fdd9b9]/12 overflow-hidden shadow-2xl"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="relative z-10 w-full sm:w-full sm:max-w-3xl flex flex-col bg-[#080808] sm:border border-[#fdd9b9]/12 sm:rounded-lg shadow-2xl"
+              style={{ maxHeight: "92svh", height: "92svh" }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header — image + title */}
-              <div className="relative w-full h-[180px] sm:h-[240px] flex-shrink-0">
+              <div className="relative w-full h-[190px] sm:h-[240px] flex-shrink-0">
                 <Image
                   src={card.src}
                   alt={card.title}
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 768px"
+                  priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-[#080808]" />
 
@@ -192,25 +194,25 @@ export const Card = ({
                   </span>
                   <h2
                     style={{ fontFamily: "var(--font-cormorant)" }}
-                    className="text-[clamp(22px,4vw,44px)] font-light text-white leading-tight tracking-[-0.01em]"
+                    className="text-[clamp(20px,4vw,40px)] font-light text-white leading-tight tracking-[-0.01em]"
                   >
                     {card.title}
                   </h2>
                 </div>
 
-                {/* Close */}
+                {/* Close button */}
                 <button
                   onClick={handleClose}
                   aria-label="Fermer"
-                  className="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white/60 transition-all bg-black/50 backdrop-blur-sm z-10"
+                  className="absolute top-3 right-3 sm:top-4 sm:right-4 w-9 h-9 border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/60 transition-all bg-black/60 backdrop-blur-sm z-10 rounded-sm"
                 >
-                  <IconX className="h-3.5 w-3.5" />
+                  <IconX className="h-4 w-4" />
                 </button>
               </div>
 
-              {/* Scrollable body */}
-              <div className="flex-1 overflow-y-auto overscroll-contain">
-                <div className="p-5 sm:p-8">
+              {/* Scrollable body — min-h-0 is required for iOS Safari overflow scroll */}
+              <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: "touch" }}>
+                <div className="p-5 sm:p-8 pb-10">
                   {card.content}
                 </div>
               </div>

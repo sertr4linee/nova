@@ -196,12 +196,12 @@ function HeroSection() {
 
 // ─── MARQUEE STRIP ────────────────────────────────────────────────────────────
 
-const marqueeItems = [
-  "Design", "Développement", "Performance", "Élégance",
-  "Next.js", "React", "TypeScript", "Innovation",
-];
-
 function MarqueeStrip() {
+  const { t } = useLanguage();
+  const marqueeItems = [
+    t("mq_design"), t("mq_dev"), t("mq_perf"), t("mq_eleg"),
+    "Next.js", "React", "TypeScript", t("mq_innov"),
+  ];
   return (
     <div className="border-y border-[#fdd9b9]/12 bg-[#080808] overflow-hidden py-5 relative">
       <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#080808] to-transparent z-10 pointer-events-none" />
@@ -225,30 +225,14 @@ function MarqueeStrip() {
 
 // ─── SERVICES ─────────────────────────────────────────────────────────────────
 
-const services = [
-  {
-    num: "01",
-    title: "Design sur mesure",
-    desc: "Identités visuelles qui captivent. Chaque pixel pensé pour votre marque et vos utilisateurs.",
-  },
-  {
-    num: "02",
-    title: "Développement Next.js",
-    desc: "Sites ultra-performants avec les dernières technologies React, TypeScript et Tailwind.",
-  },
-  {
-    num: "03",
-    title: "Performance & SEO",
-    desc: "Optimisation technique pour un référencement naturel de premier rang sur Google.",
-  },
-  {
-    num: "04",
-    title: "Support & Maintenance",
-    desc: "Accompagnement continu, mises à jour de sécurité et support réactif sous 24h.",
-  },
-];
-
 function ServicesSection() {
+  const { t } = useLanguage();
+  const services = [
+    { num: "01", title: t("s1_title"), desc: t("s1_desc") },
+    { num: "02", title: t("s2_title"), desc: t("s2_desc") },
+    { num: "03", title: t("s3_title"), desc: t("s3_desc") },
+    { num: "04", title: t("s4_title"), desc: t("s4_desc") },
+  ];
   return (
     <section className="cv-section bg-[#080808] py-36 lg:py-48 px-6 sm:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
@@ -256,23 +240,22 @@ function ServicesSection() {
           {/* Left */}
           <Reveal>
             <div>
-              <SectionLabel number="01" label="Services" />
+              <SectionLabel number="01" label={t("label_services")} />
               <h2
                 style={{ fontFamily: "var(--font-cormorant)" }}
                 className="text-[clamp(44px,6.5vw,100px)] leading-[0.88] tracking-[-0.02em] font-light text-white mb-10"
               >
-                CE QUE
+                {t("services_title_1")}
                 <br />
-                <span className="italic text-[#fdd9b9]">NOUS</span>
+                <span className="italic text-[#fdd9b9]">{t("services_title_2")}</span>
                 <br />
-                FAISONS
+                {t("services_title_3")}
               </h2>
               <p
                 style={{ fontFamily: "var(--font-dm-sans)" }}
                 className="text-white/35 text-sm leading-relaxed max-w-[260px] font-light"
               >
-                De la conception à la mise en ligne, nous gérons l&apos;intégralité
-                de votre projet digital.
+                {t("services_sub")}
               </p>
 
               {/* Decorative wordmark */}
@@ -324,20 +307,21 @@ function ServicesSection() {
 // ─── PROJETS ──────────────────────────────────────────────────────────────────
 
 function ProjectsSection() {
+  const { t } = useLanguage();
   return (
     <section id="realisations" className="cv-section bg-[#060606] py-36 lg:py-48">
       <div className="px-6 sm:px-12 lg:px-24 max-w-7xl mx-auto mb-16">
         <Reveal>
-          <SectionLabel number="02" label="Réalisations" />
+          <SectionLabel number="02" label={t("label_projects")} />
         </Reveal>
         <Reveal delay={0.1}>
           <h2
             style={{ fontFamily: "var(--font-cormorant)" }}
             className="text-[clamp(42px,7vw,110px)] leading-[0.88] tracking-[-0.02em] font-light text-white"
           >
-            NOS PROJETS
+            {t("projects_title_1")}
             <br />
-            <span className="italic text-[#fdd9b9]">RÉCENTS</span>
+            <span className="italic text-[#fdd9b9]">{t("projects_title_2")}</span>
           </h2>
         </Reveal>
         <Reveal delay={0.2}>
@@ -345,8 +329,7 @@ function ProjectsSection() {
             style={{ fontFamily: "var(--font-dm-sans)" }}
             className="text-white/35 text-sm mt-8 max-w-md font-light leading-relaxed"
           >
-            Des expériences digitales uniques, conçues avec passion et expertise
-            technique. Chaque projet, une nouvelle vision.
+            {t("projects_sub")}
           </p>
         </Reveal>
 
@@ -365,14 +348,14 @@ function ProjectsSection() {
 
 // ─── STATS ────────────────────────────────────────────────────────────────────
 
-const stats = [
-  { num: "7+", label: "Projets livrés", desc: "Confiés par des entrepreneurs et créateurs exigeants." },
-  { num: "100%", label: "Satisfaction client", desc: "Taux maintenu sur l'ensemble de nos réalisations." },
-  { num: "6", label: "Mois d'expérience", desc: "Ciblée en création de sites web sur-mesure et performants." },
-  { num: "24h", label: "Support réactif", desc: "Délai de réponse garanti de notre équipe technique." },
-];
-
 function StatsSection() {
+  const { t } = useLanguage();
+  const stats = [
+    { num: "7+",   label: t("stat1_label"), desc: t("stat1_desc") },
+    { num: "100%", label: t("stat2_label"), desc: t("stat2_desc") },
+    { num: "6",    label: t("stat3_label"), desc: t("stat3_desc") },
+    { num: "24h",  label: t("stat4_label"), desc: t("stat4_desc") },
+  ];
   return (
     <section className="bg-[#080808] py-28 lg:py-40 px-6 sm:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
@@ -417,32 +400,32 @@ function StatsSection() {
 
 // ─── FEATURES / WHY US ────────────────────────────────────────────────────────
 
-const features = [
-  { title: "Design moderne", desc: "Sites responsifs qui s'adaptent à tous les écrans." },
-  { title: "Performance optimisée", desc: "Vitesse ultrarapide et SEO naturel renforcé." },
-  { title: "Tarifs transparents", desc: "Prix justes, sans frais cachés. Devis gratuit." },
-  { title: "Hébergement fiable", desc: "99.9% de disponibilité garantie." },
-  { title: "Technologies modernes", desc: "React, Next.js, TypeScript — le meilleur de l'écosystème." },
-  { title: "Support dédié", desc: "Accompagnement personnalisé pour chaque projet." },
-  { title: "Maintenance incluse", desc: "Sécurité et mises à jour incluses 6 mois." },
-  { title: "Satisfaction garantie", desc: "Révisions illimitées jusqu'à votre satisfaction." },
-];
-
 function FeaturesSection() {
+  const { t } = useLanguage();
+  const features = [
+    { title: t("feat1_title"), desc: t("feat1_desc") },
+    { title: t("feat2_title"), desc: t("feat2_desc") },
+    { title: t("feat3_title"), desc: t("feat3_desc") },
+    { title: t("feat4_title"), desc: t("feat4_desc") },
+    { title: t("feat5_title"), desc: t("feat5_desc") },
+    { title: t("feat6_title"), desc: t("feat6_desc") },
+    { title: t("feat7_title"), desc: t("feat7_desc") },
+    { title: t("feat8_title"), desc: t("feat8_desc") },
+  ];
   return (
     <section className="cv-section bg-[#080808] py-36 lg:py-48 px-6 sm:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
         <Reveal>
-          <SectionLabel number="03" label="Avantages" />
+          <SectionLabel number="03" label={t("label_advantages")} />
         </Reveal>
         <Reveal delay={0.1}>
           <h2
             style={{ fontFamily: "var(--font-cormorant)" }}
             className="text-[clamp(42px,6.5vw,100px)] leading-[0.88] tracking-[-0.02em] font-light text-white mb-20"
           >
-            POURQUOI
+            {t("why_title_1")}
             <br />
-            <span className="italic text-[#fdd9b9]">NOUS CHOISIR</span>
+            <span className="italic text-[#fdd9b9]">{t("why_title_2")}</span>
           </h2>
         </Reveal>
 
@@ -480,21 +463,22 @@ function FeaturesSection() {
 // ─── TECH / WOBBLE ────────────────────────────────────────────────────────────
 
 function TechSection() {
+  const { t } = useLanguage();
   return (
     <section className="cv-section bg-[#060606] py-20 lg:py-28 px-4 sm:px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="px-2 sm:px-6 lg:px-12 mb-16">
           <Reveal>
-            <SectionLabel number="04" label="Technologies" />
+            <SectionLabel number="04" label={t("label_technologies")} />
           </Reveal>
           <Reveal delay={0.1}>
             <h2
               style={{ fontFamily: "var(--font-cormorant)" }}
               className="text-[clamp(36px,5.5vw,80px)] leading-[0.9] tracking-[-0.02em] font-light text-white"
             >
-              L&apos;ÉCOSYSTÈME
+              {t("tech_title_1")}
               <br />
-              <span className="italic text-[#fdd9b9]">QUE NOUS MAÎTRISONS</span>
+              <span className="italic text-[#fdd9b9]">{t("tech_title_2")}</span>
             </h2>
           </Reveal>
         </div>
@@ -509,6 +493,7 @@ function TechSection() {
 // ─── FINAL CTA ────────────────────────────────────────────────────────────────
 
 function CTASection() {
+  const { t } = useLanguage();
   return (
     <section
       id="contact"
@@ -528,7 +513,7 @@ function CTASection() {
             style={{ fontFamily: "var(--font-dm-sans)" }}
             className="text-[#fdd9b9] text-[10px] tracking-[0.55em] uppercase mb-14"
           >
-            Commençons
+            {t("cta_eyebrow")}
           </p>
         </Reveal>
 
@@ -537,13 +522,13 @@ function CTASection() {
             style={{ fontFamily: "var(--font-cormorant)" }}
             className="text-[clamp(44px,8.5vw,130px)] leading-[0.87] tracking-[-0.03em] font-light text-white mb-18"
           >
-            PRÊT À
+            {t("cta_line1")}
             <br />
-            <span className="italic text-[#fdd9b9]">TRANSFORMER</span>
+            <span className="italic text-[#fdd9b9]">{t("cta_line2")}</span>
             <br />
-            VOTRE PRÉSENCE
+            {t("cta_line3")}
             <br />
-            DIGITALE ?
+            {t("cta_line4")}
           </h2>
         </Reveal>
 
@@ -554,7 +539,7 @@ function CTASection() {
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="group inline-flex items-center gap-4 bg-[#fdd9b9] text-black px-10 py-4 text-[10px] tracking-[0.35em] uppercase hover:bg-[#fef3e8] transition-all duration-400"
             >
-              Démarrer mon projet
+              {t("cta_btn_main")}
               <span className="group-hover:translate-x-1.5 transition-transform duration-300 inline-block">
                 →
               </span>
@@ -564,7 +549,7 @@ function CTASection() {
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="inline-flex items-center gap-2 border border-white/15 text-white/40 hover:text-white/70 hover:border-white/35 transition-all duration-400 px-10 py-4 text-[10px] tracking-[0.35em] uppercase"
             >
-              Voir les projets
+              {t("cta_btn_projects")}
             </a>
           </div>
         </Reveal>

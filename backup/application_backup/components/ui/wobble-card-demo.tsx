@@ -4,12 +4,14 @@ import { WobbleCard } from "./wobble-card";
 import { Globe } from "./globe";
 import Image from "next/image";
 import React from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function WobbleCardDemo() {
+  const { t } = useLanguage();
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
 
-      {/* Card 1 — large dark, dégradé blanc visible sur fond sombre */}
+      {/* Card 1 — large dark */}
       <WobbleCard
         containerClassName="col-span-1 lg:col-span-2 min-h-[500px]"
         className=""
@@ -17,16 +19,16 @@ export function WobbleCardDemo() {
       >
         <div className="max-w-xs relative z-10">
           <p className="text-[#fdd9b9]/50 text-[10px] tracking-[0.4em] uppercase mb-4">
-            Notre philosophie
+            {t("wobble1_eyebrow")}
           </p>
           <h2
             className="text-left text-xl md:text-2xl lg:text-4xl font-serif italic font-light text-white leading-tight"
           >
-            On ne crée pas juste des sites.{" "}
-            <span className="text-[#fdd9b9]">On conçoit des expériences.</span>
+            {t("wobble1_h1")}{" "}
+            <span className="text-[#fdd9b9]">{t("wobble1_h2")}</span>
           </h2>
           <p className="mt-6 text-left text-sm text-white/40 font-light leading-relaxed">
-            Performance, fluidité, esthétique — dans chaque pixel, chaque interaction.
+            {t("wobble1_p")}
           </p>
         </div>
         <Image
@@ -45,16 +47,16 @@ export function WobbleCardDemo() {
       >
         <div className="max-w-xs relative z-10">
           <p className="text-[#fdd9b9]/50 text-[10px] tracking-[0.4em] uppercase mb-4">
-            Portée internationale
+            {t("wobble2_eyebrow")}
           </p>
           <h2
             className="text-left text-xl md:text-2xl lg:text-3xl font-serif italic font-light text-white leading-tight"
           >
-            Des projets qui traversent{" "}
-            <span className="text-[#fdd9b9]">les frontières.</span>
+            {t("wobble2_h1")}{" "}
+            <span className="text-[#fdd9b9]">{t("wobble2_h2")}</span>
           </h2>
           <p className="mt-4 text-sm text-white/35 font-light leading-relaxed">
-            Clients en France, Europe et au-delà.
+            {t("wobble2_p")}
           </p>
         </div>
         <Globe className="absolute -bottom-8 -right-8 opacity-70" />
@@ -70,20 +72,19 @@ export function WobbleCardDemo() {
         <div className="flex flex-col md:flex-row items-center justify-between w-full h-full gap-10">
           <div className="max-w-lg">
             <p className="text-black/40 text-[10px] tracking-[0.4em] uppercase mb-4">
-              Stack technologique
+              {t("wobble3_eyebrow")}
             </p>
             <h2
               className="text-left text-xl md:text-2xl lg:text-3xl font-serif italic font-semibold text-black/85 mb-3 leading-tight"
             >
-              Les meilleures technologies, au service de votre vision.
+              {t("wobble3_h")}
             </h2>
             <p className="text-sm text-black/50 font-light leading-relaxed">
-              Next.js, React, TypeScript, Sanity, Payload, Stripe, Shopify — chaque projet
-              bénéficie de l&apos;écosystème le plus performant du moment.
+              {t("wobble3_p")}
             </p>
           </div>
 
-          {/* Tech logos — grid propre avec nom sous chaque logo */}
+          {/* Tech logos */}
           <div className="grid grid-cols-3 sm:grid-cols-5 gap-x-8 gap-y-6 shrink-0 items-center">
             {[
               { src: "/nextjs.png", alt: "Next.js" },

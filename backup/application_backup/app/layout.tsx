@@ -35,7 +35,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Klinkr — Agence Digitale Paris",
+  title: "Klinkr — Agence Digitale Amsterdam",
   description: "Sites web sur-mesure pour créateurs indépendants et startups ambitieuses."
 };
 

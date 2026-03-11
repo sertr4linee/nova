@@ -1,19 +1,22 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-
-const navLinks = [
-  { label: "Services", href: "#services" },
-  { label: "Réalisations", href: "#realisations" },
-  { label: "Contact", href: "#contact" },
-];
-
-const legalLinks = [
-  { label: "Mentions légales", href: "/mentions-legales" },
-  { label: "Confidentialité", href: "/privacy" },
-  { label: "CGU", href: "/terms" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { label: t("footer_nav_services"), href: "#services" },
+    { label: t("footer_nav_projects"), href: "#realisations" },
+    { label: t("footer_nav_contact"), href: "#contact" },
+  ];
+
+  const legalLinks = [
+    { label: t("footer_legal_mentions"), href: "/mentions-legales" },
+    { label: t("footer_legal_privacy"), href: "/privacy" },
+    { label: t("footer_legal_cgu"), href: "/terms" },
+  ];
   return (
     <footer className="bg-[#080808] border-t border-[#fdd9b9]/10">
       <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24 pt-20 pb-10">
@@ -42,8 +45,7 @@ export default function Footer() {
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="text-white/28 text-sm font-light leading-relaxed max-w-sm"
             >
-              Agence digitale spécialisée en développement web sur-mesure pour
-              entrepreneurs, créateurs et startups ambitieuses.
+              {t("footer_desc")}
             </p>
             <div className="mt-8 flex items-center gap-3">
               <span className="relative flex h-1.5 w-1.5">
@@ -54,7 +56,7 @@ export default function Footer() {
                 style={{ fontFamily: "var(--font-dm-sans)" }}
                 className="text-white/20 text-[10px] tracking-[0.25em]"
               >
-                Disponible pour de nouveaux projets
+                {t("footer_available")}
               </span>
             </div>
           </div>
@@ -65,7 +67,7 @@ export default function Footer() {
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="text-[#fdd9b9]/40 text-[9px] tracking-[0.45em] uppercase mb-7"
             >
-              Navigation
+              {t("footer_nav_label")}
             </p>
             <ul className="flex flex-col gap-4">
               {navLinks.map((item) => (
@@ -88,7 +90,7 @@ export default function Footer() {
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="text-[#fdd9b9]/40 text-[9px] tracking-[0.45em] uppercase mb-7"
             >
-              Contact
+              {t("footer_contact_label")}
             </p>
             <ul className="flex flex-col gap-4 mb-8">
               <li>
@@ -158,7 +160,7 @@ export default function Footer() {
             style={{ fontFamily: "var(--font-dm-sans)" }}
             className="text-white/14 text-[10px] tracking-[0.25em]"
           >
-            © {new Date().getFullYear()} klinkr. Tous droits réservés.
+            © {new Date().getFullYear()} klinkr. {t("footer_copyright")}
           </span>
           <div className="flex gap-6 flex-wrap justify-center">
             {legalLinks.map((l) => (
