@@ -104,10 +104,10 @@ function HeroSection() {
             style={{ fontFamily: "var(--font-dm-sans)" }}
             className="text-[#fdd9b9] text-[10px] tracking-[0.55em] uppercase mb-12"
           >
-            klinkr · Est. 2024 · Paris
+            klinkr · Est. 2026 · Netherland
           </p>
         </motion.div>
-
+x
         {/* Groupe 2 : headlines — slide up rapide */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
