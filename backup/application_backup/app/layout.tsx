@@ -1,28 +1,27 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Space_Mono, DM_Sans } from "next/font/google";
+import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 import ClientComponents from "./client-components";
+import Footer from "@/components/ui/footer";
 
-const bebasNeue = Bebas_Neue({
-  variable: "--font-display",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  weight: "400",
 });
 
-const spaceMono = Space_Mono({
-  variable: "--font-mono",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
-  weight: ["400", "700"],
 });
 
-const dmSans = DM_Sans({
-  variable: "--font-sans",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "NOVA — Web Development Studio",
+  title: "nova",
   description: "Sites web sur-mesure pour créateurs indépendants et petites équipes"
 };
 
@@ -38,14 +37,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="overflow-x-hidden">
+    <html lang="en" className="overflow-x-hidden">
       <body
-        className={`${bebasNeue.variable} ${spaceMono.variable} ${dmSans.variable} antialiased overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased overflow-x-hidden`}
       >
         {children}
         <div className="hidden md:block">
           <ClientComponents />
         </div>
+        <Footer />
       </body>
     </html>
   );

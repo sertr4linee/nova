@@ -10,25 +10,12 @@ import { Spotlight } from "@/components/ui/spotlight";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { GlowText } from "@/components/ui/glow-text";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-import dynamic from "next/dynamic";
+import AppleCardsCarouselDemo from "@/components/ui/apple-cards-carousel-demo-with-modal-context";
+import { FeaturesSectionDemo } from "@/components/ui/features";
+import { WobbleCardDemo } from "@/components/ui/wobble-card-demo";
 import Image from "next/image";
 import { ModalContext } from "@/contexts/ModalContext";
 import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
-
-const AppleCardsCarouselDemo = dynamic(
-  () => import("@/components/ui/apple-cards-carousel-demo-with-modal-context"),
-  { ssr: false }
-);
-
-const FeaturesSectionDemo = dynamic(
-  () => import("@/components/ui/features").then((mod) => mod.FeaturesSectionDemo),
-  { ssr: false }
-);
-
-const WobbleCardDemo = dynamic(
-  () => import("@/components/ui/wobble-card-demo").then((mod) => mod.WobbleCardDemo),
-  { ssr: false }
-);
 
 
 // Composant pour l'animation des mots alternants
