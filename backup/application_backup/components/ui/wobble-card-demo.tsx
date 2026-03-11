@@ -11,7 +11,7 @@ export function WobbleCardDemo() {
     <>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         <WobbleCard
-          containerClassName="col-span-1 lg:col-span-2 min-h-[500px] bg-black/35 bg-[url('/noise.webp')] bg-cover"
+          containerClassName="col-span-1 lg:col-span-2 min-h-[500px] bg-black/35 bg-[url('/noise.jpg')] bg-cover"
           noiseTintColor="#ffdab9"
           className=""
         >
@@ -32,7 +32,7 @@ export function WobbleCardDemo() {
           />
         </WobbleCard>
         <WobbleCard
-          containerClassName="col-span-1 min-h-[500px] bg-[url('/noise.webp')] bg-cover"
+          containerClassName="col-span-1 min-h-[500px] bg-[url('/noise.jpg')] bg-cover"
         >
           <div className="max-w-xs">
             <h2 className="text-left text-xl md:text-2xl lg:text-4xl font-serif italic font-semibold text-[#ffdab9]">
@@ -49,7 +49,7 @@ export function WobbleCardDemo() {
           <Globe className="absolute" />
         </WobbleCard>
         <WobbleCard
-          containerClassName="col-span-1 lg:col-span-3 min-h-[280px] bg-[#ffdab9] bg-[url('/noise.webp')] bg-cover"
+          containerClassName="col-span-1 lg:col-span-3 min-h-[280px] bg-[#ffdab9] bg-[url('/noise.jpg')] bg-cover"
           noiseTintColor="#ffdab9"
           noiseScale={1}
         >

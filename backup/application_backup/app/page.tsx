@@ -25,17 +25,21 @@ function Reveal({
   const isInView = useInView(ref, { once: true, margin: "-60px" });
   const initial =
     direction === "up"
-      ? { opacity: 0, y: 50 }
+      ? { opacity: 0, y: 40 }
       : direction === "left"
-      ? { opacity: 0, x: -40 }
-      : { opacity: 0, x: 40 };
+      ? { opacity: 0, x: -32 }
+      : { opacity: 0, x: 32 };
+  const visible =
+    direction === "up"
+      ? { opacity: 1, y: 0 }
+      : { opacity: 1, x: 0 };
 
   return (
     <div ref={ref} className={className}>
       <motion.div
         initial={initial}
-        animate={isInView ? { opacity: 1, y: 0, x: 0 } : {}}
-        transition={{ duration: 1, delay, ease: [0.22, 1, 0.36, 1] }}
+        animate={isInView ? visible : initial}
+        transition={{ duration: 0.85, delay, ease: [0.22, 1, 0.36, 1] }}
       >
         {children}
       </motion.div>
@@ -79,9 +83,9 @@ function HeroSection() {
       ref={ref}
       className="relative min-h-screen flex flex-col justify-center bg-[#080808] overflow-hidden"
     >
-      {/* Ambient gold glow */}
-      <div className="absolute top-1/3 right-0 w-[700px] h-[700px] bg-[#fdd9b9]/5 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute -bottom-40 -left-20 w-[500px] h-[500px] bg-[#fdd9b9]/3 rounded-full blur-[100px] pointer-events-none" />
+      {/* Ambient gold glow — isolé sur couche GPU propre */}
+      <div className="absolute top-1/3 right-0 w-[700px] h-[700px] bg-[#fdd9b9]/5 rounded-full blur-[140px] pointer-events-none" style={{ willChange: "transform" }} />
+      <div className="absolute -bottom-40 -left-20 w-[500px] h-[500px] bg-[#fdd9b9]/3 rounded-full blur-[100px] pointer-events-none" style={{ willChange: "transform" }} />
 
       {/* Top ruled line (appears after navbar) */}
       <motion.div
@@ -223,28 +227,19 @@ function HeroSection() {
 
 // ─── MARQUEE STRIP ────────────────────────────────────────────────────────────
 
-function MarqueeStrip() {
-  const items = [
-    "Design",
-    "Développement",
-    "Performance",
-    "Élégance",
-    "Next.js",
-    "React",
-    "TypeScript",
-    "Innovation",
-  ];
+const marqueeItems = [
+  "Design", "Développement", "Performance", "Élégance",
+  "Next.js", "React", "TypeScript", "Innovation",
+];
 
+function MarqueeStrip() {
   return (
     <div className="border-y border-[#fdd9b9]/12 bg-[#080808] overflow-hidden py-5 relative">
       <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#080808] to-transparent z-10 pointer-events-none" />
       <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#080808] to-transparent z-10 pointer-events-none" />
-      <motion.div
-        animate={{ x: "-50%" }}
-        transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-        className="flex gap-0 whitespace-nowrap w-max"
-      >
-        {[...items, ...items].map((item, i) => (
+      {/* Pure CSS animation — no JS RAF loop */}
+      <div className="animate-marquee flex gap-0 whitespace-nowrap w-max">
+        {[...marqueeItems, ...marqueeItems].map((item, i) => (
           <span
             key={i}
             style={{ fontFamily: "var(--font-cormorant)" }}
@@ -254,7 +249,7 @@ function MarqueeStrip() {
             <span className="ml-8 text-[#fdd9b9]/15">·</span>
           </span>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -577,7 +572,7 @@ function CTASection() {
       className="bg-[#080808] py-44 px-6 sm:px-12 lg:px-24 relative overflow-hidden"
     >
       {/* Gold ambient center glow */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ willChange: "transform" }}>
         <div className="w-[700px] h-[700px] bg-[#fdd9b9]/6 rounded-full blur-[160px]" />
       </div>
 
@@ -661,9 +656,9 @@ export default function Home() {
 
   return (
     <ModalContext.Provider value={{ isModalOpen, setIsModalOpen }}>
-      {/* Grain overlay for depth */}
+      {/* Grain overlay — no mix-blend for perf, très subtil */}
       <div
-        className="fixed inset-0 pointer-events-none z-[9998] opacity-[0.022] mix-blend-overlay"
+        className="fixed inset-0 pointer-events-none z-[9998] opacity-[0.03]"
         style={{
           backgroundImage: "url('/noise.jpg')",
           backgroundRepeat: "repeat",

@@ -1,6 +1,5 @@
 "use client";
-import React, { useState } from "react";
-import { motion } from "motion/react";
+import React, { useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
 
 export const WobbleCard = ({
@@ -14,36 +13,43 @@ export const WobbleCard = ({
   children: React.ReactNode;
   containerClassName?: string;
   className?: string;
-  /** optional tint color for noise overlay */
   noiseTintColor?: string;
-  /** optional scale factor for noise overlay */
   noiseScale?: number;
-  /** optional scale factor for the entire card */
   cardScale?: number;
 }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
+  const outerRef = useRef<HTMLElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
-    const { clientX, clientY } = event;
+  const handleMouseMove = useCallback((event: React.MouseEvent<HTMLElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    const x = (clientX - (rect.left + rect.width / 2)) / 20;
-    const y = (clientY - (rect.top + rect.height / 2)) / 20;
-    setMousePosition({ x, y });
-  };
+    const x = (event.clientX - (rect.left + rect.width / 2)) / 20;
+    const y = (event.clientY - (rect.top + rect.height / 2)) / 20;
+    if (outerRef.current) {
+      outerRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) scale3d(${cardScale}, ${cardScale}, 1)`;
+    }
+    if (innerRef.current) {
+      innerRef.current.style.transform = `translate3d(${-x}px, ${-y}px, 0) scale3d(1.03, 1.03, 1)`;
+    }
+  }, [cardScale]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (outerRef.current) {
+      outerRef.current.style.transform = `translate3d(0px, 0px, 0) scale3d(${cardScale}, ${cardScale}, 1)`;
+    }
+    if (innerRef.current) {
+      innerRef.current.style.transform = "translate3d(0px, 0px, 0) scale3d(1, 1, 1)";
+    }
+  }, [cardScale]);
+
   return (
-    <motion.section
+    <section
+      ref={outerRef}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => {
-        setIsHovering(false);
-        setMousePosition({ x: 0, y: 0 });
-      }}
+      onMouseLeave={handleMouseLeave}
       style={{
-        transform: isHovering
-          ? `translate3d(${mousePosition.x}px, ${mousePosition.y}px, 0) scale3d(${cardScale}, ${cardScale}, 1)`
-          : `translate3d(0px, 0px, 0) scale3d(${cardScale}, ${cardScale}, 1)`,
+        transform: `translate3d(0px, 0px, 0) scale3d(${cardScale}, ${cardScale}, 1)`,
         transition: "transform 0.1s ease-out",
+        willChange: "transform",
       }}
       className={cn(
         "mx-auto w-full relative rounded-xl sm:rounded-2xl overflow-hidden",
@@ -57,20 +63,20 @@ export const WobbleCard = ({
             "0 4px 16px rgba(34, 42, 53, 0.08), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.05), 0 2px 4px rgba(34, 42, 53, 0.06), 0 8px 32px rgba(47, 48, 55, 0.08)",
         }}
       >
-        <motion.div
+        <div
+          ref={innerRef}
           style={{
-            transform: isHovering
-              ? `translate3d(${-mousePosition.x}px, ${-mousePosition.y}px, 0) scale3d(1.03, 1.03, 1)`
-              : "translate3d(0px, 0px, 0) scale3d(1, 1, 1)",
+            transform: "translate3d(0px, 0px, 0) scale3d(1, 1, 1)",
             transition: "transform 0.1s ease-out",
+            willChange: "transform",
           }}
           className={cn("h-full px-3 py-12 sm:px-4 sm:py-16 lg:px-10 lg:py-20", className)}
         >
           <Noise tintColor={noiseTintColor} scale={noiseScale} />
           {children}
-        </motion.div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
@@ -85,7 +91,7 @@ const Noise = ({ tintColor, scale = 1.2 }: NoiseProps) => {
         backgroundImage: "url(/noise.jpg)",
         backgroundSize: "30%",
         backgroundColor: tintColor,
-        mixBlendMode: tintColor ? 'multiply' : undefined,
+        mixBlendMode: tintColor ? "multiply" : undefined,
       }}
     />
   );
