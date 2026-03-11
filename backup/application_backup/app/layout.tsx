@@ -1,27 +1,28 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Montserrat } from "next/font/google";
+import { Bebas_Neue, Space_Mono, DM_Sans } from "next/font/google";
 import "./globals.css";
 import ClientComponents from "./client-components";
-import Footer from "@/components/ui/footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const bebasNeue = Bebas_Neue({
+  variable: "--font-display",
   subsets: ["latin"],
+  weight: "400",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const spaceMono = Space_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const dmSans = DM_Sans({
+  variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500"],
 });
 
 export const metadata: Metadata = {
-  title: "nova",
+  title: "NOVA — Web Development Studio",
   description: "Sites web sur-mesure pour créateurs indépendants et petites équipes"
 };
 
@@ -37,19 +38,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="overflow-x-hidden">
+    <html lang="fr" className="overflow-x-hidden">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased overflow-x-hidden`}
+        className={`${bebasNeue.variable} ${spaceMono.variable} ${dmSans.variable} antialiased overflow-x-hidden`}
       >
         {children}
-        {/* wrap cursor in responsive block to disable on small screens */}
         <div className="hidden md:block">
           <ClientComponents />
         </div>
-        <Footer />
       </body>
     </html>
   );
 }
-
-
