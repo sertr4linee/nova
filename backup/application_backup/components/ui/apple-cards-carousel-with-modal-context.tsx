@@ -108,96 +108,82 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 
   const activeCard = selectedIndex !== null ? cards[selectedIndex] : null
 
+  const modal = activeCard && selectedIndex !== null && (
+    <AnimatePresence>
+      <motion.div
+        key="modal"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        style={{ position: "fixed", inset: 0, zIndex: 9999, background: "#080808", display: "flex", flexDirection: "column" }}
+      >
+        {/* Top bar */}
+        <div style={{ flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <button
+              onClick={goPrev}
+              disabled={selectedIndex === 0}
+              aria-label="Projet précédent"
+              className="w-9 h-9 border border-white/15 flex items-center justify-center text-white/50 hover:text-white hover:border-white/40 transition-all disabled:opacity-20 disabled:cursor-not-allowed"
+            >
+              <IconArrowNarrowLeft className="h-4 w-4" />
+            </button>
+            <button
+              onClick={goNext}
+              disabled={selectedIndex === cards.length - 1}
+              aria-label="Projet suivant"
+              className="w-9 h-9 border border-white/15 flex items-center justify-center text-white/50 hover:text-white hover:border-white/40 transition-all disabled:opacity-20 disabled:cursor-not-allowed"
+            >
+              <IconArrowNarrowRight className="h-4 w-4" />
+            </button>
+            <span style={{ fontFamily: "var(--font-dm-sans)", color: "rgba(255,255,255,0.25)", fontSize: 9, letterSpacing: "0.3em", textTransform: "uppercase" }}>
+              {selectedIndex + 1} / {cards.length}
+            </span>
+          </div>
+          <button
+            onClick={closeModal}
+            aria-label="Fermer"
+            className="w-9 h-9 border border-white/15 flex items-center justify-center text-white/50 hover:text-white hover:border-white/40 transition-all"
+          >
+            <IconX className="h-4 w-4" />
+          </button>
+        </div>
+
+        {/* Scrollable content */}
+        <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+          <div style={{ position: "relative", width: "100%", height: "clamp(200px, 40vw, 340px)", flexShrink: 0 }}>
+            <Image
+              src={activeCard.src}
+              alt={activeCard.title}
+              fill
+              className="object-cover"
+              sizes="100vw"
+              priority
+            />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.2), #080808)" }} />
+            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "20px 32px" }}>
+              <span style={{ fontFamily: "var(--font-dm-sans)", color: "rgba(253,217,185,0.55)", fontSize: 8, letterSpacing: "0.45em", textTransform: "uppercase", display: "block", marginBottom: 6 }}>
+                {activeCard.category}
+              </span>
+              <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(24px,5vw,48px)", fontWeight: 300, color: "white", lineHeight: 1.1 }}>
+                {activeCard.title}
+              </h2>
+            </div>
+          </div>
+
+          <div style={{ padding: "24px 20px 64px", maxWidth: 768, margin: "0 auto" }}>
+            {activeCard.content}
+          </div>
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  )
+
   return (
     <CarouselContext.Provider value={{ onCardClose: handleCardClose, currentIndex }}>
-      {/* ── Fullscreen modal ── */}
-      <AnimatePresence>
-        {activeCard && selectedIndex !== null && (
-          <motion.div
-            key="modal"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[9999] bg-[#080808] flex flex-col"
-          >
-            {/* Top bar */}
-            <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-white/8">
-              <div className="flex items-center gap-3">
-                {/* Prev */}
-                <button
-                  onClick={goPrev}
-                  disabled={selectedIndex === 0}
-                  aria-label="Projet précédent"
-                  className="w-9 h-9 border border-white/15 flex items-center justify-center text-white/50 hover:text-white hover:border-white/40 transition-all disabled:opacity-20 disabled:cursor-not-allowed"
-                >
-                  <IconArrowNarrowLeft className="h-4 w-4" />
-                </button>
-                {/* Next */}
-                <button
-                  onClick={goNext}
-                  disabled={selectedIndex === cards.length - 1}
-                  aria-label="Projet suivant"
-                  className="w-9 h-9 border border-white/15 flex items-center justify-center text-white/50 hover:text-white hover:border-white/40 transition-all disabled:opacity-20 disabled:cursor-not-allowed"
-                >
-                  <IconArrowNarrowRight className="h-4 w-4" />
-                </button>
-                {/* Counter */}
-                <span
-                  style={{ fontFamily: "var(--font-dm-sans)" }}
-                  className="text-white/25 text-[9px] tracking-[0.3em] uppercase"
-                >
-                  {selectedIndex + 1} / {cards.length}
-                </span>
-              </div>
-
-              {/* Close */}
-              <button
-                onClick={closeModal}
-                aria-label="Fermer"
-                className="w-9 h-9 border border-white/15 flex items-center justify-center text-white/50 hover:text-white hover:border-white/40 transition-all"
-              >
-                <IconX className="h-4 w-4" />
-              </button>
-            </div>
-
-            {/* Scrollable content */}
-            <div className="flex-1 overflow-y-auto" style={{ WebkitOverflowScrolling: "touch" as React.CSSProperties["WebkitOverflowScrolling"] }}>
-              {/* Header image */}
-              <div className="relative w-full h-[40vw] min-h-[200px] max-h-[340px] flex-shrink-0">
-                <Image
-                  src={activeCard.src}
-                  alt={activeCard.title}
-                  fill
-                  className="object-cover"
-                  sizes="100vw"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-[#080808]" />
-                <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8">
-                  <span
-                    style={{ fontFamily: "var(--font-dm-sans)" }}
-                    className="text-[#fdd9b9]/55 text-[8px] tracking-[0.45em] uppercase block mb-1.5"
-                  >
-                    {activeCard.category}
-                  </span>
-                  <h2
-                    style={{ fontFamily: "var(--font-cormorant)" }}
-                    className="text-[clamp(24px,5vw,48px)] font-light text-white leading-tight"
-                  >
-                    {activeCard.title}
-                  </h2>
-                </div>
-              </div>
-
-              {/* Body */}
-              <div className="px-5 sm:px-8 lg:px-16 py-6 max-w-4xl mx-auto pb-16">
-                {activeCard.content}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Portal renders modal directly into document.body, bypassing any CSS transform/contain on parents */}
+      {typeof document !== "undefined" && modal ? createPortal(modal, document.body) : null}
 
       {/* ── Carousel ── */}
       <div className="relative w-full">
