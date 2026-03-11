@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Montserrat, Cormorant_Garamond, DM_Sans } from "next
 import "./globals.css";
 import ClientComponents from "./client-components";
 import Footer from "@/components/ui/footer";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,8 +35,8 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "nova",
-  description: "Sites web sur-mesure pour créateurs indépendants et petites équipes"
+  title: "Klinkr — Agence Digitale Paris",
+  description: "Sites web sur-mesure pour créateurs indépendants et startups ambitieuses."
 };
 
 export const viewport = {
@@ -54,11 +55,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${cormorant.variable} ${dmSans.variable} antialiased overflow-x-hidden`}
       >
-        {children}
-        <div className="hidden md:block">
-          <ClientComponents />
-        </div>
-        <Footer />
+        <LanguageProvider>
+          {children}
+          <div className="hidden md:block">
+            <ClientComponents />
+          </div>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );
