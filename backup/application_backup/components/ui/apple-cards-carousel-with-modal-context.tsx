@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState, createContext, useContext, useCallback } from "react"
+import React, { useEffect, useState, createContext, useContext, useCallback } from "react"
 import { IconArrowNarrowLeft, IconArrowNarrowRight, IconX } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import { AnimatePresence, motion } from "framer-motion"
@@ -13,7 +13,7 @@ interface CarouselProps {
   initialScroll?: number
 }
 
-type Card = {
+export type Card = {
   src: string
   title: string
   category: string
@@ -35,6 +35,44 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   const [canScrollLeft, setCanScrollLeft] = React.useState(false)
   const [canScrollRight, setCanScrollRight] = React.useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const { setIsModalOpen } = useContext(ModalContext)
+
+  // Lifted modal state
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+
+  const cards: Card[] = items.map((item) => (item.props as { card: Card }).card)
+
+  const openModal = useCallback((index: number) => {
+    setSelectedIndex(index)
+    document.body.style.overflow = "hidden"
+    setIsModalOpen(true)
+  }, [setIsModalOpen])
+
+  const closeModal = useCallback(() => {
+    setSelectedIndex(null)
+    document.body.style.overflow = ""
+    setIsModalOpen(false)
+  }, [setIsModalOpen])
+
+  const goNext = useCallback(() => {
+    if (selectedIndex !== null && selectedIndex < cards.length - 1)
+      setSelectedIndex(selectedIndex + 1)
+  }, [selectedIndex, cards.length])
+
+  const goPrev = useCallback(() => {
+    if (selectedIndex !== null && selectedIndex > 0)
+      setSelectedIndex(selectedIndex - 1)
+  }, [selectedIndex])
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeModal()
+      if (e.key === "ArrowRight") goNext()
+      if (e.key === "ArrowLeft") goPrev()
+    }
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [closeModal, goNext, goPrev])
 
   useEffect(() => {
     if (carouselRef.current) {
@@ -67,15 +105,106 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     }
   }
 
+  const activeCard = selectedIndex !== null ? cards[selectedIndex] : null
+
   return (
     <CarouselContext.Provider value={{ onCardClose: handleCardClose, currentIndex }}>
+      {/* ── Fullscreen modal ── */}
+      <AnimatePresence>
+        {activeCard && selectedIndex !== null && (
+          <motion.div
+            key="modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[9999] bg-[#080808] flex flex-col"
+          >
+            {/* Top bar */}
+            <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-white/8">
+              <div className="flex items-center gap-3">
+                {/* Prev */}
+                <button
+                  onClick={goPrev}
+                  disabled={selectedIndex === 0}
+                  aria-label="Projet précédent"
+                  className="w-9 h-9 border border-white/15 flex items-center justify-center text-white/50 hover:text-white hover:border-white/40 transition-all disabled:opacity-20 disabled:cursor-not-allowed"
+                >
+                  <IconArrowNarrowLeft className="h-4 w-4" />
+                </button>
+                {/* Next */}
+                <button
+                  onClick={goNext}
+                  disabled={selectedIndex === cards.length - 1}
+                  aria-label="Projet suivant"
+                  className="w-9 h-9 border border-white/15 flex items-center justify-center text-white/50 hover:text-white hover:border-white/40 transition-all disabled:opacity-20 disabled:cursor-not-allowed"
+                >
+                  <IconArrowNarrowRight className="h-4 w-4" />
+                </button>
+                {/* Counter */}
+                <span
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
+                  className="text-white/25 text-[9px] tracking-[0.3em] uppercase"
+                >
+                  {selectedIndex + 1} / {cards.length}
+                </span>
+              </div>
+
+              {/* Close */}
+              <button
+                onClick={closeModal}
+                aria-label="Fermer"
+                className="w-9 h-9 border border-white/15 flex items-center justify-center text-white/50 hover:text-white hover:border-white/40 transition-all"
+              >
+                <IconX className="h-4 w-4" />
+              </button>
+            </div>
+
+            {/* Scrollable content */}
+            <div className="flex-1 overflow-y-auto" style={{ WebkitOverflowScrolling: "touch" as React.CSSProperties["WebkitOverflowScrolling"] }}>
+              {/* Header image */}
+              <div className="relative w-full h-[40vw] min-h-[200px] max-h-[340px] flex-shrink-0">
+                <Image
+                  src={activeCard.src}
+                  alt={activeCard.title}
+                  fill
+                  className="object-cover"
+                  sizes="100vw"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-[#080808]" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8">
+                  <span
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
+                    className="text-[#fdd9b9]/55 text-[8px] tracking-[0.45em] uppercase block mb-1.5"
+                  >
+                    {activeCard.category}
+                  </span>
+                  <h2
+                    style={{ fontFamily: "var(--font-cormorant)" }}
+                    className="text-[clamp(24px,5vw,48px)] font-light text-white leading-tight"
+                  >
+                    {activeCard.title}
+                  </h2>
+                </div>
+              </div>
+
+              {/* Body */}
+              <div className="px-5 sm:px-8 lg:px-16 py-6 max-w-4xl mx-auto pb-16">
+                {activeCard.content}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Carousel ── */}
       <div className="relative w-full">
         <div
           className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth [scrollbar-width:none] py-8 md:py-12"
           ref={carouselRef}
           onScroll={checkScrollability}
         >
-          {/* Fade edges */}
           <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-[#060606] to-transparent" />
           <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-l from-[#060606] to-transparent" />
 
@@ -88,7 +217,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                 transition={{ duration: 0.55, delay: 0.1 * index, ease: [0.22, 1, 0.36, 1] }}
                 className="last:pr-[5%] md:last:pr-[33%]"
               >
-                {item}
+                <CardThumbnail card={(item.props as { card: Card }).card} onClick={() => openModal(index)} />
               </motion.div>
             ))}
           </div>
@@ -116,152 +245,61 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   )
 }
 
-// ─── Card ─────────────────────────────────────────────────────────────────────
+// ─── CardThumbnail ────────────────────────────────────────────────────────────
+
+function CardThumbnail({ card, onClick }: { card: Card; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="group relative flex flex-col overflow-hidden w-[220px] md:w-[340px] h-[320px] md:h-[480px] bg-[#0a0a0a] border border-white/6 hover:border-[#fdd9b9]/25 transition-all duration-500"
+    >
+      <div className="absolute inset-0">
+        <BlurImage
+          src={card.src}
+          alt={card.title}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-700"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/50 to-transparent" />
+      </div>
+
+      <div className="relative z-10 mt-auto p-6 md:p-8 text-left">
+        <span
+          style={{ fontFamily: "var(--font-dm-sans)" }}
+          className="text-[#fdd9b9]/50 text-[9px] tracking-[0.4em] uppercase block mb-3"
+        >
+          {card.category}
+        </span>
+        <h3
+          style={{ fontFamily: "var(--font-cormorant)" }}
+          className="text-[clamp(18px,2.5vw,28px)] font-light text-white/85 group-hover:text-white leading-tight tracking-tight transition-colors duration-300"
+        >
+          {card.title}
+        </h3>
+        <div className="mt-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-400">
+          <span
+            style={{ fontFamily: "var(--font-dm-sans)" }}
+            className="text-[#fdd9b9]/60 text-[9px] tracking-[0.3em] uppercase"
+          >
+            Voir le projet
+          </span>
+          <span className="text-[#fdd9b9]/50 text-xs group-hover:translate-x-1 transition-transform duration-300 inline-block">→</span>
+        </div>
+      </div>
+    </button>
+  )
+}
+
+// ─── Card (kept for API compat — just passes data, thumbnail rendered by Carousel) ──
 
 export const Card = ({
   card,
-  index,
 }: {
   card: Card
   index: number
   layout?: boolean
 }) => {
-  const [open, setOpen] = useState(false)
-  const { onCardClose } = useContext(CarouselContext)
-  const { setIsModalOpen } = useContext(ModalContext)
-
-  const handleClose = useCallback(() => {
-    setOpen(false)
-    document.body.style.overflow = ""
-    setIsModalOpen(false)
-    onCardClose(index)
-  }, [onCardClose, index, setIsModalOpen])
-
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => { if (e.key === "Escape") handleClose() }
-    if (open) {
-      document.body.style.overflow = "hidden"
-      setIsModalOpen(true)
-    }
-    window.addEventListener("keydown", onKeyDown)
-    return () => window.removeEventListener("keydown", onKeyDown)
-  }, [open, setIsModalOpen, handleClose])
-
-  return (
-    <>
-      <AnimatePresence>
-        {open && (
-          <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="absolute inset-0 bg-black/85 backdrop-blur-md"
-              onClick={handleClose}
-            />
-
-            {/* Modal box — sheet on mobile, centered dialog on sm+ */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="relative z-10 w-full sm:w-full sm:max-w-3xl flex flex-col bg-[#080808] sm:border border-[#fdd9b9]/12 sm:rounded-lg shadow-2xl"
-              style={{ maxHeight: "92svh", height: "92svh" }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Header — image + title */}
-              <div className="relative w-full h-[190px] sm:h-[240px] flex-shrink-0">
-                <Image
-                  src={card.src}
-                  alt={card.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 768px"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-[#080808]" />
-
-                {/* Title overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8">
-                  <span
-                    style={{ fontFamily: "var(--font-dm-sans)" }}
-                    className="text-[#fdd9b9]/55 text-[8px] tracking-[0.45em] uppercase block mb-1.5"
-                  >
-                    {card.category}
-                  </span>
-                  <h2
-                    style={{ fontFamily: "var(--font-cormorant)" }}
-                    className="text-[clamp(20px,4vw,40px)] font-light text-white leading-tight tracking-[-0.01em]"
-                  >
-                    {card.title}
-                  </h2>
-                </div>
-
-                {/* Close button */}
-                <button
-                  onClick={handleClose}
-                  aria-label="Fermer"
-                  className="absolute top-3 right-3 sm:top-4 sm:right-4 w-9 h-9 border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/60 transition-all bg-black/60 backdrop-blur-sm z-10 rounded-sm"
-                >
-                  <IconX className="h-4 w-4" />
-                </button>
-              </div>
-
-              {/* Scrollable body — min-h-0 is required for iOS Safari overflow scroll */}
-              <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: "touch" }}>
-                <div className="p-5 sm:p-8 pb-10">
-                  {card.content}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
-      {/* Card thumbnail */}
-      <button
-        onClick={() => setOpen(true)}
-        className="group relative flex flex-col overflow-hidden w-[220px] md:w-[340px] h-[320px] md:h-[480px] bg-[#0a0a0a] border border-white/6 hover:border-[#fdd9b9]/25 transition-all duration-500"
-      >
-        <div className="absolute inset-0">
-          <BlurImage
-            src={card.src}
-            alt={card.title}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-700"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/50 to-transparent" />
-        </div>
-
-        <div className="relative z-10 mt-auto p-6 md:p-8 text-left">
-          <span
-            style={{ fontFamily: "var(--font-dm-sans)" }}
-            className="text-[#fdd9b9]/50 text-[9px] tracking-[0.4em] uppercase block mb-3"
-          >
-            {card.category}
-          </span>
-          <h3
-            style={{ fontFamily: "var(--font-cormorant)" }}
-            className="text-[clamp(18px,2.5vw,28px)] font-light text-white/85 group-hover:text-white leading-tight tracking-tight transition-colors duration-300"
-          >
-            {card.title}
-          </h3>
-          <div className="mt-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-400">
-            <span
-              style={{ fontFamily: "var(--font-dm-sans)" }}
-              className="text-[#fdd9b9]/60 text-[9px] tracking-[0.3em] uppercase"
-            >
-              Voir le projet
-            </span>
-            <span className="text-[#fdd9b9]/50 text-xs group-hover:translate-x-1 transition-transform duration-300 inline-block">→</span>
-          </div>
-        </div>
-      </button>
-    </>
-  )
+  return <>{/* rendered by Carousel via CardThumbnail */}</>
 }
 
 // ─── BlurImage ────────────────────────────────────────────────────────────────
@@ -280,3 +318,4 @@ export const BlurImage = ({ src, className, alt, ...rest }: ImageProps) => {
     />
   )
 }
+
