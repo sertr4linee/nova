@@ -32,28 +32,28 @@ const PROJECT_TYPES: FeatureItem[] = [
     icon: "🏠",
     label: { fr: "Landing Page", en: "Landing Page", nl: "Landingspagina" },
     desc: { fr: "Page vitrine percutante, conversion optimisée", en: "High-impact showcase page, conversion-optimized", nl: "Krachtige vitrinepagina, conversie-geoptimaliseerd" },
-    price: 900,
+    price: 500,
   },
   {
     id: "portfolio",
     icon: "🎨",
     label: { fr: "Portfolio / Vitrine", en: "Portfolio / Showcase", nl: "Portfolio / Vitrine" },
     desc: { fr: "Site multi-pages pour présenter votre travail", en: "Multi-page site to showcase your work", nl: "Meerpagina-site om uw werk te presenteren" },
-    price: 1500,
+    price: 800,
   },
   {
     id: "blog",
     icon: "✍️",
     label: { fr: "Blog / Magazine", en: "Blog / Magazine", nl: "Blog / Magazine" },
     desc: { fr: "Contenu éditorial avec CMS intégré", en: "Editorial content with built-in CMS", nl: "Redactionele inhoud met ingebouwd CMS" },
-    price: 2000,
+    price: 1200,
   },
   {
     id: "saas",
     icon: "⚡",
     label: { fr: "Application SaaS", en: "SaaS Application", nl: "SaaS-applicatie" },
     desc: { fr: "Dashboard, abonnements, logique métier complexe", en: "Dashboard, subscriptions, complex business logic", nl: "Dashboard, abonnementen, complexe bedrijfslogica" },
-    price: 3500,
+    price: 2000,
     tag: { fr: "Populaire", en: "Popular", nl: "Populair" },
   },
   {
@@ -61,14 +61,14 @@ const PROJECT_TYPES: FeatureItem[] = [
     icon: "🛍️",
     label: { fr: "E-commerce", en: "E-commerce", nl: "E-commerce" },
     desc: { fr: "Catalogue produits, panier, paiement, gestion commandes", en: "Product catalog, cart, payment, order management", nl: "Productcatalogus, winkelwagen, betaling, orderbeheer" },
-    price: 4500,
+    price: 2500,
   },
   {
     id: "custom",
     icon: "🚀",
     label: { fr: "Application Custom", en: "Custom Application", nl: "Aangepaste applicatie" },
     desc: { fr: "Projet unique avec architecture sur-mesure", en: "Unique project with custom architecture", nl: "Uniek project met op maat gemaakte architectuur" },
-    price: 7000,
+    price: 4000,
     tag: { fr: "Premium", en: "Premium", nl: "Premium" },
   },
 ];
@@ -79,77 +79,77 @@ const AUTH_FEATURES: FeatureItem[] = [
     icon: "🔑",
     label: { fr: "Email / Mot de passe", en: "Email / Password", nl: "E-mail / Wachtwoord" },
     desc: { fr: "Inscription et connexion classique", en: "Classic registration and login", nl: "Klassieke registratie en login" },
-    price: 200,
+    price: 100,
   },
   {
     id: "magic_link",
     icon: "✨",
     label: { fr: "Magic Link", en: "Magic Link", nl: "Magic Link" },
     desc: { fr: "Connexion sans mot de passe par email", en: "Passwordless login via email", nl: "Wachtwoordloze login via e-mail" },
-    price: 150,
+    price: 80,
   },
   {
     id: "oauth_google",
     icon: "🔵",
     label: { fr: "Google OAuth", en: "Google OAuth", nl: "Google OAuth" },
     desc: { fr: "Connexion avec compte Google", en: "Sign in with Google", nl: "Inloggen met Google" },
-    price: 100,
+    price: 50,
   },
   {
     id: "oauth_github",
     icon: "⚫",
     label: { fr: "GitHub OAuth", en: "GitHub OAuth", nl: "GitHub OAuth" },
     desc: { fr: "Connexion avec compte GitHub", en: "Sign in with GitHub", nl: "Inloggen met GitHub" },
-    price: 100,
+    price: 50,
   },
   {
     id: "oauth_apple",
     icon: "🍎",
     label: { fr: "Apple Sign In", en: "Apple Sign In", nl: "Apple Sign In" },
     desc: { fr: "Connexion avec identifiant Apple (obligatoire iOS)", en: "Sign in with Apple (required for iOS)", nl: "Inloggen met Apple (verplicht voor iOS)" },
-    price: 150,
+    price: 80,
   },
   {
     id: "oauth_meta",
     icon: "🔷",
     label: { fr: "Meta (Facebook/Instagram)", en: "Meta (Facebook/Instagram)", nl: "Meta (Facebook/Instagram)" },
     desc: { fr: "Connexion via compte Meta", en: "Sign in with Meta account", nl: "Inloggen met Meta-account" },
-    price: 100,
+    price: 50,
   },
   {
     id: "oauth_twitter",
     icon: "🐦",
     label: { fr: "Twitter / X", en: "Twitter / X", nl: "Twitter / X" },
     desc: { fr: "Connexion avec compte X", en: "Sign in with X account", nl: "Inloggen met X-account" },
-    price: 100,
+    price: 50,
   },
   {
     id: "oauth_linkedin",
     icon: "💼",
     label: { fr: "LinkedIn OAuth", en: "LinkedIn OAuth", nl: "LinkedIn OAuth" },
     desc: { fr: "Connexion avec compte LinkedIn", en: "Sign in with LinkedIn", nl: "Inloggen met LinkedIn" },
-    price: 100,
+    price: 50,
   },
   {
     id: "oauth_discord",
     icon: "🟣",
     label: { fr: "Discord OAuth", en: "Discord OAuth", nl: "Discord OAuth" },
     desc: { fr: "Connexion avec compte Discord", en: "Sign in with Discord", nl: "Inloggen met Discord" },
-    price: 80,
+    price: 40,
   },
   {
     id: "oauth_microsoft",
     icon: "🪟",
     label: { fr: "Microsoft / Azure AD", en: "Microsoft / Azure AD", nl: "Microsoft / Azure AD" },
     desc: { fr: "Connexion entreprise via Microsoft", en: "Enterprise sign-in via Microsoft", nl: "Zakelijke login via Microsoft" },
-    price: 150,
+    price: 80,
   },
   {
     id: "two_fa",
     icon: "🛡️",
     label: { fr: "2FA / TOTP", en: "2FA / TOTP", nl: "2FA / TOTP" },
     desc: { fr: "Double authentification (Google Authenticator, Authy...)", en: "Two-factor auth (Google Authenticator, Authy...)", nl: "Tweefactorauthenticatie (Google Authenticator, Authy...)" },
-    price: 300,
+    price: 150,
     tag: { fr: "Sécurité", en: "Security", nl: "Beveiliging" },
   },
   {
@@ -157,7 +157,7 @@ const AUTH_FEATURES: FeatureItem[] = [
     icon: "🏢",
     label: { fr: "SSO / SAML Enterprise", en: "SSO / SAML Enterprise", nl: "SSO / SAML Enterprise" },
     desc: { fr: "Authentification centralisée pour grandes organisations", en: "Centralized auth for large organizations", nl: "Gecentraliseerde auth voor grote organisaties" },
-    price: 1000,
+    price: 600,
     tag: { fr: "Enterprise", en: "Enterprise", nl: "Enterprise" },
   },
   {
@@ -165,7 +165,7 @@ const AUTH_FEATURES: FeatureItem[] = [
     icon: "👥",
     label: { fr: "Rôles & Permissions (RBAC)", en: "Roles & Permissions (RBAC)", nl: "Rollen & Rechten (RBAC)" },
     desc: { fr: "Gestion fine des droits utilisateurs", en: "Fine-grained user rights management", nl: "Gedetailleerd gebruikersrechtenbeheer" },
-    price: 400,
+    price: 200,
   },
 ];
 
@@ -175,14 +175,14 @@ const API_FEATURES: FeatureItem[] = [
     icon: "🔗",
     label: { fr: "REST API", en: "REST API", nl: "REST API" },
     desc: { fr: "API RESTful standard, documentation Swagger", en: "Standard RESTful API with Swagger docs", nl: "Standaard RESTful API met Swagger-documentatie" },
-    price: 600,
+    price: 300,
   },
   {
     id: "graphql",
     icon: "◉",
     label: { fr: "GraphQL", en: "GraphQL", nl: "GraphQL" },
     desc: { fr: "API flexible, queries précises, subscriptions", en: "Flexible API, precise queries, subscriptions", nl: "Flexibele API, precieze queries, subscriptions" },
-    price: 900,
+    price: 500,
     tag: { fr: "Avancé", en: "Advanced", nl: "Geavanceerd" },
   },
   {
@@ -190,35 +190,35 @@ const API_FEATURES: FeatureItem[] = [
     icon: "⚙️",
     label: { fr: "tRPC (TypeSafe)", en: "tRPC (TypeSafe)", nl: "tRPC (TypeSafe)" },
     desc: { fr: "API full-stack type-safe, idéal avec Next.js", en: "Full-stack type-safe API, ideal with Next.js", nl: "Volledige stack type-veilige API, ideaal met Next.js" },
-    price: 750,
+    price: 400,
   },
   {
     id: "websockets",
     icon: "⚡",
     label: { fr: "WebSockets", en: "WebSockets", nl: "WebSockets" },
     desc: { fr: "Communication bidirectionnelle temps réel", en: "Real-time bidirectional communication", nl: "Real-time bidirectionele communicatie" },
-    price: 500,
+    price: 250,
   },
   {
     id: "realtime",
     icon: "🔴",
     label: { fr: "Subscriptions temps réel", en: "Real-time subscriptions", nl: "Real-time subscriptions" },
     desc: { fr: "Mises à jour live (chat, notifications, dashboards)", en: "Live updates (chat, notifications, dashboards)", nl: "Live updates (chat, meldingen, dashboards)" },
-    price: 600,
+    price: 300,
   },
   {
     id: "webhooks",
     icon: "🔔",
     label: { fr: "Webhooks", en: "Webhooks", nl: "Webhooks" },
     desc: { fr: "Événements sortants vers services tiers", en: "Outbound events to third-party services", nl: "Uitgaande events naar externe diensten" },
-    price: 250,
+    price: 120,
   },
   {
     id: "admin",
     icon: "🖥️",
     label: { fr: "Panel d'administration", en: "Admin Panel", nl: "Beheerpaneel" },
     desc: { fr: "Interface back-office complète", en: "Complete back-office interface", nl: "Volledig back-office interface" },
-    price: 1500,
+    price: 800,
     tag: { fr: "Inclut UI", en: "Includes UI", nl: "Inclusief UI" },
   },
   {
@@ -226,7 +226,7 @@ const API_FEATURES: FeatureItem[] = [
     icon: "🏗️",
     label: { fr: "Multi-tenant", en: "Multi-tenant", nl: "Multi-tenant" },
     desc: { fr: "Architecture isolée par organisation/client", en: "Isolated architecture per org/client", nl: "Geïsoleerde architectuur per organisatie/klant" },
-    price: 2000,
+    price: 1200,
     tag: { fr: "Complexe", en: "Complex", nl: "Complex" },
   },
 ];
@@ -237,14 +237,14 @@ const DB_FEATURES: FeatureItem[] = [
     icon: "🐘",
     label: { fr: "PostgreSQL", en: "PostgreSQL", nl: "PostgreSQL" },
     desc: { fr: "Base relationnelle robuste et scalable", en: "Robust and scalable relational database", nl: "Robuuste en schaalbare relationele database" },
-    price: 250,
+    price: 120,
   },
   {
     id: "supabase",
     icon: "⚡",
     label: { fr: "Supabase", en: "Supabase", nl: "Supabase" },
     desc: { fr: "PostgreSQL managé + Auth + Storage tout-en-un", en: "Managed PostgreSQL + Auth + Storage all-in-one", nl: "Managed PostgreSQL + Auth + Storage alles-in-één" },
-    price: 300,
+    price: 150,
     tag: { fr: "Recommandé", en: "Recommended", nl: "Aanbevolen" },
   },
   {
@@ -252,42 +252,42 @@ const DB_FEATURES: FeatureItem[] = [
     icon: "🔥",
     label: { fr: "Firebase / Firestore", en: "Firebase / Firestore", nl: "Firebase / Firestore" },
     desc: { fr: "NoSQL temps réel, idéal pour apps mobiles", en: "Real-time NoSQL, ideal for mobile apps", nl: "Real-time NoSQL, ideaal voor mobiele apps" },
-    price: 300,
+    price: 150,
   },
   {
     id: "mongodb",
     icon: "🍃",
     label: { fr: "MongoDB Atlas", en: "MongoDB Atlas", nl: "MongoDB Atlas" },
     desc: { fr: "NoSQL flexible, schéma dynamique", en: "Flexible NoSQL, dynamic schema", nl: "Flexibel NoSQL, dynamisch schema" },
-    price: 300,
+    price: 150,
   },
   {
     id: "planetscale",
     icon: "🪐",
     label: { fr: "PlanetScale / Neon", en: "PlanetScale / Neon", nl: "PlanetScale / Neon" },
     desc: { fr: "MySQL/PostgreSQL serverless ultra scalable", en: "Serverless MySQL/PostgreSQL, ultra scalable", nl: "Serverless MySQL/PostgreSQL, ultra schaalbaar" },
-    price: 300,
+    price: 150,
   },
   {
     id: "redis",
     icon: "🔴",
     label: { fr: "Redis / Cache", en: "Redis / Cache", nl: "Redis / Cache" },
     desc: { fr: "Cache in-memory, sessions, file d'attente", en: "In-memory cache, sessions, queues", nl: "In-memory cache, sessies, wachtrijen" },
-    price: 250,
+    price: 120,
   },
   {
     id: "s3_storage",
     icon: "🗄️",
     label: { fr: "Stockage fichiers (S3 / R2)", en: "File storage (S3 / R2)", nl: "Bestandsopslag (S3 / R2)" },
     desc: { fr: "Stockage objet sécurisé, CDN inclus", en: "Secure object storage with CDN", nl: "Veilige objectopslag met CDN" },
-    price: 200,
+    price: 100,
   },
   {
     id: "cloudinary",
     icon: "🖼️",
     label: { fr: "Cloudinary (images & vidéos)", en: "Cloudinary (images & videos)", nl: "Cloudinary (afbeeldingen & video's)" },
     desc: { fr: "Optimisation et transformation d'assets", en: "Asset optimization and transformation", nl: "Asset-optimalisatie en -transformatie" },
-    price: 200,
+    price: 100,
   },
 ];
 
@@ -297,35 +297,35 @@ const COMM_FEATURES: FeatureItem[] = [
     icon: "📧",
     label: { fr: "Emails transactionnels", en: "Transactional emails", nl: "Transactionele e-mails" },
     desc: { fr: "Confirmation, reset password, alertes (Resend / SendGrid)", en: "Confirmation, password reset, alerts (Resend / SendGrid)", nl: "Bevestiging, wachtwoord reset, meldingen (Resend / SendGrid)" },
-    price: 250,
+    price: 120,
   },
   {
     id: "newsletter",
     icon: "📨",
     label: { fr: "Newsletter / Campagnes email", en: "Newsletter / Email campaigns", nl: "Nieuwsbrief / E-mailcampagnes" },
     desc: { fr: "Segmentation, automatisations, analytics (Mailchimp, Loops)", en: "Segmentation, automations, analytics (Mailchimp, Loops)", nl: "Segmentatie, automatiseringen, analytics (Mailchimp, Loops)" },
-    price: 400,
+    price: 200,
   },
   {
     id: "sms",
     icon: "📱",
     label: { fr: "SMS / Notifications téléphoniques", en: "SMS / Phone notifications", nl: "SMS / Telefonische meldingen" },
     desc: { fr: "OTP, alertes, marketing (Twilio, Vonage)", en: "OTP, alerts, marketing (Twilio, Vonage)", nl: "OTP, meldingen, marketing (Twilio, Vonage)" },
-    price: 400,
+    price: 200,
   },
   {
     id: "push",
     icon: "🔔",
     label: { fr: "Push Notifications", en: "Push Notifications", nl: "Push-meldingen" },
     desc: { fr: "Web push et push mobile (FCM, OneSignal)", en: "Web push and mobile push (FCM, OneSignal)", nl: "Web push en mobiele push (FCM, OneSignal)" },
-    price: 350,
+    price: 180,
   },
   {
     id: "chat",
     icon: "💬",
     label: { fr: "Chat temps réel", en: "Real-time chat", nl: "Real-time chat" },
     desc: { fr: "Messagerie instantanée entre utilisateurs", en: "Instant messaging between users", nl: "Directe berichten tussen gebruikers" },
-    price: 1000,
+    price: 600,
     tag: { fr: "Avancé", en: "Advanced", nl: "Geavanceerd" },
   },
   {
@@ -333,7 +333,7 @@ const COMM_FEATURES: FeatureItem[] = [
     icon: "📝",
     label: { fr: "Formulaire de contact", en: "Contact form", nl: "Contactformulier" },
     desc: { fr: "Formulaire simple avec validation et envoi email", en: "Simple form with validation and email delivery", nl: "Eenvoudig formulier met validatie en e-mailbezorging" },
-    price: 100,
+    price: 50,
   },
 ];
 
@@ -343,7 +343,7 @@ const INTEGRATION_FEATURES: FeatureItem[] = [
     icon: "💳",
     label: { fr: "Stripe", en: "Stripe", nl: "Stripe" },
     desc: { fr: "Paiements, abonnements, invoicing", en: "Payments, subscriptions, invoicing", nl: "Betalingen, abonnementen, facturering" },
-    price: 700,
+    price: 400,
     tag: { fr: "Recommandé", en: "Recommended", nl: "Aanbevolen" },
   },
   {
@@ -351,14 +351,14 @@ const INTEGRATION_FEATURES: FeatureItem[] = [
     icon: "🅿️",
     label: { fr: "PayPal / Braintree", en: "PayPal / Braintree", nl: "PayPal / Braintree" },
     desc: { fr: "Paiements internationaux simplifiés", en: "Simplified international payments", nl: "Vereenvoudigde internationale betalingen" },
-    price: 450,
+    price: 250,
   },
   {
     id: "mollie",
     icon: "🇳🇱",
     label: { fr: "Mollie", en: "Mollie", nl: "Mollie" },
     desc: { fr: "Paiements européens (iDEAL, Bancontact, SEPA)", en: "European payments (iDEAL, Bancontact, SEPA)", nl: "Europese betalingen (iDEAL, Bancontact, SEPA)" },
-    price: 450,
+    price: 250,
     tag: { fr: "Populaire NL/BE", en: "Popular NL/BE", nl: "Populair NL/BE" },
   },
   {
@@ -366,56 +366,56 @@ const INTEGRATION_FEATURES: FeatureItem[] = [
     icon: "📊",
     label: { fr: "Google Analytics 4", en: "Google Analytics 4", nl: "Google Analytics 4" },
     desc: { fr: "Suivi audience, événements, conversions", en: "Audience tracking, events, conversions", nl: "Publiekstracking, events, conversies" },
-    price: 120,
+    price: 60,
   },
   {
     id: "posthog",
     icon: "🦔",
     label: { fr: "PostHog / Mixpanel", en: "PostHog / Mixpanel", nl: "PostHog / Mixpanel" },
     desc: { fr: "Analytics produit avancé, funnels, heatmaps", en: "Advanced product analytics, funnels, heatmaps", nl: "Geavanceerde productanalytics, funnels, heatmaps" },
-    price: 300,
+    price: 150,
   },
   {
     id: "cms_sanity",
     icon: "🟠",
     label: { fr: "Sanity CMS", en: "Sanity CMS", nl: "Sanity CMS" },
     desc: { fr: "Éditeur de contenu headless flexible", en: "Flexible headless content editor", nl: "Flexibele headless content-editor" },
-    price: 500,
+    price: 250,
   },
   {
     id: "cms_contentful",
     icon: "📦",
     label: { fr: "Contentful", en: "Contentful", nl: "Contentful" },
     desc: { fr: "CMS enterprise, API-first, multi-locale", en: "Enterprise CMS, API-first, multi-locale", nl: "Enterprise CMS, API-first, multi-locale" },
-    price: 600,
+    price: 350,
   },
   {
     id: "maps",
     icon: "🗺️",
     label: { fr: "Google Maps / Mapbox", en: "Google Maps / Mapbox", nl: "Google Maps / Mapbox" },
     desc: { fr: "Cartes interactives, géolocalisation", en: "Interactive maps, geolocation", nl: "Interactieve kaarten, geolocatie" },
-    price: 250,
+    price: 120,
   },
   {
     id: "i18n",
     icon: "🌍",
     label: { fr: "Multi-langue (i18n)", en: "Multi-language (i18n)", nl: "Meertalig (i18n)" },
     desc: { fr: "Site en plusieurs langues avec routing", en: "Multi-language site with routing", nl: "Meertalige site met routing" },
-    price: 450,
+    price: 200,
   },
   {
     id: "seo",
     icon: "🔍",
     label: { fr: "SEO avancé", en: "Advanced SEO", nl: "Geavanceerde SEO" },
     desc: { fr: "Sitemap, structured data, Core Web Vitals", en: "Sitemap, structured data, Core Web Vitals", nl: "Sitemap, gestructureerde data, Core Web Vitals" },
-    price: 300,
+    price: 150,
   },
   {
     id: "ai",
     icon: "🤖",
     label: { fr: "Intégration IA (OpenAI / Claude)", en: "AI Integration (OpenAI / Claude)", nl: "AI-integratie (OpenAI / Claude)" },
     desc: { fr: "Chatbot, génération de contenu, embeddings", en: "Chatbot, content generation, embeddings", nl: "Chatbot, contentgeneratie, embeddings" },
-    price: 1200,
+    price: 700,
     tag: { fr: "Tendance", en: "Trending", nl: "Trending" },
   },
 ];
@@ -540,6 +540,9 @@ function PricePanel({
 
 // ─── Summary Step ────────────────────────────────────────────────────────────
 
+// ⚠️  Replace with your actual WhatsApp number (international format, no +/spaces)
+const WA_NUMBER = "33611092531";
+
 function SummaryStep({
   selections,
   total,
@@ -548,8 +551,7 @@ function SummaryStep({
   total: number;
 }) {
   const { lang, t } = useLanguage();
-  const [form, setForm] = useState({ name: "", email: "", company: "", budget: "", message: "" });
-  const [sent, setSent] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
 
   const getLabel = (stepId: string, featureId: string): string => {
     const allFeatures = [
@@ -563,22 +565,28 @@ function SummaryStep({
     ids.map(id => ({ stepId, label: getLabel(stepId, id) }))
   );
 
-  if (sent) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="text-center py-16 space-y-4"
-      >
-        <div className="text-6xl">🎉</div>
-        <h3 className="text-2xl font-bold text-white">{t("ctr_form_success_title")}</h3>
-        <p className="text-white/50 max-w-sm mx-auto">{t("ctr_form_success_sub")}</p>
-        <Link href="/" className="inline-block mt-4 text-sm text-emerald-400 hover:text-emerald-300 transition-colors">
-          {t("ctr_back")}
-        </Link>
-      </motion.div>
-    );
-  }
+  const openWhatsApp = (e: React.FormEvent) => {
+    e.preventDefault();
+    const features = allSelected.map(s => `• ${s.label}`).join("\n");
+    const msg = [
+      `👋 *Nouveau devis Klinkr*`,
+      ``,
+      `*Nom :* ${form.name}`,
+      form.email ? `*Email :* ${form.email}` : null,
+      form.company ? `*Entreprise :* ${form.company}` : null,
+      ``,
+      `*Fonctionnalités sélectionnées :*`,
+      features || "Aucune",
+      ``,
+      `*Estimation totale :* ${fmt(total)}`,
+      form.message ? `\n*Message :*\n${form.message}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank");
+  };
 
   return (
     <div className="space-y-6">
@@ -602,11 +610,8 @@ function SummaryStep({
         </div>
       </div>
 
-      {/* Form */}
-      <form
-        onSubmit={e => { e.preventDefault(); setSent(true); }}
-        className="space-y-4"
-      >
+      {/* Form → WhatsApp */}
+      <form onSubmit={openWhatsApp} className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <label className="text-xs text-white/40 uppercase tracking-wider font-semibold">{t("ctr_form_name")}</label>
@@ -621,7 +626,6 @@ function SummaryStep({
           <div className="space-y-1.5">
             <label className="text-xs text-white/40 uppercase tracking-wider font-semibold">{t("ctr_form_email")}</label>
             <input
-              required
               type="email"
               value={form.email}
               onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
@@ -630,47 +634,37 @@ function SummaryStep({
             />
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="space-y-1.5">
-            <label className="text-xs text-white/40 uppercase tracking-wider font-semibold">{t("ctr_form_company")}</label>
-            <input
-              value={form.company}
-              onChange={e => setForm(p => ({ ...p, company: e.target.value }))}
-              className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-emerald-500/50 transition-colors"
-              placeholder="Acme Corp"
-            />
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-xs text-white/40 uppercase tracking-wider font-semibold">{t("ctr_form_budget")}</label>
-            <select
-              value={form.budget}
-              onChange={e => setForm(p => ({ ...p, budget: e.target.value }))}
-              className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-sm text-white/70 focus:outline-none focus:border-emerald-500/50 transition-colors appearance-none"
-            >
-              <option value="" className="bg-zinc-900">—</option>
-              <option value="<5k" className="bg-zinc-900">{"< 5 000 €"}</option>
-              <option value="5-10k" className="bg-zinc-900">5 000 – 10 000 €</option>
-              <option value="10-20k" className="bg-zinc-900">10 000 – 20 000 €</option>
-              <option value="20k+" className="bg-zinc-900">{"20 000 € +"}</option>
-            </select>
-          </div>
+        <div className="space-y-1.5">
+          <label className="text-xs text-white/40 uppercase tracking-wider font-semibold">{t("ctr_form_company")}</label>
+          <input
+            value={form.company}
+            onChange={e => setForm(p => ({ ...p, company: e.target.value }))}
+            className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-emerald-500/50 transition-colors"
+            placeholder="Acme Corp"
+          />
         </div>
         <div className="space-y-1.5">
           <label className="text-xs text-white/40 uppercase tracking-wider font-semibold">{t("ctr_form_message")}</label>
           <textarea
-            rows={4}
+            rows={3}
             value={form.message}
             onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
             className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-emerald-500/50 transition-colors resize-none"
             placeholder="..."
           />
         </div>
+
         <button
           type="submit"
-          className="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-sm tracking-wide transition-all duration-200 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]"
+          className="w-full py-4 rounded-xl bg-[#25D366] hover:bg-[#20bf5b] text-black font-bold text-sm tracking-wide transition-all duration-200 hover:shadow-[0_0_30px_rgba(37,211,102,0.35)] flex items-center justify-center gap-3"
         >
+          {/* WhatsApp SVG icon */}
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
           {t("ctr_form_submit")}
         </button>
+        <p className="text-center text-[11px] text-white/25">{t("ctr_price_note")}</p>
       </form>
     </div>
   );
