@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { NavbarDemo } from "@/components/ui/navbar";
 import { ModalContext } from "@/contexts/ModalContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import Image from "next/image";
 
 // Lazy load des sections lourdes — chargées seulement quand nécessaire
@@ -77,6 +78,7 @@ function SectionLabel({ number, label }: { number: string; label: string }) {
 // ─── HERO ─────────────────────────────────────────────────────────────────────
 
 function HeroSection() {
+  const { t } = useLanguage();
   return (
     <section
       className="relative min-h-screen flex flex-col justify-center bg-[#080808] overflow-hidden"
@@ -104,10 +106,10 @@ function HeroSection() {
             style={{ fontFamily: "var(--font-dm-sans)" }}
             className="text-[#fdd9b9] text-[10px] tracking-[0.55em] uppercase mb-12"
           >
-            klinkr · Est. 2026 · Netherland
+            {t("hero_eyebrow")}
           </p>
         </motion.div>
-x
+
         {/* Groupe 2 : headlines — slide up rapide */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -118,13 +120,13 @@ x
             style={{ fontFamily: "var(--font-cormorant)" }}
             className="text-[clamp(50px,10vw,160px)] leading-[0.87] tracking-[-0.03em] font-light text-white mb-1"
           >
-            VOTRE VISION.
+            {t("hero_line1")}
           </h1>
           <h1
             style={{ fontFamily: "var(--font-cormorant)" }}
             className="text-[clamp(50px,10vw,160px)] leading-[0.87] tracking-[-0.03em] font-light italic text-[#fdd9b9] mb-14"
           >
-            NOTRE CODE.
+            {t("hero_line2")}
           </h1>
           <div className="w-48 h-px bg-gradient-to-r from-[#fdd9b9] to-transparent mb-14" />
         </motion.div>
@@ -140,9 +142,8 @@ x
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="text-white/45 text-base sm:text-lg leading-relaxed max-w-[380px] font-light"
             >
-              Sites web sur-mesure pour créateurs indépendants, dirigeants et
-              startups ambitieuses.{" "}
-              <span className="text-[#fdd9b9]/75">Jusqu&apos;à 50% moins cher.</span>
+              {t("hero_sub")}{" "}
+              <span className="text-[#fdd9b9]/75">{t("hero_cheaper")}</span>
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -151,7 +152,7 @@ x
                 style={{ fontFamily: "var(--font-dm-sans)" }}
                 className="group inline-flex items-center gap-3 border border-[#fdd9b9]/55 text-[#fdd9b9] px-8 py-4 text-[10px] tracking-[0.35em] uppercase hover:bg-[#fdd9b9] hover:text-black transition-all duration-500"
               >
-                Voir nos projets
+                {t("hero_cta_projects")}
                 <span className="group-hover:translate-x-1.5 transition-transform duration-300 inline-block">→</span>
               </a>
               <a
@@ -159,7 +160,7 @@ x
                 style={{ fontFamily: "var(--font-dm-sans)" }}
                 className="inline-flex items-center gap-2 text-white/35 hover:text-white/70 transition-colors duration-300 text-[10px] tracking-[0.35em] uppercase px-6 py-4"
               >
-                Discutons →
+                {t("hero_cta_talk")}
               </a>
             </div>
           </div>
@@ -173,7 +174,7 @@ x
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="text-white/25 text-[10px] tracking-[0.3em]"
             >
-              Disponible pour de nouveaux projets
+              {t("hero_available")}
             </span>
           </div>
         </motion.div>
