@@ -52,7 +52,7 @@ export function NavbarDemo() {
   const navLinks = [
     { key: "nav_services" as const, href: "#services" },
     { key: "nav_projects" as const, href: "#realisations" },
-    { key: "nav_contact" as const, href: "#contact" },
+    { key: "nav_contact" as const, href: "/contract" },
   ];
 
   const currentLang = languages.find((l) => l.code === lang)!;
@@ -166,13 +166,13 @@ export function NavbarDemo() {
               {t("nav_devis")}
             </Link>
 
-            <button
-              onClick={() => handleNav("#contact")}
+            <Link
+              href="/contract"
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="border border-[#fdd9b9]/30 text-[#fdd9b9] hover:bg-[#fdd9b9] hover:text-[#080808] transition-all duration-400 text-[10px] tracking-[0.3em] uppercase px-5 py-2.5 cursor-pointer"
             >
               {t("nav_contact")}
-            </button>
+            </Link>
           </nav>
 
           {/* Mobile hamburger */}
@@ -238,13 +238,14 @@ export function NavbarDemo() {
                     ))}
                   </div>
 
-                  <button
-                    onClick={() => handleNav("#contact")}
+                  <Link
+                    href="/contract"
+                    onClick={() => setMobileOpen(false)}
                     style={{ fontFamily: "var(--font-dm-sans)" }}
-                    className="border border-[#fdd9b9]/30 text-[#fdd9b9] py-3 text-[11px] tracking-[0.3em] uppercase hover:bg-[#fdd9b9] hover:text-[#080808] transition-all duration-400 cursor-pointer"
+                    className="border border-[#fdd9b9]/30 text-[#fdd9b9] py-3 text-[11px] tracking-[0.3em] uppercase hover:bg-[#fdd9b9] hover:text-[#080808] transition-all duration-400 cursor-pointer text-center"
                   >
                     {t("nav_contact")}
-                  </button>
+                  </Link>
                 </div>
               </motion.div>
             )}

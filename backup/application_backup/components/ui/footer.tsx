@@ -9,7 +9,7 @@ export default function Footer() {
   const navLinks = [
     { label: t("footer_nav_services"), href: "#services" },
     { label: t("footer_nav_projects"), href: "#realisations" },
-    { label: t("footer_nav_contact"), href: "#contact" },
+    { label: t("footer_nav_contact"), href: "/contract" },
   ];
 
   const legalLinks = [

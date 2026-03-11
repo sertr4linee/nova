@@ -585,7 +585,7 @@ function SummaryStep({
       .join("\n");
 
     const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
-    window.open(url, "_blank");
+    window.location.href = url;
   };
 
   return (

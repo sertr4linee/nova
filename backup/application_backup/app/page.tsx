@@ -535,7 +535,7 @@ function CTASection() {
         <Reveal delay={0.25}>
           <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-5">
             <a
-              href="mailto:hello@klinkr.app"
+              href="/contract"
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="group inline-flex items-center gap-4 bg-[#fdd9b9] text-black px-10 py-4 text-[10px] tracking-[0.35em] uppercase hover:bg-[#fef3e8] transition-all duration-400"
             >
