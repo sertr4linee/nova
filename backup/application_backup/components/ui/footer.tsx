@@ -93,11 +93,11 @@ export default function Footer() {
             <ul className="flex flex-col gap-4 mb-8">
               <li>
                 <a
-                  href="mailto:hello@novastudio.fr"
+                  href="mailto:hello@klinkr.app"
                   style={{ fontFamily: "var(--font-dm-sans)" }}
                   className="text-white/28 hover:text-[#fdd9b9] transition-colors duration-300 text-sm font-light"
                 >
-                  hello@novastudio.fr
+                  hello@klinkr.app
                 </a>
               </li>
               <li>

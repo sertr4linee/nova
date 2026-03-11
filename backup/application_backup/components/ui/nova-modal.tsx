@@ -457,7 +457,7 @@ export const NovaBlurImage = ({ height, width, src, className, alt, ...rest }: I
       height={height}
       loading="lazy"
       decoding="async"
-      alt={alt ? alt : "Nova project preview"}
+      alt={alt ? alt : "Klinkr project preview"}
       {...rest}
     />
   )
