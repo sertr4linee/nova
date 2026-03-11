@@ -107,7 +107,7 @@ function HeroSection() {
           style={{ fontFamily: "var(--font-dm-sans)" }}
           className="text-[#fdd9b9] text-[10px] tracking-[0.55em] uppercase mb-12"
         >
-          Nova Studio · Est. 2024 · Paris
+          klinkr · Est. 2024 · Paris
         </motion.p>
 
         {/* Headline line 1 */}
@@ -633,7 +633,7 @@ function CTASection() {
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="text-white/15 text-[10px] tracking-[0.3em]"
             >
-              © 2024 Nova Studio
+              © 2024 klinkr
             </span>
             <div className="w-12 h-px bg-[#fdd9b9]/25" />
             <span

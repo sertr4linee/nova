@@ -149,7 +149,7 @@ export default function Footer() {
             style={{ fontFamily: "var(--font-dm-sans)" }}
             className="text-white/14 text-[10px] tracking-[0.25em]"
           >
-            © {new Date().getFullYear()} Nova Studio. Tous droits réservés.
+            © {new Date().getFullYear()} klinkr. Tous droits réservés.
           </span>
           <div className="flex gap-6 flex-wrap justify-center">
             {legalLinks.map((l) => (
