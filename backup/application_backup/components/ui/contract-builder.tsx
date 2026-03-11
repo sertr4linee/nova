@@ -32,28 +32,28 @@ const PROJECT_TYPES: FeatureItem[] = [
     icon: "🏠",
     label: { fr: "Landing Page", en: "Landing Page", nl: "Landingspagina" },
     desc: { fr: "Page vitrine percutante, conversion optimisée", en: "High-impact showcase page, conversion-optimized", nl: "Krachtige vitrinepagina, conversie-geoptimaliseerd" },
-    price: 1500,
+    price: 900,
   },
   {
     id: "portfolio",
     icon: "🎨",
     label: { fr: "Portfolio / Vitrine", en: "Portfolio / Showcase", nl: "Portfolio / Vitrine" },
     desc: { fr: "Site multi-pages pour présenter votre travail", en: "Multi-page site to showcase your work", nl: "Meerpagina-site om uw werk te presenteren" },
-    price: 2500,
+    price: 1500,
   },
   {
     id: "blog",
     icon: "✍️",
     label: { fr: "Blog / Magazine", en: "Blog / Magazine", nl: "Blog / Magazine" },
     desc: { fr: "Contenu éditorial avec CMS intégré", en: "Editorial content with built-in CMS", nl: "Redactionele inhoud met ingebouwd CMS" },
-    price: 3000,
+    price: 2000,
   },
   {
     id: "saas",
     icon: "⚡",
     label: { fr: "Application SaaS", en: "SaaS Application", nl: "SaaS-applicatie" },
     desc: { fr: "Dashboard, abonnements, logique métier complexe", en: "Dashboard, subscriptions, complex business logic", nl: "Dashboard, abonnementen, complexe bedrijfslogica" },
-    price: 6000,
+    price: 3500,
     tag: { fr: "Populaire", en: "Popular", nl: "Populair" },
   },
   {
@@ -61,14 +61,14 @@ const PROJECT_TYPES: FeatureItem[] = [
     icon: "🛍️",
     label: { fr: "E-commerce", en: "E-commerce", nl: "E-commerce" },
     desc: { fr: "Catalogue produits, panier, paiement, gestion commandes", en: "Product catalog, cart, payment, order management", nl: "Productcatalogus, winkelwagen, betaling, orderbeheer" },
-    price: 7000,
+    price: 4500,
   },
   {
     id: "custom",
     icon: "🚀",
     label: { fr: "Application Custom", en: "Custom Application", nl: "Aangepaste applicatie" },
     desc: { fr: "Projet unique avec architecture sur-mesure", en: "Unique project with custom architecture", nl: "Uniek project met op maat gemaakte architectuur" },
-    price: 10000,
+    price: 7000,
     tag: { fr: "Premium", en: "Premium", nl: "Premium" },
   },
 ];
@@ -79,77 +79,77 @@ const AUTH_FEATURES: FeatureItem[] = [
     icon: "🔑",
     label: { fr: "Email / Mot de passe", en: "Email / Password", nl: "E-mail / Wachtwoord" },
     desc: { fr: "Inscription et connexion classique", en: "Classic registration and login", nl: "Klassieke registratie en login" },
-    price: 400,
+    price: 200,
   },
   {
     id: "magic_link",
     icon: "✨",
     label: { fr: "Magic Link", en: "Magic Link", nl: "Magic Link" },
     desc: { fr: "Connexion sans mot de passe par email", en: "Passwordless login via email", nl: "Wachtwoordloze login via e-mail" },
-    price: 300,
+    price: 150,
   },
   {
     id: "oauth_google",
     icon: "🔵",
     label: { fr: "Google OAuth", en: "Google OAuth", nl: "Google OAuth" },
     desc: { fr: "Connexion avec compte Google", en: "Sign in with Google", nl: "Inloggen met Google" },
-    price: 200,
+    price: 100,
   },
   {
     id: "oauth_github",
     icon: "⚫",
     label: { fr: "GitHub OAuth", en: "GitHub OAuth", nl: "GitHub OAuth" },
     desc: { fr: "Connexion avec compte GitHub", en: "Sign in with GitHub", nl: "Inloggen met GitHub" },
-    price: 200,
+    price: 100,
   },
   {
     id: "oauth_apple",
     icon: "🍎",
     label: { fr: "Apple Sign In", en: "Apple Sign In", nl: "Apple Sign In" },
     desc: { fr: "Connexion avec identifiant Apple (obligatoire iOS)", en: "Sign in with Apple (required for iOS)", nl: "Inloggen met Apple (verplicht voor iOS)" },
-    price: 300,
+    price: 150,
   },
   {
     id: "oauth_meta",
     icon: "🔷",
     label: { fr: "Meta (Facebook/Instagram)", en: "Meta (Facebook/Instagram)", nl: "Meta (Facebook/Instagram)" },
     desc: { fr: "Connexion via compte Meta", en: "Sign in with Meta account", nl: "Inloggen met Meta-account" },
-    price: 200,
+    price: 100,
   },
   {
     id: "oauth_twitter",
     icon: "🐦",
     label: { fr: "Twitter / X", en: "Twitter / X", nl: "Twitter / X" },
     desc: { fr: "Connexion avec compte X", en: "Sign in with X account", nl: "Inloggen met X-account" },
-    price: 200,
+    price: 100,
   },
   {
     id: "oauth_linkedin",
     icon: "💼",
     label: { fr: "LinkedIn OAuth", en: "LinkedIn OAuth", nl: "LinkedIn OAuth" },
     desc: { fr: "Connexion avec compte LinkedIn", en: "Sign in with LinkedIn", nl: "Inloggen met LinkedIn" },
-    price: 200,
+    price: 100,
   },
   {
     id: "oauth_discord",
     icon: "🟣",
     label: { fr: "Discord OAuth", en: "Discord OAuth", nl: "Discord OAuth" },
     desc: { fr: "Connexion avec compte Discord", en: "Sign in with Discord", nl: "Inloggen met Discord" },
-    price: 150,
+    price: 80,
   },
   {
     id: "oauth_microsoft",
     icon: "🪟",
     label: { fr: "Microsoft / Azure AD", en: "Microsoft / Azure AD", nl: "Microsoft / Azure AD" },
     desc: { fr: "Connexion entreprise via Microsoft", en: "Enterprise sign-in via Microsoft", nl: "Zakelijke login via Microsoft" },
-    price: 300,
+    price: 150,
   },
   {
     id: "two_fa",
     icon: "🛡️",
     label: { fr: "2FA / TOTP", en: "2FA / TOTP", nl: "2FA / TOTP" },
     desc: { fr: "Double authentification (Google Authenticator, Authy...)", en: "Two-factor auth (Google Authenticator, Authy...)", nl: "Tweefactorauthenticatie (Google Authenticator, Authy...)" },
-    price: 600,
+    price: 300,
     tag: { fr: "Sécurité", en: "Security", nl: "Beveiliging" },
   },
   {
@@ -157,7 +157,7 @@ const AUTH_FEATURES: FeatureItem[] = [
     icon: "🏢",
     label: { fr: "SSO / SAML Enterprise", en: "SSO / SAML Enterprise", nl: "SSO / SAML Enterprise" },
     desc: { fr: "Authentification centralisée pour grandes organisations", en: "Centralized auth for large organizations", nl: "Gecentraliseerde auth voor grote organisaties" },
-    price: 2000,
+    price: 1000,
     tag: { fr: "Enterprise", en: "Enterprise", nl: "Enterprise" },
   },
   {
@@ -165,7 +165,7 @@ const AUTH_FEATURES: FeatureItem[] = [
     icon: "👥",
     label: { fr: "Rôles & Permissions (RBAC)", en: "Roles & Permissions (RBAC)", nl: "Rollen & Rechten (RBAC)" },
     desc: { fr: "Gestion fine des droits utilisateurs", en: "Fine-grained user rights management", nl: "Gedetailleerd gebruikersrechtenbeheer" },
-    price: 800,
+    price: 400,
   },
 ];
 
@@ -175,14 +175,14 @@ const API_FEATURES: FeatureItem[] = [
     icon: "🔗",
     label: { fr: "REST API", en: "REST API", nl: "REST API" },
     desc: { fr: "API RESTful standard, documentation Swagger", en: "Standard RESTful API with Swagger docs", nl: "Standaard RESTful API met Swagger-documentatie" },
-    price: 1200,
+    price: 600,
   },
   {
     id: "graphql",
     icon: "◉",
     label: { fr: "GraphQL", en: "GraphQL", nl: "GraphQL" },
     desc: { fr: "API flexible, queries précises, subscriptions", en: "Flexible API, precise queries, subscriptions", nl: "Flexibele API, precieze queries, subscriptions" },
-    price: 1800,
+    price: 900,
     tag: { fr: "Avancé", en: "Advanced", nl: "Geavanceerd" },
   },
   {
@@ -190,35 +190,35 @@ const API_FEATURES: FeatureItem[] = [
     icon: "⚙️",
     label: { fr: "tRPC (TypeSafe)", en: "tRPC (TypeSafe)", nl: "tRPC (TypeSafe)" },
     desc: { fr: "API full-stack type-safe, idéal avec Next.js", en: "Full-stack type-safe API, ideal with Next.js", nl: "Volledige stack type-veilige API, ideaal met Next.js" },
-    price: 1500,
+    price: 750,
   },
   {
     id: "websockets",
     icon: "⚡",
     label: { fr: "WebSockets", en: "WebSockets", nl: "WebSockets" },
     desc: { fr: "Communication bidirectionnelle temps réel", en: "Real-time bidirectional communication", nl: "Real-time bidirectionele communicatie" },
-    price: 1000,
+    price: 500,
   },
   {
     id: "realtime",
     icon: "🔴",
     label: { fr: "Subscriptions temps réel", en: "Real-time subscriptions", nl: "Real-time subscriptions" },
     desc: { fr: "Mises à jour live (chat, notifications, dashboards)", en: "Live updates (chat, notifications, dashboards)", nl: "Live updates (chat, meldingen, dashboards)" },
-    price: 1200,
+    price: 600,
   },
   {
     id: "webhooks",
     icon: "🔔",
     label: { fr: "Webhooks", en: "Webhooks", nl: "Webhooks" },
     desc: { fr: "Événements sortants vers services tiers", en: "Outbound events to third-party services", nl: "Uitgaande events naar externe diensten" },
-    price: 500,
+    price: 250,
   },
   {
     id: "admin",
     icon: "🖥️",
     label: { fr: "Panel d'administration", en: "Admin Panel", nl: "Beheerpaneel" },
     desc: { fr: "Interface back-office complète", en: "Complete back-office interface", nl: "Volledig back-office interface" },
-    price: 3000,
+    price: 1500,
     tag: { fr: "Inclut UI", en: "Includes UI", nl: "Inclusief UI" },
   },
   {
@@ -226,7 +226,7 @@ const API_FEATURES: FeatureItem[] = [
     icon: "🏗️",
     label: { fr: "Multi-tenant", en: "Multi-tenant", nl: "Multi-tenant" },
     desc: { fr: "Architecture isolée par organisation/client", en: "Isolated architecture per org/client", nl: "Geïsoleerde architectuur per organisatie/klant" },
-    price: 4000,
+    price: 2000,
     tag: { fr: "Complexe", en: "Complex", nl: "Complex" },
   },
 ];
@@ -237,14 +237,14 @@ const DB_FEATURES: FeatureItem[] = [
     icon: "🐘",
     label: { fr: "PostgreSQL", en: "PostgreSQL", nl: "PostgreSQL" },
     desc: { fr: "Base relationnelle robuste et scalable", en: "Robust and scalable relational database", nl: "Robuuste en schaalbare relationele database" },
-    price: 500,
+    price: 250,
   },
   {
     id: "supabase",
     icon: "⚡",
     label: { fr: "Supabase", en: "Supabase", nl: "Supabase" },
     desc: { fr: "PostgreSQL managé + Auth + Storage tout-en-un", en: "Managed PostgreSQL + Auth + Storage all-in-one", nl: "Managed PostgreSQL + Auth + Storage alles-in-één" },
-    price: 600,
+    price: 300,
     tag: { fr: "Recommandé", en: "Recommended", nl: "Aanbevolen" },
   },
   {
@@ -252,42 +252,42 @@ const DB_FEATURES: FeatureItem[] = [
     icon: "🔥",
     label: { fr: "Firebase / Firestore", en: "Firebase / Firestore", nl: "Firebase / Firestore" },
     desc: { fr: "NoSQL temps réel, idéal pour apps mobiles", en: "Real-time NoSQL, ideal for mobile apps", nl: "Real-time NoSQL, ideaal voor mobiele apps" },
-    price: 600,
+    price: 300,
   },
   {
     id: "mongodb",
     icon: "🍃",
     label: { fr: "MongoDB Atlas", en: "MongoDB Atlas", nl: "MongoDB Atlas" },
     desc: { fr: "NoSQL flexible, schéma dynamique", en: "Flexible NoSQL, dynamic schema", nl: "Flexibel NoSQL, dynamisch schema" },
-    price: 600,
+    price: 300,
   },
   {
     id: "planetscale",
     icon: "🪐",
     label: { fr: "PlanetScale / Neon", en: "PlanetScale / Neon", nl: "PlanetScale / Neon" },
     desc: { fr: "MySQL/PostgreSQL serverless ultra scalable", en: "Serverless MySQL/PostgreSQL, ultra scalable", nl: "Serverless MySQL/PostgreSQL, ultra schaalbaar" },
-    price: 600,
+    price: 300,
   },
   {
     id: "redis",
     icon: "🔴",
     label: { fr: "Redis / Cache", en: "Redis / Cache", nl: "Redis / Cache" },
     desc: { fr: "Cache in-memory, sessions, file d'attente", en: "In-memory cache, sessions, queues", nl: "In-memory cache, sessies, wachtrijen" },
-    price: 500,
+    price: 250,
   },
   {
     id: "s3_storage",
     icon: "🗄️",
     label: { fr: "Stockage fichiers (S3 / R2)", en: "File storage (S3 / R2)", nl: "Bestandsopslag (S3 / R2)" },
     desc: { fr: "Stockage objet sécurisé, CDN inclus", en: "Secure object storage with CDN", nl: "Veilige objectopslag met CDN" },
-    price: 400,
+    price: 200,
   },
   {
     id: "cloudinary",
     icon: "🖼️",
     label: { fr: "Cloudinary (images & vidéos)", en: "Cloudinary (images & videos)", nl: "Cloudinary (afbeeldingen & video's)" },
     desc: { fr: "Optimisation et transformation d'assets", en: "Asset optimization and transformation", nl: "Asset-optimalisatie en -transformatie" },
-    price: 400,
+    price: 200,
   },
 ];
 
@@ -297,35 +297,35 @@ const COMM_FEATURES: FeatureItem[] = [
     icon: "📧",
     label: { fr: "Emails transactionnels", en: "Transactional emails", nl: "Transactionele e-mails" },
     desc: { fr: "Confirmation, reset password, alertes (Resend / SendGrid)", en: "Confirmation, password reset, alerts (Resend / SendGrid)", nl: "Bevestiging, wachtwoord reset, meldingen (Resend / SendGrid)" },
-    price: 500,
+    price: 250,
   },
   {
     id: "newsletter",
     icon: "📨",
     label: { fr: "Newsletter / Campagnes email", en: "Newsletter / Email campaigns", nl: "Nieuwsbrief / E-mailcampagnes" },
     desc: { fr: "Segmentation, automatisations, analytics (Mailchimp, Loops)", en: "Segmentation, automations, analytics (Mailchimp, Loops)", nl: "Segmentatie, automatiseringen, analytics (Mailchimp, Loops)" },
-    price: 800,
+    price: 400,
   },
   {
     id: "sms",
     icon: "📱",
     label: { fr: "SMS / Notifications téléphoniques", en: "SMS / Phone notifications", nl: "SMS / Telefonische meldingen" },
     desc: { fr: "OTP, alertes, marketing (Twilio, Vonage)", en: "OTP, alerts, marketing (Twilio, Vonage)", nl: "OTP, meldingen, marketing (Twilio, Vonage)" },
-    price: 800,
+    price: 400,
   },
   {
     id: "push",
     icon: "🔔",
     label: { fr: "Push Notifications", en: "Push Notifications", nl: "Push-meldingen" },
     desc: { fr: "Web push et push mobile (FCM, OneSignal)", en: "Web push and mobile push (FCM, OneSignal)", nl: "Web push en mobiele push (FCM, OneSignal)" },
-    price: 700,
+    price: 350,
   },
   {
     id: "chat",
     icon: "💬",
     label: { fr: "Chat temps réel", en: "Real-time chat", nl: "Real-time chat" },
     desc: { fr: "Messagerie instantanée entre utilisateurs", en: "Instant messaging between users", nl: "Directe berichten tussen gebruikers" },
-    price: 2000,
+    price: 1000,
     tag: { fr: "Avancé", en: "Advanced", nl: "Geavanceerd" },
   },
   {
@@ -333,7 +333,7 @@ const COMM_FEATURES: FeatureItem[] = [
     icon: "📝",
     label: { fr: "Formulaire de contact", en: "Contact form", nl: "Contactformulier" },
     desc: { fr: "Formulaire simple avec validation et envoi email", en: "Simple form with validation and email delivery", nl: "Eenvoudig formulier met validatie en e-mailbezorging" },
-    price: 200,
+    price: 100,
   },
 ];
 
@@ -343,7 +343,7 @@ const INTEGRATION_FEATURES: FeatureItem[] = [
     icon: "💳",
     label: { fr: "Stripe", en: "Stripe", nl: "Stripe" },
     desc: { fr: "Paiements, abonnements, invoicing", en: "Payments, subscriptions, invoicing", nl: "Betalingen, abonnementen, facturering" },
-    price: 1500,
+    price: 700,
     tag: { fr: "Recommandé", en: "Recommended", nl: "Aanbevolen" },
   },
   {
@@ -351,14 +351,14 @@ const INTEGRATION_FEATURES: FeatureItem[] = [
     icon: "🅿️",
     label: { fr: "PayPal / Braintree", en: "PayPal / Braintree", nl: "PayPal / Braintree" },
     desc: { fr: "Paiements internationaux simplifiés", en: "Simplified international payments", nl: "Vereenvoudigde internationale betalingen" },
-    price: 900,
+    price: 450,
   },
   {
     id: "mollie",
     icon: "🇳🇱",
     label: { fr: "Mollie", en: "Mollie", nl: "Mollie" },
     desc: { fr: "Paiements européens (iDEAL, Bancontact, SEPA)", en: "European payments (iDEAL, Bancontact, SEPA)", nl: "Europese betalingen (iDEAL, Bancontact, SEPA)" },
-    price: 900,
+    price: 450,
     tag: { fr: "Populaire NL/BE", en: "Popular NL/BE", nl: "Populair NL/BE" },
   },
   {
@@ -366,56 +366,56 @@ const INTEGRATION_FEATURES: FeatureItem[] = [
     icon: "📊",
     label: { fr: "Google Analytics 4", en: "Google Analytics 4", nl: "Google Analytics 4" },
     desc: { fr: "Suivi audience, événements, conversions", en: "Audience tracking, events, conversions", nl: "Publiekstracking, events, conversies" },
-    price: 250,
+    price: 120,
   },
   {
     id: "posthog",
     icon: "🦔",
     label: { fr: "PostHog / Mixpanel", en: "PostHog / Mixpanel", nl: "PostHog / Mixpanel" },
     desc: { fr: "Analytics produit avancé, funnels, heatmaps", en: "Advanced product analytics, funnels, heatmaps", nl: "Geavanceerde productanalytics, funnels, heatmaps" },
-    price: 600,
+    price: 300,
   },
   {
     id: "cms_sanity",
     icon: "🟠",
     label: { fr: "Sanity CMS", en: "Sanity CMS", nl: "Sanity CMS" },
     desc: { fr: "Éditeur de contenu headless flexible", en: "Flexible headless content editor", nl: "Flexibele headless content-editor" },
-    price: 1000,
+    price: 500,
   },
   {
     id: "cms_contentful",
     icon: "📦",
     label: { fr: "Contentful", en: "Contentful", nl: "Contentful" },
     desc: { fr: "CMS enterprise, API-first, multi-locale", en: "Enterprise CMS, API-first, multi-locale", nl: "Enterprise CMS, API-first, multi-locale" },
-    price: 1200,
+    price: 600,
   },
   {
     id: "maps",
     icon: "🗺️",
     label: { fr: "Google Maps / Mapbox", en: "Google Maps / Mapbox", nl: "Google Maps / Mapbox" },
     desc: { fr: "Cartes interactives, géolocalisation", en: "Interactive maps, geolocation", nl: "Interactieve kaarten, geolocatie" },
-    price: 500,
+    price: 250,
   },
   {
     id: "i18n",
     icon: "🌍",
     label: { fr: "Multi-langue (i18n)", en: "Multi-language (i18n)", nl: "Meertalig (i18n)" },
     desc: { fr: "Site en plusieurs langues avec routing", en: "Multi-language site with routing", nl: "Meertalige site met routing" },
-    price: 900,
+    price: 450,
   },
   {
     id: "seo",
     icon: "🔍",
     label: { fr: "SEO avancé", en: "Advanced SEO", nl: "Geavanceerde SEO" },
     desc: { fr: "Sitemap, structured data, Core Web Vitals", en: "Sitemap, structured data, Core Web Vitals", nl: "Sitemap, gestructureerde data, Core Web Vitals" },
-    price: 600,
+    price: 300,
   },
   {
     id: "ai",
     icon: "🤖",
     label: { fr: "Intégration IA (OpenAI / Claude)", en: "AI Integration (OpenAI / Claude)", nl: "AI-integratie (OpenAI / Claude)" },
     desc: { fr: "Chatbot, génération de contenu, embeddings", en: "Chatbot, content generation, embeddings", nl: "Chatbot, contentgeneratie, embeddings" },
-    price: 2500,
+    price: 1200,
     tag: { fr: "Tendance", en: "Trending", nl: "Trending" },
   },
 ];
@@ -458,25 +458,25 @@ function FeatureCard({
           : "border-white/8 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.05]"
       }`}
     >
-      {item.tag && (
-        <span className="absolute top-3 right-3 text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">
-          {item.tag[lang]}
-        </span>
-      )}
       <div className="flex items-start gap-3">
         <span className="text-2xl shrink-0 mt-0.5">{item.icon}</span>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className={`font-semibold text-sm transition-colors ${selected ? "text-emerald-300" : "text-white/90 group-hover:text-white"}`}>
               {item.label[lang]}
             </span>
+            {item.tag && (
+              <span className="text-[9px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/25">
+                {item.tag[lang]}
+              </span>
+            )}
           </div>
           <p className="text-xs text-white/45 mt-0.5 leading-relaxed">{item.desc[lang]}</p>
           <p className={`text-xs font-mono mt-2 font-semibold ${selected ? "text-emerald-400" : "text-white/30"}`}>
             +{fmt(item.price)}
           </p>
         </div>
-        <div className={`shrink-0 w-5 h-5 rounded border flex items-center justify-center transition-all ${
+        <div className={`shrink-0 mt-0.5 w-5 h-5 rounded border flex items-center justify-center transition-all ${
           selected
             ? "bg-emerald-500 border-emerald-500"
             : "border-white/20 group-hover:border-white/40"
@@ -755,11 +755,35 @@ export default function ContractBuilder() {
 
         {/* Progress */}
         <div className="mb-8">
-          <div className="flex items-center gap-1.5 mb-3 overflow-x-auto pb-1">
+          {/* Mobile: step counter + dots */}
+          <div className="flex sm:hidden items-center justify-between mb-3">
+            <p className="text-xs text-white/40 font-medium">
+              {isSummary ? `${TOTAL_STEPS} / ${TOTAL_STEPS}` : `${currentStep + 1} / ${TOTAL_STEPS}`}
+              {" — "}
+              <span className="text-white/70">
+                {isSummary ? t("ctr_step7_title") : t(STEPS[currentStep].titleKey)}
+              </span>
+            </p>
+            <div className="flex gap-1">
+              {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => i <= currentStep && setCurrentStep(i)}
+                  disabled={i > currentStep}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === currentStep ? "w-6 bg-emerald-500" : i < currentStep ? "w-3 bg-emerald-700" : "w-3 bg-white/15"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop: full pills */}
+          <div className="hidden sm:flex items-center gap-1.5 mb-3 overflow-x-auto pb-1">
             {STEPS.map((step, i) => (
               <button
                 key={step.id}
-                onClick={() => setCurrentStep(i)}
+                onClick={() => i <= currentStep && setCurrentStep(i)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap ${
                   i === currentStep
                     ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
@@ -778,14 +802,12 @@ export default function ContractBuilder() {
               </button>
             ))}
             <button
-              onClick={() => setCurrentStep(STEPS.length)}
+              onClick={() => currentStep >= STEPS.length && setCurrentStep(STEPS.length)}
               disabled={currentStep < STEPS.length}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap ${
                 currentStep === STEPS.length
                   ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
-                  : currentStep < STEPS.length
-                  ? "bg-transparent text-white/25 border border-white/5 cursor-not-allowed"
-                  : "bg-white/5 text-white/60 border border-white/10"
+                  : "bg-transparent text-white/25 border border-white/5 cursor-not-allowed"
               }`}
             >
               <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-bold ${
@@ -796,6 +818,7 @@ export default function ContractBuilder() {
               {t("ctr_step7_title")}
             </button>
           </div>
+
           {/* Progress bar */}
           <div className="h-0.5 bg-white/8 rounded-full overflow-hidden">
             <motion.div

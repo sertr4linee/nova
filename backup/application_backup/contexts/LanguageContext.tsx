@@ -23,7 +23,7 @@ const translations = {
     hero_sub: "Sites web sur-mesure pour créateurs indépendants, dirigeants et startups ambitieuses.",
     hero_cheaper: "Jusqu'à 50% moins cher.",
     hero_cta_projects: "Voir nos projets",
-    hero_cta_talk: "Discutons →",
+    hero_cta_talk: "Obtenir un devis →",
     hero_available: "Disponible pour de nouveaux projets",
 
     // Section labels
@@ -226,7 +226,7 @@ const translations = {
     hero_sub: "Tailor-made websites for independent creators, executives and ambitious startups.",
     hero_cheaper: "Up to 50% cheaper.",
     hero_cta_projects: "View our work",
-    hero_cta_talk: "Let's talk →",
+    hero_cta_talk: "Get a quote →",
     hero_available: "Available for new projects",
 
     label_services: "Services",
@@ -415,7 +415,7 @@ const translations = {
     hero_sub: "Maatwerk websites voor onafhankelijke makers, leidinggevenden en ambitieuze startups.",
     hero_cheaper: "Tot 50% goedkoper.",
     hero_cta_projects: "Onze projecten",
-    hero_cta_talk: "Neem contact op →",
+    hero_cta_talk: "Offerte aanvragen →",
     hero_available: "Beschikbaar voor nieuwe projecten",
 
     label_services: "Diensten",

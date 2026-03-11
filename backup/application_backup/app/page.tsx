@@ -156,7 +156,7 @@ function HeroSection() {
                 <span className="group-hover:translate-x-1.5 transition-transform duration-300 inline-block">→</span>
               </a>
               <a
-                href="#contact"
+                href="/contract"
                 style={{ fontFamily: "var(--font-dm-sans)" }}
                 className="inline-flex items-center gap-2 text-white/35 hover:text-white/70 transition-colors duration-300 text-[10px] tracking-[0.35em] uppercase px-6 py-4"
               >
