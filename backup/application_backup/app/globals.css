@@ -204,12 +204,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #ffdab9, #ffdab9);
+  background: linear-gradient(180deg, #C4963A, #8B6914);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #ffdab9, #ffc499);
+  background: linear-gradient(180deg, #E8D5A3, #C4963A);
 }
 
 /* Styles pour les éléments interactifs avec le smooth cursor */

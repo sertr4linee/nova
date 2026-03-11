@@ -1,466 +1,678 @@
 "use client";
-import { cn } from "@/lib/utils";
-import { InteractiveGridPattern } from "../components/magicui/interactive-grid-pattern-fixed";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+
+import { useState, useRef } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { NavbarDemo } from "@/components/ui/navbar";
-import { Badge } from "@/components/ui/badge";
-import { PointerHighlight } from "@/components/ui/pointer-highlight";
-import { Spotlight } from "@/components/ui/spotlight";
-import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import { GlowText } from "@/components/ui/glow-text";
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { ModalContext } from "@/contexts/ModalContext";
 import AppleCardsCarouselDemo from "@/components/ui/apple-cards-carousel-demo-with-modal-context";
-import { FeaturesSectionDemo } from "@/components/ui/features";
 import { WobbleCardDemo } from "@/components/ui/wobble-card-demo";
 import Image from "next/image";
-import { ModalContext } from "@/contexts/ModalContext";
-import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 
+// ─── Utilities ────────────────────────────────────────────────────────────────
 
-// Composant pour l'animation des mots alternants
-const AnimatedWords = () => {
-  const words = ["créateurs", "dirigeant", "freelances", "startups"];
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % words.length);
-        setTimeout(() => {
-          setIsTransitioning(false);
-        }, 200);
-      }, 400);
-    }, 5000); // Change de mot toutes les 5 secondes
-
-    return () => clearInterval(interval);
-  }, [words.length]);
+function Reveal({
+  children,
+  delay = 0,
+  className = "",
+  direction = "up",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+  direction?: "up" | "left" | "right";
+}) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
+  const initial =
+    direction === "up"
+      ? { opacity: 0, y: 50 }
+      : direction === "left"
+      ? { opacity: 0, x: -40 }
+      : { opacity: 0, x: 40 };
 
   return (
-    <AnimatePresence mode="wait">
+    <div ref={ref} className={className}>
       <motion.div
-        key={currentIndex}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        transition={{
-          duration: 0.8,
-          ease: "easeInOut"
-        }}
-        className="relative"
+        initial={initial}
+        animate={isInView ? { opacity: 1, y: 0, x: 0 } : {}}
+        transition={{ duration: 1, delay, ease: [0.22, 1, 0.36, 1] }}
       >
-        {isTransitioning && (
-          <motion.div
-            className="absolute -inset-4 -z-10 bg-[#ffdab9]/10 blur-xl rounded-full"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.2 }}
-            transition={{ duration: 0.5 }}
-          />
-        )}
-        <PointerHighlight
-          rectangleClassName="bg-black/10 dark:bg-neutral-800/30 border-[#ffdab9]/30 dark:border-[#ffdab9]/30"
-          pointerClassName="text-[#ffdab9]"
-        >                          <span className="relative z-10 px-1 sm:px-2 py-0.5 sm:py-1 text-[#ffdab9] font-montserrat text-lg sm:text-2xl md:text-4xl lg:text-6xl">
-            {words[currentIndex]}
-          </span>
-        </PointerHighlight>
+        {children}
       </motion.div>
-    </AnimatePresence>
+    </div>
   );
-};
+}
+
+function SectionLabel({ number, label }: { number: string; label: string }) {
+  return (
+    <div className="flex items-center gap-4 mb-14">
+      <span
+        style={{ fontFamily: "var(--font-cormorant)" }}
+        className="text-[#C4963A] text-sm italic"
+      >
+        {number}
+      </span>
+      <div className="w-10 h-px bg-[#C4963A]/40" />
+      <span
+        style={{ fontFamily: "var(--font-dm-sans)" }}
+        className="text-white/30 text-[10px] tracking-[0.4em] uppercase"
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
+
+// ─── HERO ─────────────────────────────────────────────────────────────────────
+
+function HeroSection() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
+
+  return (
+    <section
+      ref={ref}
+      className="relative min-h-screen flex flex-col justify-center bg-[#080808] overflow-hidden"
+    >
+      {/* Ambient gold glow */}
+      <div className="absolute top-1/3 right-0 w-[700px] h-[700px] bg-[#C4963A]/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute -bottom-40 -left-20 w-[500px] h-[500px] bg-[#C4963A]/3 rounded-full blur-[100px] pointer-events-none" />
+
+      {/* Top ruled line (appears after navbar) */}
+      <motion.div
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute top-[72px] left-0 w-full h-px bg-[#C4963A]/10 origin-left"
+      />
+
+      <motion.div
+        style={{ y, opacity }}
+        className="relative z-10 px-6 sm:px-12 lg:px-24 pt-36 pb-24"
+      >
+        {/* Eyebrow */}
+        <motion.p
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.35 }}
+          style={{ fontFamily: "var(--font-dm-sans)" }}
+          className="text-[#C4963A] text-[10px] tracking-[0.55em] uppercase mb-12"
+        >
+          Nova Studio · Est. 2024 · Paris
+        </motion.p>
+
+        {/* Headline line 1 */}
+        <div className="overflow-hidden mb-1">
+          <motion.h1
+            initial={{ y: "105%" }}
+            animate={{ y: 0 }}
+            transition={{ duration: 1.1, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            style={{ fontFamily: "var(--font-cormorant)" }}
+            className="text-[clamp(50px,10vw,160px)] leading-[0.87] tracking-[-0.03em] font-light text-white"
+          >
+            VOTRE VISION.
+          </motion.h1>
+        </div>
+
+        {/* Headline line 2 — gold italic */}
+        <div className="overflow-hidden mb-14">
+          <motion.h1
+            initial={{ y: "105%" }}
+            animate={{ y: 0 }}
+            transition={{ duration: 1.1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            style={{ fontFamily: "var(--font-cormorant)" }}
+            className="text-[clamp(50px,10vw,160px)] leading-[0.87] tracking-[-0.03em] font-light italic text-[#C4963A]"
+          >
+            NOTRE CODE.
+          </motion.h1>
+        </div>
+
+        {/* Gold underline */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1.1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="w-48 h-px bg-gradient-to-r from-[#C4963A] to-transparent mb-14 origin-left"
+        />
+
+        {/* Subtitle + CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 26 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 1.15 }}
+          className="flex flex-col lg:flex-row items-start gap-10 lg:gap-28"
+        >
+          <p
+            style={{ fontFamily: "var(--font-dm-sans)" }}
+            className="text-white/45 text-base sm:text-lg leading-relaxed max-w-[380px] font-light"
+          >
+            Sites web sur-mesure pour créateurs indépendants, dirigeants et
+            startups ambitieuses.{" "}
+            <span className="text-[#C4963A]/75">Jusqu&apos;à 50% moins cher.</span>
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href="#realisations"
+              style={{ fontFamily: "var(--font-dm-sans)" }}
+              className="group inline-flex items-center gap-3 border border-[#C4963A]/55 text-[#C4963A] px-8 py-4 text-[10px] tracking-[0.35em] uppercase hover:bg-[#C4963A] hover:text-black transition-all duration-500"
+            >
+              Voir nos projets
+              <span className="group-hover:translate-x-1.5 transition-transform duration-300 inline-block">
+                →
+              </span>
+            </a>
+            <a
+              href="#contact"
+              style={{ fontFamily: "var(--font-dm-sans)" }}
+              className="inline-flex items-center gap-2 text-white/35 hover:text-white/70 transition-colors duration-300 text-[10px] tracking-[0.35em] uppercase px-6 py-4"
+            >
+              Discutons →
+            </a>
+          </div>
+        </motion.div>
+
+        {/* Availability dot */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="mt-20 flex items-center gap-3"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C4963A] opacity-50" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C4963A]" />
+          </span>
+          <span
+            style={{ fontFamily: "var(--font-dm-sans)" }}
+            className="text-white/25 text-[10px] tracking-[0.3em]"
+          >
+            Disponible pour de nouveaux projets
+          </span>
+        </motion.div>
+      </motion.div>
+
+      {/* Scroll cue — right side rotated */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.8 }}
+        className="absolute bottom-10 right-10 hidden md:flex flex-col items-center gap-3"
+        style={{ writingMode: "vertical-rl" }}
+      >
+        <span
+          style={{ fontFamily: "var(--font-dm-sans)" }}
+          className="text-white/15 text-[9px] tracking-[0.4em] uppercase"
+        >
+          Défiler
+        </span>
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          className="w-px h-12 bg-gradient-to-b from-[#C4963A]/40 to-transparent"
+        />
+      </motion.div>
+    </section>
+  );
+}
+
+// ─── MARQUEE STRIP ────────────────────────────────────────────────────────────
+
+function MarqueeStrip() {
+  const items = [
+    "Design",
+    "Développement",
+    "Performance",
+    "Élégance",
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Innovation",
+  ];
+
+  return (
+    <div className="border-y border-[#C4963A]/12 bg-[#080808] overflow-hidden py-5 relative">
+      <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#080808] to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#080808] to-transparent z-10 pointer-events-none" />
+      <motion.div
+        animate={{ x: "-50%" }}
+        transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+        className="flex gap-0 whitespace-nowrap w-max"
+      >
+        {[...items, ...items].map((item, i) => (
+          <span
+            key={i}
+            style={{ fontFamily: "var(--font-cormorant)" }}
+            className="text-sm sm:text-base tracking-[0.35em] uppercase text-[#C4963A]/30 hover:text-[#C4963A]/70 transition-colors duration-500 cursor-default px-8"
+          >
+            {item}
+            <span className="ml-8 text-[#C4963A]/15">·</span>
+          </span>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
+// ─── SERVICES ─────────────────────────────────────────────────────────────────
+
+const services = [
+  {
+    num: "01",
+    title: "Design sur mesure",
+    desc: "Identités visuelles qui captivent. Chaque pixel pensé pour votre marque et vos utilisateurs.",
+  },
+  {
+    num: "02",
+    title: "Développement Next.js",
+    desc: "Sites ultra-performants avec les dernières technologies React, TypeScript et Tailwind.",
+  },
+  {
+    num: "03",
+    title: "Performance & SEO",
+    desc: "Optimisation technique pour un référencement naturel de premier rang sur Google.",
+  },
+  {
+    num: "04",
+    title: "Support & Maintenance",
+    desc: "Accompagnement continu, mises à jour de sécurité et support réactif sous 24h.",
+  },
+];
+
+function ServicesSection() {
+  const listRef = useRef(null);
+  const isInView = useInView(listRef, { once: true, margin: "-80px" });
+
+  return (
+    <section className="bg-[#080808] py-36 lg:py-48 px-6 sm:px-12 lg:px-24">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-[1fr_1.6fr] gap-20 lg:gap-40">
+          {/* Left */}
+          <Reveal>
+            <div>
+              <SectionLabel number="01" label="Services" />
+              <h2
+                style={{ fontFamily: "var(--font-cormorant)" }}
+                className="text-[clamp(44px,6.5vw,100px)] leading-[0.88] tracking-[-0.02em] font-light text-white mb-10"
+              >
+                CE QUE
+                <br />
+                <span className="italic text-[#C4963A]">NOUS</span>
+                <br />
+                FAISONS
+              </h2>
+              <p
+                style={{ fontFamily: "var(--font-dm-sans)" }}
+                className="text-white/35 text-sm leading-relaxed max-w-[260px] font-light"
+              >
+                De la conception à la mise en ligne, nous gérons l&apos;intégralité
+                de votre projet digital.
+              </p>
+
+              {/* Decorative image */}
+              <div className="mt-12 relative overflow-hidden border border-[#C4963A]/15 w-fit hidden lg:block">
+                <Image
+                  src="/nova.svg"
+                  alt="Nova"
+                  width={80}
+                  height={80}
+                  className="opacity-20 p-4"
+                />
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Right: numbered service list */}
+          <div ref={listRef} className="flex flex-col divide-y divide-[#C4963A]/10">
+            {services.map((s, i) => (
+              <motion.div
+                key={s.num}
+                initial={{ opacity: 0, x: 24 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{
+                  duration: 0.8,
+                  delay: i * 0.12,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="group py-9 flex gap-8 items-start cursor-default"
+              >
+                <span
+                  style={{ fontFamily: "var(--font-cormorant)" }}
+                  className="text-[#C4963A]/30 text-lg italic pt-1 group-hover:text-[#C4963A] transition-colors duration-400 min-w-[2.5rem]"
+                >
+                  {s.num}
+                </span>
+                <div className="flex-1">
+                  <h3
+                    style={{ fontFamily: "var(--font-cormorant)" }}
+                    className="text-2xl sm:text-3xl font-light text-white/80 group-hover:text-white transition-colors duration-400 mb-2"
+                  >
+                    {s.title}
+                  </h3>
+                  <p
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
+                    className="text-white/30 text-sm leading-relaxed group-hover:text-white/55 transition-colors duration-400 font-light max-w-md"
+                  >
+                    {s.desc}
+                  </p>
+                </div>
+                <span className="text-[#C4963A]/0 group-hover:text-[#C4963A]/50 transition-all duration-400 text-xl self-center">
+                  →
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── PROJETS ──────────────────────────────────────────────────────────────────
+
+function ProjectsSection() {
+  return (
+    <section id="realisations" className="bg-[#060606] py-36 lg:py-48">
+      <div className="px-6 sm:px-12 lg:px-24 max-w-7xl mx-auto mb-16">
+        <Reveal>
+          <SectionLabel number="02" label="Réalisations" />
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2
+            style={{ fontFamily: "var(--font-cormorant)" }}
+            className="text-[clamp(42px,7vw,110px)] leading-[0.88] tracking-[-0.02em] font-light text-white"
+          >
+            NOS PROJETS
+            <br />
+            <span className="italic text-[#C4963A]">RÉCENTS</span>
+          </h2>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <p
+            style={{ fontFamily: "var(--font-dm-sans)" }}
+            className="text-white/35 text-sm mt-8 max-w-md font-light leading-relaxed"
+          >
+            Des expériences digitales uniques, conçues avec passion et expertise
+            technique. Chaque projet, une nouvelle vision.
+          </p>
+        </Reveal>
+
+        {/* Thin gold rule */}
+        <Reveal delay={0.3}>
+          <div className="mt-12 w-full h-px bg-[#C4963A]/10" />
+        </Reveal>
+      </div>
+
+      <Reveal delay={0.15}>
+        <AppleCardsCarouselDemo />
+      </Reveal>
+    </section>
+  );
+}
+
+// ─── STATS ────────────────────────────────────────────────────────────────────
+
+const stats = [
+  { num: "7+", label: "Projets livrés" },
+  { num: "100%", label: "Satisfaction client" },
+  { num: "6", label: "Mois d'expérience" },
+  { num: "24h", label: "Support réactif" },
+];
+
+function StatsSection() {
+  return (
+    <section className="bg-[#080808] border-y border-[#C4963A]/10 py-20 lg:py-28">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24">
+        <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-[#C4963A]/10 border border-[#C4963A]/10">
+          {stats.map((s, i) => (
+            <Reveal key={s.label} delay={i * 0.1}>
+              <div className="flex flex-col items-center text-center p-10 lg:p-14 group hover:bg-[#C4963A]/3 transition-colors duration-600">
+                <div
+                  style={{ fontFamily: "var(--font-cormorant)" }}
+                  className="text-[clamp(52px,6vw,100px)] leading-none font-light text-[#C4963A] group-hover:text-[#E8D5A3] transition-colors duration-500 mb-3"
+                >
+                  {s.num}
+                </div>
+                <div
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
+                  className="text-white/25 text-[10px] tracking-[0.25em] uppercase group-hover:text-white/45 transition-colors duration-500 font-light"
+                >
+                  {s.label}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── FEATURES / WHY US ────────────────────────────────────────────────────────
+
+const features = [
+  { title: "Design moderne", desc: "Sites responsifs qui s'adaptent à tous les écrans." },
+  { title: "Performance optimisée", desc: "Vitesse ultrarapide et SEO naturel renforcé." },
+  { title: "Tarifs transparents", desc: "Prix justes, sans frais cachés. Devis gratuit." },
+  { title: "Hébergement fiable", desc: "99.9% de disponibilité garantie." },
+  { title: "Technologies modernes", desc: "React, Next.js, TypeScript — le meilleur de l'écosystème." },
+  { title: "Support dédié", desc: "Accompagnement personnalisé pour chaque projet." },
+  { title: "Maintenance incluse", desc: "Sécurité et mises à jour incluses 6 mois." },
+  { title: "Satisfaction garantie", desc: "Révisions illimitées jusqu'à votre satisfaction." },
+];
+
+function FeaturesSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section className="bg-[#080808] py-36 lg:py-48 px-6 sm:px-12 lg:px-24">
+      <div className="max-w-7xl mx-auto">
+        <Reveal>
+          <SectionLabel number="03" label="Avantages" />
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2
+            style={{ fontFamily: "var(--font-cormorant)" }}
+            className="text-[clamp(42px,6.5vw,100px)] leading-[0.88] tracking-[-0.02em] font-light text-white mb-20"
+          >
+            POURQUOI
+            <br />
+            <span className="italic text-[#C4963A]">NOUS CHOISIR</span>
+          </h2>
+        </Reveal>
+
+        <div
+          ref={ref}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[#C4963A]/8"
+        >
+          {features.map((f, i) => (
+            <motion.div
+              key={f.title}
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: i * 0.07 }}
+              className="bg-[#080808] p-8 hover:bg-[#C4963A]/4 transition-colors duration-600 group cursor-default"
+            >
+              <div
+                style={{ fontFamily: "var(--font-cormorant)" }}
+                className="text-[#C4963A]/25 text-lg italic mb-5 group-hover:text-[#C4963A]/55 transition-colors duration-400"
+              >
+                {String(i + 1).padStart(2, "0")}
+              </div>
+              <h3
+                style={{ fontFamily: "var(--font-cormorant)" }}
+                className="text-xl font-light text-white/70 mb-3 group-hover:text-[#E8D5A3] transition-colors duration-400"
+              >
+                {f.title}
+              </h3>
+              <p
+                style={{ fontFamily: "var(--font-dm-sans)" }}
+                className="text-white/28 text-sm leading-relaxed group-hover:text-white/50 transition-colors duration-400 font-light"
+              >
+                {f.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── TECH / WOBBLE ────────────────────────────────────────────────────────────
+
+function TechSection() {
+  return (
+    <section className="bg-[#060606] py-20 lg:py-28 px-4 sm:px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto">
+        <div className="px-2 sm:px-6 lg:px-12 mb-16">
+          <Reveal>
+            <SectionLabel number="04" label="Technologies" />
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h2
+              style={{ fontFamily: "var(--font-cormorant)" }}
+              className="text-[clamp(36px,5.5vw,80px)] leading-[0.9] tracking-[-0.02em] font-light text-white"
+            >
+              L&apos;ÉCOSYSTÈME
+              <br />
+              <span className="italic text-[#C4963A]">QUE NOUS MAÎTRISONS</span>
+            </h2>
+          </Reveal>
+        </div>
+        <Reveal delay={0.2}>
+          <WobbleCardDemo />
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// ─── FINAL CTA ────────────────────────────────────────────────────────────────
+
+function CTASection() {
+  return (
+    <section
+      id="contact"
+      className="bg-[#080808] py-44 px-6 sm:px-12 lg:px-24 relative overflow-hidden"
+    >
+      {/* Gold ambient center glow */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="w-[700px] h-[700px] bg-[#C4963A]/6 rounded-full blur-[160px]" />
+      </div>
+
+      {/* Thin border frame */}
+      <div className="absolute inset-10 border border-[#C4963A]/8 pointer-events-none" />
+
+      <div className="relative max-w-5xl mx-auto text-center">
+        <Reveal>
+          <p
+            style={{ fontFamily: "var(--font-dm-sans)" }}
+            className="text-[#C4963A] text-[10px] tracking-[0.55em] uppercase mb-14"
+          >
+            Commençons
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <h2
+            style={{ fontFamily: "var(--font-cormorant)" }}
+            className="text-[clamp(44px,8.5vw,130px)] leading-[0.87] tracking-[-0.03em] font-light text-white mb-18"
+          >
+            PRÊT À
+            <br />
+            <span className="italic text-[#C4963A]">TRANSFORMER</span>
+            <br />
+            VOTRE PRÉSENCE
+            <br />
+            DIGITALE ?
+          </h2>
+        </Reveal>
+
+        <Reveal delay={0.25}>
+          <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-5">
+            <a
+              href="mailto:hello@novastudio.fr"
+              style={{ fontFamily: "var(--font-dm-sans)" }}
+              className="group inline-flex items-center gap-4 bg-[#C4963A] text-black px-10 py-4 text-[10px] tracking-[0.35em] uppercase hover:bg-[#E8D5A3] transition-all duration-400"
+            >
+              Démarrer mon projet
+              <span className="group-hover:translate-x-1.5 transition-transform duration-300 inline-block">
+                →
+              </span>
+            </a>
+            <a
+              href="#realisations"
+              style={{ fontFamily: "var(--font-dm-sans)" }}
+              className="inline-flex items-center gap-2 border border-white/15 text-white/40 hover:text-white/70 hover:border-white/35 transition-all duration-400 px-10 py-4 text-[10px] tracking-[0.35em] uppercase"
+            >
+              Voir les projets
+            </a>
+          </div>
+        </Reveal>
+
+        {/* Bottom rule + meta */}
+        <Reveal delay={0.35}>
+          <div className="mt-24 pt-8 border-t border-[#C4963A]/12 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <span
+              style={{ fontFamily: "var(--font-dm-sans)" }}
+              className="text-white/15 text-[10px] tracking-[0.3em]"
+            >
+              © 2024 Nova Studio
+            </span>
+            <div className="w-12 h-px bg-[#C4963A]/25" />
+            <span
+              style={{ fontFamily: "var(--font-dm-sans)" }}
+              className="text-white/15 text-[10px] tracking-[0.3em]"
+            >
+              Paris, France
+            </span>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// ─── HOME ─────────────────────────────────────────────────────────────────────
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <ModalContext.Provider value={{ isModalOpen, setIsModalOpen }}>
-      {/* Scroll Progress Bar */}
-      {/* <ScrollProgress /> */}
-
-      {/* Scroll to Top Button */}
-      {/* <ScrollToTop /> */}
-
+      {/* Grain overlay for depth */}
       <div
-        className="relative flex min-h-screen w-full flex-col bg-black text-white overflow-x-hidden overflow-y-auto"
-        style={{ touchAction: 'pan-y' }}
-      >
-        <Spotlight className="hidden sm:block" />
-        {/* Fond interactif optimisé - TEST INTERACTIVE GRID */}
-        <div className="absolute inset-0 z-0 overflow-hidden will-change-transform pointer-events-none">
-          <InteractiveGridPattern
-            className={cn(
-              "absolute inset-0 max-h-screen w-full opacity-30 sm:opacity-50"
-            )}
-            width={280}
-            height={160}
-            squaresClassName="stroke-white/10 hover:stroke-white/30"
-            squares={[6, 8, 10, 12]}
-          />
-        </div>
+        className="fixed inset-0 pointer-events-none z-[9998] opacity-[0.022] mix-blend-overlay"
+        style={{
+          backgroundImage: "url('/noise.jpg')",
+          backgroundRepeat: "repeat",
+          backgroundSize: "180px",
+        }}
+      />
 
-        {/* NavbarDemo (hidden when modal is open) */}
-  <div className={`fixed top-0 left-0 w-full z-30 ${isModalOpen ? 'hidden' : ''}`}>
+      <div className="relative bg-[#080808] text-white overflow-x-hidden">
+        {/* Navbar */}
+        <div
+          className={`fixed top-0 left-0 w-full z-30 ${isModalOpen ? "hidden" : ""}`}
+        >
           <NavbarDemo />
         </div>
 
-        {/* Hero Section */}
-        <section id="hero" className="min-h-screen relative z-10 pt-12 md:pt-0">
-          <div className="container relative z-20 mx-auto flex flex-1 flex-col items-center justify-center p-4 sm:p-8 text-center">
-            <div className="px-2 sm:px-4 py-8 sm:py-12 md:py-24">
-              <Badge className="mb-8 sm:mb-10 inline-block rounded-full bg-white/5 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">
-                Lancez votre site pro jusqu&apos;à 50% moins cher 🚀
-              </Badge>
-              <div className="relative mb-8 sm:mb-12">
-
-                <h1 className="relative z-10 mx-auto max-w-6xl text-center text-base sm:text-xl md:text-3xl lg:text-5xl xl:text-6xl font-bold text-white dark:text-slate-300 font-montserrat whitespace-normal sm:whitespace-nowrap">
-                  <div className="relative inline-block">
-
-                    <motion.span
-                      initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-                      animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                      transition={{
-                        duration: 0.3,
-                        delay: 0.05,
-                        ease: "easeInOut",
-                      }}
-                      className="mr-1 inline-block relative"
-                    >
-                      <GlowText
-                        intensity="high"
-                        glowColor="#ffdab9"
-                        className="font-bold tracking-wide text-base sm:text-xl md:text-3xl lg:text-5xl"
-                        animate={true}
-                        textColor="#ffffff"
-                      >
-                        Development web
-                      </GlowText>
-                    </motion.span>
-                  </div>
-                  {" pour ".split(" ").map((word, index) => (
-                    <motion.span
-                      key={`static-${index}`}
-                      initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-                      animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                      transition={{
-                        duration: 0.3,
-                        delay: 0.1 + index * 0.05, // Reduced delay
-                        ease: "easeInOut",
-                      }}
-                      className="mr-1 inline-block text-base sm:text-xl md:text-3xl lg:text-5xl"
-                    >
-                      {word}
-                    </motion.span>
-                  ))}
-                  <motion.span
-                    className="mr-1 inline-block"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                  >
-                    <AnimatedWords />
-                  </motion.span>
-                </h1>
-              </div>
-              <div className="relative mb-8 sm:mb-12">
-
-                <motion.p
-                  initial={{
-                    opacity: 0,
-                    y: 15, // Starting slightly lower
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  transition={{
-                    duration: 0.3,
-                    delay: 0.2, // Reduced delay
-                  }}
-                  className="relative z-10 mx-auto mt-6 sm:mt-8 max-w-xl py-2 sm:py-4 text-center text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white dark:text-white font-montserrat px-2 sm:px-0"
-                >
-                  Nous aidons les petites équipes à créer une présence digitale impactante. Des sites rapides, modernes et pensés pour la croissance.
-                </motion.p>
-              </div>
-              <motion.div
-                initial={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: 1,
-                }}
-                transition={{
-                  duration: 0.3,
-                  delay: 0.3, // Reduced delay
-                }}
-                className="relative z-10 mx-auto italic text-xs sm:text-sm md:text-base lg:text-lg font-montserrat font-light px-3 sm:px-0 mb-6 sm:mb-8"
-              >
-                <GlowText
-                  intensity="medium"
-                  glowColor="#ffdab9"
-                  className="italic font-light tracking-wide"
-                  animate={true}
-                  textColor="#ffdab9"
-                >
-                  Conçu pour le web de demain, optimisé pour votre succès
-                </GlowText>
-              </motion.div>
-              <motion.div
-                initial={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: 1,
-                }}
-                transition={{
-                  duration: 0.3,
-                  delay: 0.4, // Reduced delay
-                }}
-                className="relative z-10 mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6 mb-10 sm:mb-16"
-              >
-                <Badge className="mb-8 sm:mb-10 inline-block rounded-full bg-white/5 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">
-                  Créer mon site maintenant 🎂
-                </Badge>
-                <a className="mb-8 sm:mb-10 inline-block rounded-full  px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-montserrat font-medium text-white/80 backdrop-blur-sm tracking-wider">Discutons ensemble →</a>
-              </motion.div>
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  y: 0,
-                }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                transition={{
-                  duration: 0.3,
-                  delay: 0.5, // Reduced delay
-                }}
-                className="relative z-10 mt-12 sm:mt-16"
-              >
-                <div className="h-[20rem] sm:h-[30rem] md:h-[40rem] lg:h-[52rem] w-full relative">
-                  <ContainerScroll titleComponent={" "}>
-                    <Image
-                      src="/dashboard.png"
-                      alt="hero"
-                      height={720}
-                      width={1400}
-                      className="mx-auto rounded-lg sm:rounded-xl md:rounded-2xl object-cover h-full object-left-top shadow-xl"
-                      draggable={false}
-                    />
-                  </ContainerScroll>
-                </div>
-              </motion.div>
-
-            </div>
-          </div>
-        </section>
-
-
-        {/* Section des réalisations avec le carousel */}
-        <section id="realisations" className="relative bg-black overflow-hidden pt-8">
-            {/* Titre avec animations Magic UI */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="container relative z-10 mx-auto text-center pt-4 pb-8"
-            >
-              <div className="mb-8">
-                <Badge className="mb-6 inline-block rounded-full bg-white/5 px-4 py-2 text-sm font-montserrat font-medium text-white backdrop-blur-sm tracking-wider">
-                  Nos Réalisations ✨
-                </Badge>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-montserrat"
-                >
-                  <TextGenerateEffect
-                    words="Découvrez nos réalisations"
-                    className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat"
-                    duration={0.8}
-                    textColor="text-white"
-                  />
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
-                  className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto font-montserrat font-light px-4"
-                >
-                  <TextGenerateEffect
-                    words="Des projets uniques conçus avec passion et expertise technique. Découvrez comment nous transformons les idées en expériences digitales exceptionnelles."
-                    className="text-lg md:text-xl font-montserrat font-light text-white/80"
-                    duration={0.6}
-                    textColor="text-white/80"
-                  />
-                </motion.div>
-              </div>
-            </motion.div>
-
-            {/* Statistiques avec nombres animés */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-              className="container relative z-10 mx-auto px-4 pb-16"
-            >
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
-                    <GlowText
-                      intensity="medium"
-                      glowColor="#ffdab9"
-                      className="font-bold tracking-wide"
-                      animate={true}
-                      textColor="#ffdab9"
-                    >
-                      7+
-                    </GlowText>
-                  </div>
-                  <TextGenerateEffect
-                    words="Projets réalisés"
-                    className="text-white/70 text-sm md:text-base font-montserrat"
-                    duration={0.4}
-                    textColor="text-white/70"
-                  />
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
-                    <GlowText
-                      intensity="medium"
-                      glowColor="#ffdab9"
-                      className="font-bold tracking-wide"
-                      animate={true}
-                      textColor="#ffdab9"
-                    >
-                      100%
-                    </GlowText>
-                  </div>
-                  <TextGenerateEffect
-                    words="Satisfaction client"
-                    className="text-white/70 text-sm md:text-base font-montserrat"
-                    duration={0.4}
-                    textColor="text-white/70"
-                  />
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
-                    <GlowText
-                      intensity="medium"
-                      glowColor="#ffdab9"
-                      className="font-bold tracking-wide"
-                      animate={true}
-                      textColor="#ffdab9"
-                    >
-                      6
-                    </GlowText>
-                  </div>
-                  <TextGenerateEffect
-                    words="Mois d&apos;expérience"
-                    className="text-white/70 text-sm md:text-base font-montserrat"
-                    duration={0.4}
-                    textColor="text-white/70"
-                  />
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-[#ffdab9] mb-2 font-montserrat">
-                    <GlowText
-                      intensity="medium"
-                      glowColor="#ffdab9"
-                      className="font-bold tracking-wide"
-                      animate={true}
-                      textColor="#ffdab9"
-                    >
-                      24h
-                    </GlowText>
-                  </div>
-                  <TextGenerateEffect
-                    words="Support réactif"
-                    className="text-white/70 text-sm md:text-base font-montserrat"
-                    duration={0.4}
-                    textColor="text-white/70"
-                  />
-                </div>
-              </div>
-            </motion.div>
-
-
-
-            {/* Contenu principal avec carousel */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.8 }}
-              className="container relative z-10 mx-auto flex flex-col items-center justify-center pb-32"
-            >
-              <AppleCardsCarouselDemo />
-            </motion.div>
-          </section>
-
-        {/* Section des fonctionnalités */}
-        <section id="services" className="relative bg-black overflow-hidden py-20">
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-20">
-                <Badge className="mb-8 inline-block rounded-full bg-white/5 px-4 py-2 text-sm font-montserrat font-medium text-white backdrop-blur-sm tracking-wider">
-                  Nos Services & Avantages 💎
-                </Badge>
-                <HeroHighlight containerClassName="h-auto py-12">
-                  <motion.h1
-                    initial={{
-                      opacity: 0,
-                      y: 20,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      y: [20, -5, 0],
-                    }}
-                    transition={{
-                      duration: 0.5,
-                      ease: [0.4, 0.0, 0.2, 1],
-                    }}
-                    className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto font-montserrat"
-                  >
-                    Pourquoi nous choisir pour votre{" "}
-                    <Highlight className="text-white">
-                      projet digital ?
-                    </Highlight>
-                  </motion.h1>
-                </HeroHighlight>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className="text-lg md:text-xl text-white max-w-3xl mx-auto font-montserrat font-light mt-6"
-                >
-                  Découvrez tous nos services et avantages pour créer le site web parfait pour votre entreprise
-                </motion.p>
-              </div>
-              <FeaturesSectionDemo />
-                </div>
-              </section>
-
-            {/* Section Wobble Cards */}
-            <section id="wobble" className="relative bg-black py-60">
-              <div className="container mx-auto px-4 transform scale-110 origin-center">
-                
-                <WobbleCardDemo />
-              </div>
-            </section>
-
-
-        {/* Ici vous pourrez ajouter vos sections supplémentaires */}
-
+        <HeroSection />
+        <MarqueeStrip />
+        <ServicesSection />
+        <ProjectsSection />
+        <StatsSection />
+        <FeaturesSection />
+        <TechSection />
+        <CTASection />
       </div>
     </ModalContext.Provider>
   );
