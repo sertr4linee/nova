@@ -249,7 +249,7 @@ const services = [
 
 function ServicesSection() {
   return (
-    <section className="bg-[#080808] py-36 lg:py-48 px-6 sm:px-12 lg:px-24">
+    <section className="cv-section bg-[#080808] py-36 lg:py-48 px-6 sm:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-[1fr_1.6fr] gap-20 lg:gap-40">
           {/* Left */}
@@ -324,7 +324,7 @@ function ServicesSection() {
 
 function ProjectsSection() {
   return (
-    <section id="realisations" className="bg-[#060606] py-36 lg:py-48">
+    <section id="realisations" className="cv-section bg-[#060606] py-36 lg:py-48">
       <div className="px-6 sm:px-12 lg:px-24 max-w-7xl mx-auto mb-16">
         <Reveal>
           <SectionLabel number="02" label="Réalisations" />
@@ -429,7 +429,7 @@ const features = [
 
 function FeaturesSection() {
   return (
-    <section className="bg-[#080808] py-36 lg:py-48 px-6 sm:px-12 lg:px-24">
+    <section className="cv-section bg-[#080808] py-36 lg:py-48 px-6 sm:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
         <Reveal>
           <SectionLabel number="03" label="Avantages" />
@@ -480,7 +480,7 @@ function FeaturesSection() {
 
 function TechSection() {
   return (
-    <section className="bg-[#060606] py-20 lg:py-28 px-4 sm:px-6 lg:px-12">
+    <section className="cv-section bg-[#060606] py-20 lg:py-28 px-4 sm:px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="px-2 sm:px-6 lg:px-12 mb-16">
           <Reveal>
