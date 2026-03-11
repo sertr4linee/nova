@@ -7,7 +7,6 @@ export const Globe = ({ className }: { className?: string }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const phiRef = useRef(0);
   const globeRef = useRef<{ destroy: () => void } | null>(null);
-  const frameRef = useRef<number | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;

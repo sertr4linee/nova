@@ -122,7 +122,6 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 export const Card = ({
   card,
   index,
-  layout = false,
 }: {
   card: Card
   index: number

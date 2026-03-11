@@ -2,6 +2,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useContext, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ModalContext } from "@/contexts/ModalContext";
 
 const links = [
@@ -52,7 +53,7 @@ export function NavbarDemo() {
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20 h-[68px] flex items-center justify-between">
           {/* Logo */}
-          <a href="/" className="relative z-10 flex-shrink-0 flex items-center gap-2.5 group">
+          <Link href="/" className="relative z-10 flex-shrink-0 flex items-center gap-2.5 group">
             <Image
               src="/shape.png"
               alt="Klinkr"
@@ -66,9 +67,7 @@ export function NavbarDemo() {
             >
               Klinkr
             </span>
-          </a>
-
-          {/* Desktop nav */}
+          </Link>
           <nav className="hidden md:flex items-center gap-8 lg:gap-12">
             {links.map((l) => (
               <button

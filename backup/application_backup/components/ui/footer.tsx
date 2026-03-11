@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const navLinks = [
   { label: "Services", href: "#services" },
@@ -22,7 +23,7 @@ export default function Footer() {
 
           {/* Brand */}
           <div>
-            <a href="/" className="flex items-center gap-2.5 mb-7 w-fit group">
+            <Link href="/" className="flex items-center gap-2.5 mb-7 w-fit group">
               <Image
                 src="/shape.png"
                 alt="Klinkr"
@@ -36,7 +37,7 @@ export default function Footer() {
               >
                 Klinkr
               </span>
-            </a>
+            </Link>
             <p
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="text-white/28 text-sm font-light leading-relaxed max-w-sm"
