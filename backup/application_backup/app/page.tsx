@@ -94,105 +94,88 @@ function HeroSection() {
       />
 
       <div className="relative z-10 px-6 sm:px-12 lg:px-24 pt-36 pb-24">
-        {/* Eyebrow */}
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.35 }}
-          style={{ fontFamily: "var(--font-dm-sans)" }}
-          className="text-[#fdd9b9] text-[10px] tracking-[0.55em] uppercase mb-12"
-        >
-          klinkr · Est. 2024 · Paris
-        </motion.p>
-
-        {/* Headline line 1 */}
-        <div className="overflow-hidden mb-1">
-          <motion.h1
-            initial={{ y: "105%" }}
-            animate={{ y: 0 }}
-            transition={{ duration: 1.1, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            style={{ fontFamily: "var(--font-cormorant)" }}
-            className="text-[clamp(50px,10vw,160px)] leading-[0.87] tracking-[-0.03em] font-light text-white"
-          >
-            VOTRE VISION.
-          </motion.h1>
-        </div>
-
-        {/* Headline line 2 — gold italic */}
-        <div className="overflow-hidden mb-14">
-          <motion.h1
-            initial={{ y: "105%" }}
-            animate={{ y: 0 }}
-            transition={{ duration: 1.1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            style={{ fontFamily: "var(--font-cormorant)" }}
-            className="text-[clamp(50px,10vw,160px)] leading-[0.87] tracking-[-0.03em] font-light italic text-[#fdd9b9]"
-          >
-            NOTRE CODE.
-          </motion.h1>
-        </div>
-
-        {/* Gold underline */}
+        {/* Groupe 1 : ligne + eyebrow — apparition immédiate */}
         <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 1.1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="w-48 h-px bg-gradient-to-r from-[#fdd9b9] to-transparent mb-14 origin-left"
-        />
-
-        {/* Subtitle + CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 26 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 1.15 }}
-          className="flex flex-col lg:flex-row items-start gap-10 lg:gap-28"
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
           <p
             style={{ fontFamily: "var(--font-dm-sans)" }}
-            className="text-white/45 text-base sm:text-lg leading-relaxed max-w-[380px] font-light"
+            className="text-[#fdd9b9] text-[10px] tracking-[0.55em] uppercase mb-12"
           >
-            Sites web sur-mesure pour créateurs indépendants, dirigeants et
-            startups ambitieuses.{" "}
-            <span className="text-[#fdd9b9]/75">Jusqu&apos;à 50% moins cher.</span>
+            klinkr · Est. 2024 · Paris
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a
-              href="#realisations"
-              style={{ fontFamily: "var(--font-dm-sans)" }}
-              className="group inline-flex items-center gap-3 border border-[#fdd9b9]/55 text-[#fdd9b9] px-8 py-4 text-[10px] tracking-[0.35em] uppercase hover:bg-[#fdd9b9] hover:text-black transition-all duration-500"
-            >
-              Voir nos projets
-              <span className="group-hover:translate-x-1.5 transition-transform duration-300 inline-block">
-                →
-              </span>
-            </a>
-            <a
-              href="#contact"
-              style={{ fontFamily: "var(--font-dm-sans)" }}
-              className="inline-flex items-center gap-2 text-white/35 hover:text-white/70 transition-colors duration-300 text-[10px] tracking-[0.35em] uppercase px-6 py-4"
-            >
-              Discutons →
-            </a>
-          </div>
         </motion.div>
 
-        {/* Availability dot */}
+        {/* Groupe 2 : headlines — slide up rapide */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <h1
+            style={{ fontFamily: "var(--font-cormorant)" }}
+            className="text-[clamp(50px,10vw,160px)] leading-[0.87] tracking-[-0.03em] font-light text-white mb-1"
+          >
+            VOTRE VISION.
+          </h1>
+          <h1
+            style={{ fontFamily: "var(--font-cormorant)" }}
+            className="text-[clamp(50px,10vw,160px)] leading-[0.87] tracking-[-0.03em] font-light italic text-[#fdd9b9] mb-14"
+          >
+            NOTRE CODE.
+          </h1>
+          <div className="w-48 h-px bg-gradient-to-r from-[#fdd9b9] to-transparent mb-14" />
+        </motion.div>
+
+        {/* Groupe 3 : subtitle + CTAs + dot */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="mt-20 flex items-center gap-3"
+          transition={{ duration: 0.6, delay: 0.8 }}
         >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#fdd9b9] opacity-50" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#fdd9b9]" />
-          </span>
-          <span
-            style={{ fontFamily: "var(--font-dm-sans)" }}
-            className="text-white/25 text-[10px] tracking-[0.3em]"
-          >
-            Disponible pour de nouveaux projets
-          </span>
+          <div className="flex flex-col lg:flex-row items-start gap-10 lg:gap-28 mb-20">
+            <p
+              style={{ fontFamily: "var(--font-dm-sans)" }}
+              className="text-white/45 text-base sm:text-lg leading-relaxed max-w-[380px] font-light"
+            >
+              Sites web sur-mesure pour créateurs indépendants, dirigeants et
+              startups ambitieuses.{" "}
+              <span className="text-[#fdd9b9]/75">Jusqu&apos;à 50% moins cher.</span>
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="#realisations"
+                style={{ fontFamily: "var(--font-dm-sans)" }}
+                className="group inline-flex items-center gap-3 border border-[#fdd9b9]/55 text-[#fdd9b9] px-8 py-4 text-[10px] tracking-[0.35em] uppercase hover:bg-[#fdd9b9] hover:text-black transition-all duration-500"
+              >
+                Voir nos projets
+                <span className="group-hover:translate-x-1.5 transition-transform duration-300 inline-block">→</span>
+              </a>
+              <a
+                href="#contact"
+                style={{ fontFamily: "var(--font-dm-sans)" }}
+                className="inline-flex items-center gap-2 text-white/35 hover:text-white/70 transition-colors duration-300 text-[10px] tracking-[0.35em] uppercase px-6 py-4"
+              >
+                Discutons →
+              </a>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#fdd9b9] opacity-50" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#fdd9b9]" />
+            </span>
+            <span
+              style={{ fontFamily: "var(--font-dm-sans)" }}
+              className="text-white/25 text-[10px] tracking-[0.3em]"
+            >
+              Disponible pour de nouveaux projets
+            </span>
+          </div>
         </motion.div>
       </div>
 
