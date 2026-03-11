@@ -16,8 +16,7 @@ const translations = {
     nav_services: "Services",
     nav_projects: "Projets",
     nav_contact: "Contact",
-
-    // Hero
+    nav_devis: "Devis",
     hero_eyebrow: "klinkr · Est. 2026 · Amsterdam",
     hero_line1: "VOTRE VISION.",
     hero_line2: "NOTRE CODE.",
@@ -219,6 +218,7 @@ const translations = {
     nav_services: "Services",
     nav_projects: "Projects",
     nav_contact: "Contact",
+    nav_devis: "Quote",
 
     hero_eyebrow: "klinkr · Est. 2026 · Amsterdam",
     hero_line1: "YOUR VISION.",
@@ -407,6 +407,7 @@ const translations = {
     nav_services: "Diensten",
     nav_projects: "Projecten",
     nav_contact: "Contact",
+    nav_devis: "Offerte",
 
     hero_eyebrow: "klinkr · Opgericht 2026 · Parijs",
     hero_line1: "UW VISIE.",

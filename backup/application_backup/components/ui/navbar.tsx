@@ -158,6 +158,14 @@ export function NavbarDemo() {
               </AnimatePresence>
             </div>
 
+            <Link
+              href="/contract"
+              style={{ fontFamily: "var(--font-dm-sans)" }}
+              className="text-[10px] tracking-[0.25em] uppercase text-white/40 hover:text-[#fdd9b9] transition-colors duration-300 cursor-pointer"
+            >
+              {t("nav_devis")}
+            </Link>
+
             <button
               onClick={() => handleNav("#contact")}
               style={{ fontFamily: "var(--font-dm-sans)" }}
