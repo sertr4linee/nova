@@ -5,7 +5,6 @@ import { IconArrowNarrowLeft, IconArrowNarrowRight, IconX } from "@tabler/icons-
 import { cn } from "@/lib/utils"
 import { AnimatePresence, motion } from "framer-motion"
 import type { ImageProps } from "next/image"
-import { useOutsideClick } from "@/hooks/use-outside-click"
 import { ModalContext } from "@/contexts/ModalContext"
 import Image from "next/image"
 
@@ -128,13 +127,12 @@ export const Card = ({
   layout?: boolean
 }) => {
   const [open, setOpen] = useState(false)
-  const containerRef = useRef<HTMLDivElement | null>(null)
   const { onCardClose } = useContext(CarouselContext)
   const { setIsModalOpen } = useContext(ModalContext)
 
   const handleClose = useCallback(() => {
     setOpen(false)
-    document.body.style.overflow = "auto"
+    document.body.style.overflow = ""
     setIsModalOpen(false)
     onCardClose(index)
   }, [onCardClose, index, setIsModalOpen])
@@ -149,64 +147,72 @@ export const Card = ({
     return () => window.removeEventListener("keydown", onKeyDown)
   }, [open, setIsModalOpen, handleClose])
 
-  useOutsideClick(containerRef, () => handleClose())
-
   return (
     <>
       <AnimatePresence>
         {open && (
-          <div className="fixed inset-0 z-50 overflow-y-auto">
-            {/* Backdrop */}
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 md:p-6">
+            {/* Backdrop — click to close */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-[#040404]/96 backdrop-blur-md"
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 bg-black/85 backdrop-blur-md"
+              onClick={handleClose}
             />
 
-            {/* Modal */}
+            {/* Modal box */}
             <motion.div
-              initial={{ opacity: 0, y: 60 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 40 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              ref={containerRef}
-              className="relative z-[60] mx-auto my-8 w-[calc(100vw-2rem)] max-w-4xl"
+              initial={{ opacity: 0, y: 32, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 16, scale: 0.98 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="relative z-10 w-full max-w-3xl max-h-[92vh] flex flex-col bg-[#080808] border border-[#fdd9b9]/12 overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
             >
-              {/* Header image */}
-              <div className="relative w-full h-[30vh] md:h-[40vh] overflow-hidden">
+              {/* Header — image + title */}
+              <div className="relative w-full h-[180px] sm:h-[240px] flex-shrink-0">
                 <Image
                   src={card.src}
                   alt={card.title}
                   fill
                   className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 768px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#040404]/20 to-[#040404]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-[#080808]" />
+
+                {/* Title overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8">
+                  <span
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
+                    className="text-[#fdd9b9]/55 text-[8px] tracking-[0.45em] uppercase block mb-1.5"
+                  >
+                    {card.category}
+                  </span>
+                  <h2
+                    style={{ fontFamily: "var(--font-cormorant)" }}
+                    className="text-[clamp(22px,4vw,44px)] font-light text-white leading-tight tracking-[-0.01em]"
+                  >
+                    {card.title}
+                  </h2>
+                </div>
+
                 {/* Close */}
                 <button
                   onClick={handleClose}
-                  className="absolute top-4 right-4 w-8 h-8 border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white/50 transition-all duration-300 bg-black/40 backdrop-blur-sm"
+                  aria-label="Fermer"
+                  className="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white/60 transition-all bg-black/50 backdrop-blur-sm z-10"
                 >
                   <IconX className="h-3.5 w-3.5" />
                 </button>
               </div>
 
-              {/* Body */}
-              <div className="bg-[#080808] border border-[#fdd9b9]/10 border-t-0 px-8 md:px-12 pt-10 pb-12">
-                <span
-                  style={{ fontFamily: "var(--font-dm-sans)" }}
-                  className="text-[#fdd9b9]/50 text-[9px] tracking-[0.45em] uppercase"
-                >
-                  {card.category}
-                </span>
-                <h2
-                  style={{ fontFamily: "var(--font-cormorant)" }}
-                  className="text-[clamp(28px,4vw,52px)] font-light text-white leading-tight tracking-[-0.01em] mt-3 mb-8"
-                >
-                  {card.title}
-                </h2>
-                <div className="text-white/60">{card.content}</div>
+              {/* Scrollable body */}
+              <div className="flex-1 overflow-y-auto overscroll-contain">
+                <div className="p-5 sm:p-8">
+                  {card.content}
+                </div>
               </div>
             </motion.div>
           </div>
@@ -218,7 +224,6 @@ export const Card = ({
         onClick={() => setOpen(true)}
         className="group relative flex flex-col overflow-hidden w-[220px] md:w-[340px] h-[320px] md:h-[480px] bg-[#0a0a0a] border border-white/6 hover:border-[#fdd9b9]/25 transition-all duration-500"
       >
-        {/* Image */}
         <div className="absolute inset-0">
           <BlurImage
             src={card.src}
@@ -226,11 +231,9 @@ export const Card = ({
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-700"
           />
-          {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/50 to-transparent" />
         </div>
 
-        {/* Content */}
         <div className="relative z-10 mt-auto p-6 md:p-8 text-left">
           <span
             style={{ fontFamily: "var(--font-dm-sans)" }}
