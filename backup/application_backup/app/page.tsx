@@ -1,12 +1,21 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { NavbarDemo } from "@/components/ui/navbar";
 import { ModalContext } from "@/contexts/ModalContext";
-import AppleCardsCarouselDemo from "@/components/ui/apple-cards-carousel-demo-with-modal-context";
-import { WobbleCardDemo } from "@/components/ui/wobble-card-demo";
 import Image from "next/image";
+
+// Lazy load des sections lourdes — chargées seulement quand nécessaire
+const AppleCardsCarouselDemo = dynamic(
+  () => import("@/components/ui/apple-cards-carousel-demo-with-modal-context"),
+  { ssr: false }
+);
+const WobbleCardDemo = dynamic(
+  () => import("@/components/ui/wobble-card-demo").then(m => ({ default: m.WobbleCardDemo })),
+  { ssr: false }
+);
 
 // ─── Reveal — CSS pur, zéro framer-motion, zéro React re-render ───────────────
 
@@ -72,9 +81,9 @@ function HeroSection() {
     <section
       className="relative min-h-screen flex flex-col justify-center bg-[#080808] overflow-hidden"
     >
-      {/* Ambient gold glow — GPU isolé, pas de will-change dynamique */}
-      <div className="absolute top-1/3 right-0 w-[700px] h-[700px] bg-[#fdd9b9]/5 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute -bottom-40 -left-20 w-[500px] h-[500px] bg-[#fdd9b9]/3 rounded-full blur-[100px] pointer-events-none" />
+      {/* Ambient gold glow — masqué sur mobile via .blur-orb */}
+      <div className="blur-orb absolute top-1/3 right-0 w-[700px] h-[700px] bg-[#fdd9b9]/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="blur-orb absolute -bottom-40 -left-20 w-[500px] h-[500px] bg-[#fdd9b9]/3 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Top ruled line */}
       <motion.div
@@ -284,7 +293,7 @@ function ServicesSection() {
 
               {/* Decorative wordmark */}
               <div className="mt-12 flex items-center gap-2 hidden lg:flex opacity-20">
-                <Image src="/shape.png" alt="Klinkr" width={22} height={22} className="object-contain" />
+                <Image src="/shape.webp" alt="Klinkr" width={22} height={22} className="object-contain" />
                 <span style={{ fontFamily: "var(--font-cormorant)" }} className="text-white text-lg italic tracking-wider font-light">Klinkr</span>
               </div>
             </div>

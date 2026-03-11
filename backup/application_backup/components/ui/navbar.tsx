@@ -55,10 +55,11 @@ export function NavbarDemo() {
           {/* Logo */}
           <Link href="/" className="relative z-10 flex-shrink-0 flex items-center gap-2.5 group">
             <Image
-              src="/shape.png"
+              src="/shape.webp"
               alt="Klinkr"
               width={28}
               height={28}
+              priority
               className="opacity-85 group-hover:opacity-60 transition-opacity duration-400 object-contain"
             />
             <span

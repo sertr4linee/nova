@@ -223,7 +223,7 @@
 
 /* ─── Reveal CSS pur (zéro framer-motion, zéro React re-render) ─── */
 @keyframes reveal-up {
-  from { opacity: 0; transform: translateY(36px); }
+  from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -231,7 +231,7 @@
   opacity: 0;
 }
 .reveal-visible {
-  animation: reveal-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: reveal-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* Scroll cue fade-in via CSS */
@@ -241,5 +241,27 @@
 }
 .hero-scroll-cue {
   animation: fade-in-delayed 3s ease forwards;
+}
+
+/* ─── Performance mobile ─── */
+
+/* Désactiver les blur orbs coûteux sur mobile */
+@media (max-width: 768px) {
+  .blur-orb {
+    display: none;
+  }
+}
+
+/* content-visibility: sauter le rendu des sections off-screen */
+.cv-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
+/* Réduire le marquee sur mobile */
+@media (max-width: 768px) {
+  .animate-marquee {
+    animation-duration: 20s;
+  }
 }
 

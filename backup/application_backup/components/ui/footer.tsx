@@ -25,7 +25,7 @@ export default function Footer() {
           <div>
             <Link href="/" className="flex items-center gap-2.5 mb-7 w-fit group">
               <Image
-                src="/shape.png"
+                src="/shape.webp"
                 alt="Klinkr"
                 width={26}
                 height={26}
