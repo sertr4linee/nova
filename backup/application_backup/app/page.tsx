@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { NavbarDemo } from "@/components/ui/navbar";
 import { ModalContext } from "@/contexts/ModalContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import Image from "next/image";
 
 // Lazy load des sections lourdes — chargées seulement quand nécessaire
 const AppleCardsCarouselDemo = dynamic(
@@ -55,19 +54,19 @@ function Reveal({
   );
 }
 
-function SectionLabel({ number, label }: { number: string; label: string }) {
+function SectionLabel({ number, label, light }: { number: string; label: string; light?: boolean }) {
   return (
     <div className="flex items-center gap-4 mb-14">
       <span
         style={{ fontFamily: "var(--font-cormorant)" }}
-        className="text-[#fdd9b9] text-sm italic"
+        className={`text-sm italic ${light ? "text-[#9A6C35]" : "text-[#fdd9b9]"}`}
       >
         {number}
       </span>
-      <div className="w-10 h-px bg-[#fdd9b9]/40" />
+      <div className={`w-10 h-px ${light ? "bg-[#9A6C35]/30" : "bg-[#fdd9b9]/40"}`} />
       <span
         style={{ fontFamily: "var(--font-dm-sans)" }}
-        className="text-white/30 text-[10px] tracking-[0.4em] uppercase"
+        className={`text-[10px] tracking-[0.4em] uppercase ${light ? "text-[#18130D]/45" : "text-white/30"}`}
       >
         {label}
       </span>
@@ -234,64 +233,66 @@ function ServicesSection() {
     { num: "04", title: t("s4_title"), desc: t("s4_desc") },
   ];
   return (
-    <section className="cv-section bg-[#080808] py-36 lg:py-48 px-6 sm:px-12 lg:px-24">
+    <section className="cv-section bg-[#F5F2EB] py-36 lg:py-48 px-6 sm:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-[1fr_1.6fr] gap-20 lg:gap-40">
           {/* Left */}
           <Reveal>
             <div>
-              <SectionLabel number="01" label={t("label_services")} />
+              <SectionLabel number="01" label={t("label_services")} light />
               <h2
                 style={{ fontFamily: "var(--font-cormorant)" }}
-                className="text-[clamp(44px,6.5vw,100px)] leading-[0.88] tracking-[-0.02em] font-light text-white mb-10"
+                className="text-[clamp(44px,6.5vw,100px)] leading-[0.88] tracking-[-0.02em] font-light text-[#18130D] mb-10"
               >
                 {t("services_title_1")}
                 <br />
-                <span className="italic text-[#fdd9b9]">{t("services_title_2")}</span>
+                <span className="italic text-[#9A6C35]">{t("services_title_2")}</span>
                 <br />
                 {t("services_title_3")}
               </h2>
               <p
                 style={{ fontFamily: "var(--font-dm-sans)" }}
-                className="text-white/35 text-sm leading-relaxed max-w-[260px] font-light"
+                className="text-[#18130D]/50 text-sm leading-relaxed max-w-[260px] font-light"
               >
                 {t("services_sub")}
               </p>
 
               {/* Decorative wordmark */}
-              <div className="mt-12 flex items-center gap-2 hidden lg:flex opacity-20">
-                <Image src="/shape.webp" alt="Klinkr" width={22} height={22} className="object-contain" />
-                <span style={{ fontFamily: "var(--font-cormorant)" }} className="text-white text-lg italic tracking-wider font-light">Klinkr</span>
+              <div className="mt-12 items-center gap-2 hidden lg:flex opacity-30">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="10 -65 740 760" width="18" height="19" aria-hidden="true">
+                  <path d="M311 356C312 171 286 24 154 24C3 24 38 150 106 176C159 197 242 224 242 357V678H23V0H154C301 0 333 150 335 338C517 336 324 152 429 48C534 -57 681 19 748 107L732 123C701 91 667 79 632 114C597 149 604 238 551 301C496 366 419 361 335 361V380C335 413 349 468 398 468C448 468 459 415 540 415C639 415 684 493 684 677H659C659 638 641 601 615 601C560 601 551 684 462 684C313 684 311 542 311 384V356Z" fill="#9A6C35" />
+                </svg>
+                <span style={{ fontFamily: "var(--font-cormorant)" }} className="text-[#18130D] text-lg italic tracking-wider font-light">Klinkr</span>
               </div>
             </div>
           </Reveal>
 
           {/* Right: numbered service list */}
-          <div className="flex flex-col divide-y divide-[#fdd9b9]/10">
+          <div className="flex flex-col divide-y divide-[#9A6C35]/12">
             {services.map((s, i) => (
               <Reveal key={s.num} delay={i * 0.1}>
                 <div className="group py-9 flex gap-8 items-start cursor-default">
                 <span
                   style={{ fontFamily: "var(--font-cormorant)" }}
-                  className="text-[#fdd9b9]/30 text-lg italic pt-1 group-hover:text-[#fdd9b9] transition-colors duration-400 min-w-[2.5rem]"
+                  className="text-[#9A6C35]/40 text-lg italic pt-1 group-hover:text-[#9A6C35] transition-colors duration-400 min-w-[2.5rem]"
                 >
                   {s.num}
                 </span>
                 <div className="flex-1">
                   <h3
                     style={{ fontFamily: "var(--font-cormorant)" }}
-                    className="text-2xl sm:text-3xl font-light text-white/80 group-hover:text-white transition-colors duration-400 mb-2"
+                    className="text-2xl sm:text-3xl font-light text-[#18130D]/75 group-hover:text-[#18130D] transition-colors duration-400 mb-2"
                   >
                     {s.title}
                   </h3>
                   <p
                     style={{ fontFamily: "var(--font-dm-sans)" }}
-                    className="text-white/30 text-sm leading-relaxed group-hover:text-white/55 transition-colors duration-400 font-light max-w-md"
+                    className="text-[#18130D]/45 text-sm leading-relaxed group-hover:text-[#18130D]/65 transition-colors duration-400 font-light max-w-md"
                   >
                     {s.desc}
                   </p>
                 </div>
-                <span className="text-[#fdd9b9]/0 group-hover:text-[#fdd9b9]/50 transition-all duration-400 text-xl self-center">
+                <span className="text-[#9A6C35]/0 group-hover:text-[#9A6C35]/60 transition-all duration-400 text-xl self-center">
                   →
                 </span>
               </div>
@@ -357,31 +358,31 @@ function StatsSection() {
     { num: "24h",  label: t("stat4_label"), desc: t("stat4_desc") },
   ];
   return (
-    <section className="bg-[#080808] py-28 lg:py-40 px-6 sm:px-12 lg:px-24">
+    <section className="bg-[#F5F2EB] py-28 lg:py-40 px-6 sm:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
         <Reveal>
-          <div className="w-full h-px bg-[#fdd9b9]/10 mb-20" />
+          <div className="w-full h-px bg-[#9A6C35]/15 mb-20" />
         </Reveal>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[#fdd9b9]/8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[#9A6C35]/12">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.1}>
-              <div className="bg-[#080808] p-10 lg:p-14 flex gap-8 lg:gap-12 items-start group hover:bg-[#fdd9b9]/[0.02] transition-colors duration-700">
+              <div className="bg-[#F5F2EB] p-10 lg:p-14 flex gap-8 lg:gap-12 items-start group hover:bg-[#9A6C35]/6 transition-colors duration-700">
                 <div
                   style={{ fontFamily: "var(--font-cormorant)" }}
-                  className="text-[clamp(56px,5.5vw,90px)] leading-none font-light text-[#fdd9b9]/60 group-hover:text-[#fdd9b9]/90 transition-colors duration-500 shrink-0"
+                  className="text-[clamp(56px,5.5vw,90px)] leading-none font-light text-[#9A6C35]/65 group-hover:text-[#9A6C35] transition-colors duration-500 shrink-0"
                 >
                   {s.num}
                 </div>
                 <div className="pt-2 lg:pt-3">
                   <div
                     style={{ fontFamily: "var(--font-dm-sans)" }}
-                    className="text-white/40 text-[10px] tracking-[0.3em] uppercase mb-3 group-hover:text-white/60 transition-colors duration-400"
+                    className="text-[#18130D]/50 text-[10px] tracking-[0.3em] uppercase mb-3 group-hover:text-[#18130D]/70 transition-colors duration-400"
                   >
                     {s.label}
                   </div>
                   <p
                     style={{ fontFamily: "var(--font-dm-sans)" }}
-                    className="text-white/18 text-sm font-light leading-relaxed group-hover:text-white/35 transition-colors duration-400"
+                    className="text-[#18130D]/38 text-sm font-light leading-relaxed group-hover:text-[#18130D]/55 transition-colors duration-400"
                   >
                     {s.desc}
                   </p>
@@ -391,7 +392,7 @@ function StatsSection() {
           ))}
         </div>
         <Reveal delay={0.4}>
-          <div className="w-full h-px bg-[#fdd9b9]/10 mt-0" />
+          <div className="w-full h-px bg-[#9A6C35]/15 mt-0" />
         </Reveal>
       </div>
     </section>
@@ -413,7 +414,7 @@ function FeaturesSection() {
     { title: t("feat8_title"), desc: t("feat8_desc") },
   ];
   return (
-    <section className="cv-section bg-[#080808] py-36 lg:py-48 px-6 sm:px-12 lg:px-24">
+    <section className="cv-section bg-[#0E0D0B] py-36 lg:py-48 px-6 sm:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
         <Reveal>
           <SectionLabel number="03" label={t("label_advantages")} />
@@ -432,7 +433,7 @@ function FeaturesSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[#fdd9b9]/8">
           {features.map((f, i) => (
             <Reveal key={f.title} delay={i * 0.06}>
-              <div className="bg-[#080808] p-8 hover:bg-[#fdd9b9]/4 transition-colors duration-600 group cursor-default">
+              <div className="bg-[#0E0D0B] p-8 hover:bg-[#fdd9b9]/4 transition-colors duration-600 group cursor-default">
                 <div
                   style={{ fontFamily: "var(--font-cormorant)" }}
                   className="text-[#fdd9b9]/25 text-lg italic mb-5 group-hover:text-[#fdd9b9]/55 transition-colors duration-400"
@@ -465,20 +466,20 @@ function FeaturesSection() {
 function TechSection() {
   const { t } = useLanguage();
   return (
-    <section className="cv-section bg-[#060606] py-20 lg:py-28 px-4 sm:px-6 lg:px-12">
+    <section className="cv-section bg-[#F0EDE6] py-20 lg:py-28 px-4 sm:px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="px-2 sm:px-6 lg:px-12 mb-16">
           <Reveal>
-            <SectionLabel number="04" label={t("label_technologies")} />
+            <SectionLabel number="04" label={t("label_technologies")} light />
           </Reveal>
           <Reveal delay={0.1}>
             <h2
               style={{ fontFamily: "var(--font-cormorant)" }}
-              className="text-[clamp(36px,5.5vw,80px)] leading-[0.9] tracking-[-0.02em] font-light text-white"
+              className="text-[clamp(36px,5.5vw,80px)] leading-[0.9] tracking-[-0.02em] font-light text-[#18130D]"
             >
               {t("tech_title_1")}
               <br />
-              <span className="italic text-[#fdd9b9]">{t("tech_title_2")}</span>
+              <span className="italic text-[#9A6C35]">{t("tech_title_2")}</span>
             </h2>
           </Reveal>
         </div>
@@ -594,7 +595,7 @@ export default function Home() {
         }}
       />
 
-      <div className="relative bg-[#080808] text-white overflow-x-hidden">
+      <div className="relative bg-[#0A0A0A] text-white overflow-x-hidden">
         {/* Navbar */}
         <div
           className={`fixed top-0 left-0 w-full z-30 ${isModalOpen ? "hidden" : ""}`}
