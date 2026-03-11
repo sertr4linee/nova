@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useEffect, useState, createContext, useContext, useCallback } from "react"
+import { createPortal } from "react-dom"
 import { IconArrowNarrowLeft, IconArrowNarrowRight, IconX } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import { AnimatePresence, motion } from "framer-motion"
