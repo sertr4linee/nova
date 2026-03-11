@@ -1,6 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useContext, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import { ModalContext } from "@/contexts/ModalContext";
@@ -31,9 +32,13 @@ export function NavbarDemo() {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  if (isModalOpen) return null;
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
 
-  const handleNav = (href: string) => {
+  if (isModalOpen) return null;
     setMobileOpen(false);
     const el = document.getElementById(href.replace("#", ""));
     if (el) {
@@ -59,7 +64,7 @@ export function NavbarDemo() {
             : { backgroundColor: "rgba(8,8,8,0)" }
         }
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed top-0 left-0 w-full z-40"
+        className="fixed top-0 left-0 w-full z-[150]"
         style={{
           backdropFilter: scrolled ? "blur(24px)" : "none",
           borderBottom: scrolled
