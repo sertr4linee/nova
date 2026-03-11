@@ -39,6 +39,8 @@ export function NavbarDemo() {
   }, [mobileOpen]);
 
   if (isModalOpen) return null;
+
+  const handleNav = (href: string) => {
     setMobileOpen(false);
     const el = document.getElementById(href.replace("#", ""));
     if (el) {
@@ -191,56 +193,56 @@ export function NavbarDemo() {
           </button>
         </div>
 
-        {/* Mobile menu */}
-        <AnimatePresence>
-          {mobileOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="md:hidden overflow-hidden bg-[#080808]/98 border-t border-[#fdd9b9]/8"
-            >
-              <div className="px-6 py-8 flex flex-col gap-6">
-                {navLinks.map((l) => (
-                  <button
-                    key={l.key}
-                    onClick={() => handleNav(l.href)}
-                    style={{ fontFamily: "var(--font-dm-sans)" }}
-                    className="text-white/40 hover:text-[#fdd9b9] transition-colors duration-300 text-xs tracking-[0.3em] uppercase text-left cursor-pointer"
-                  >
-                    {t(l.key)}
-                  </button>
-                ))}
-
-                {/* Mobile lang switcher */}
-                <div className="flex items-center gap-3 pt-2 border-t border-[#fdd9b9]/8">
-                  {languages.map((l) => (
+        {/* Mobile menu — portal to body so nothing bleeds through */}
+        {typeof document !== "undefined" && createPortal(
+          <AnimatePresence>
+            {mobileOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                style={{ position: "fixed", inset: 0, top: 68, zIndex: 149, background: "rgba(8,8,8,0.98)", backdropFilter: "blur(20px)", overflowY: "auto" }}
+              >
+                <div className="px-6 py-10 flex flex-col gap-7 max-w-sm">
+                  {navLinks.map((l) => (
                     <button
-                      key={l.code}
-                      onClick={() => setLang(l.code)}
-                      className={`flex items-center gap-1.5 text-[10px] tracking-[0.2em] uppercase transition-colors duration-200 cursor-pointer ${
-                        lang === l.code ? "text-[#fdd9b9]" : "text-white/25"
-                      }`}
+                      key={l.key}
+                      onClick={() => handleNav(l.href)}
                       style={{ fontFamily: "var(--font-dm-sans)" }}
+                      className="text-white/50 hover:text-[#fdd9b9] transition-colors duration-300 text-sm tracking-[0.3em] uppercase text-left cursor-pointer"
                     >
-                      <span>{l.flag}</span>
-                      <span>{l.short}</span>
+                      {t(l.key)}
                     </button>
                   ))}
-                </div>
 
-                <button
-                  onClick={() => handleNav("#contact")}
-                  style={{ fontFamily: "var(--font-dm-sans)" }}
-                  className="border border-[#fdd9b9]/30 text-[#fdd9b9] py-3 text-[10px] tracking-[0.3em] uppercase hover:bg-[#fdd9b9] hover:text-[#080808] transition-all duration-400 cursor-pointer"
-                >
-                  {t("nav_contact")}
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                  <div className="flex items-center gap-4 pt-2 border-t border-[#fdd9b9]/8">
+                    {languages.map((l) => (
+                      <button
+                        key={l.code}
+                        onClick={() => setLang(l.code)}
+                        className={`flex items-center gap-1.5 text-[11px] tracking-[0.2em] uppercase transition-colors duration-200 cursor-pointer ${lang === l.code ? "text-[#fdd9b9]" : "text-white/25"}`}
+                        style={{ fontFamily: "var(--font-dm-sans)" }}
+                      >
+                        <span>{l.flag}</span>
+                        <span>{l.short}</span>
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => handleNav("#contact")}
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
+                    className="border border-[#fdd9b9]/30 text-[#fdd9b9] py-3 text-[11px] tracking-[0.3em] uppercase hover:bg-[#fdd9b9] hover:text-[#080808] transition-all duration-400 cursor-pointer"
+                  >
+                    {t("nav_contact")}
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
       </motion.header>
     </>
   );
